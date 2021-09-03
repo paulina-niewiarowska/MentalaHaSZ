@@ -1,0 +1,15 @@
+<resources>
+    <!--    ==========================   the app   ===========================================-->
+    <string name="app_name">Mentala HaSZ</string>
+
+    <!--    ==========================   main activity    ===========================================-->
+
+    <!--    ==========================   gallery activity    ===========================================-->
+    <string name="no_pictures_in_this_movement">Looks like there is no pictures in this movement.</string>
+    <string name="add_new_movement">Add new movement</string>
+    <string name="no_picture_movement_in_this_art_period">Looks like there is no pictures nor movements in this art period.</string>
+    <string name="add_new_picture">Add new picture</string>
+    <string name="empty_gallery_insert_sad_emoji">This gallery is empty. Maybe add some pictures first?</string>
+
+    <!--    ==========================    activity    ===========================================-->
+</resources>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical"
+    tools:context=".thelistofthings.addeditthings.AddEditThingActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:background="@color/edition_background_color"
+            android:gravity="center"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/text_for_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Choose item type:" />
+
+            <Spinner
+                android:id="@+id/spinner_period_or_movement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_for_spinner"
+                android:layout_marginBottom="20dp"
+                android:spinnerMode="dropdown"/>
+
+            <EditText
+                android:id="@+id/field_name_add_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spinner_period_or_movement"
+                android:layout_marginBottom="20dp"
+                android:hint="Specify item name"
+                android:inputType="textCapSentences" />
+
+            <TextView
+                android:id="@+id/text_for_spinner2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/field_name_add_edit"
+                android:layout_marginBottom="20dp"
+                android:text="Choose movement's art period:"
+                android:visibility="gone" />
+
+            <Spinner
+                android:id="@+id/spinner_choose_art_period_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_for_spinner2"
+                android:layout_marginBottom="20dp"
+                android:spinnerMode="dropdown"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/field_dating_add_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spinner_choose_art_period_parent"
+                android:layout_marginBottom="20dp"
+                android:hint="Specify dating"
+                android:inputType="textCapSentences"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/field_location_add_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/field_dating_add_edit"
+                android:layout_marginBottom="20dp"
+                android:hint="Specify location"
+                android:inputType="textCapSentences"
+                android:visibility="gone" />
+
+
+            <Button
+                android:id="@+id/button_confirm_and_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/field_location_add_edit"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="Confirm and add" />
+
+            <ImageButton
+                android:id="@+id/button_delete_a_thing"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@id/field_location_add_edit"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="Cancel/Delete"
+                android:onClick="cancelDelete"
+                android:src="@drawable/ic_delete_item" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

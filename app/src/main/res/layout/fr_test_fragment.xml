@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        tools:context=".picture_showeditaddtest.fragments.TestFragment"
+        android:background="@color/edition_background_color">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="240dp">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/fr_test_guidelineStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="20dp"
+                    app:layout_constraintGuide_percent="0." />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/fr_test_guidelineMiddle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="20dp"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/fr_test_guideline_middle_of_buttons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="20dp"
+                    app:layout_constraintGuide_percent="0.75"/>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/fr_test_guidelineEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="20dp"
+                    app:layout_constraintGuide_percent="1.0" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/fr_test_guidelineTop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="20dp"
+                    app:layout_constraintGuide_percent="0.0" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/fr_test_guideline25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="20dp"
+                    app:layout_constraintGuide_percent="0.25" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/fr_test_guideline50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="20dp"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/fr_test_guideline75"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="20dp"
+                    app:layout_constraintGuide_percent="0.75" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/fr_test_guidelineBottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="20dp"
+                    app:layout_constraintGuide_percent="1.0" />
+
+                <EditText
+                    android:id="@+id/test_picture_name"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:hint="Piece of art's name"
+                    android:inputType="textCapSentences"
+                    app:layout_constraintBottom_toTopOf="@id/fr_test_guideline25"
+                    app:layout_constraintEnd_toStartOf="@id/fr_test_guidelineEnd"
+                    app:layout_constraintStart_toEndOf="@id/fr_test_guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@id/fr_test_guidelineTop"
+                    />
+                <TextView
+                    android:id="@+id/test_picture_name_revealed"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toTopOf="@id/fr_test_guideline25"
+                    app:layout_constraintEnd_toStartOf="@id/fr_test_guidelineEnd"
+                    app:layout_constraintStart_toEndOf="@id/fr_test_guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@id/fr_test_guidelineTop"
+                    android:visibility="gone"
+                    />
+
+
+                <EditText
+                    android:id="@+id/test_movement"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:hint="Movement"
+                    android:inputType="textCapSentences"
+                    android:enabled="false"
+                    android:dropDownSelector="@color/purple_200"
+                    app:layout_constraintBottom_toTopOf="@id/fr_test_guideline50"
+                    app:layout_constraintEnd_toStartOf="@id/fr_test_guidelineMiddle"
+                    app:layout_constraintStart_toEndOf="@id/fr_test_guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@id/fr_test_guideline25"/>
+                <TextView
+                    android:id="@+id/test_movement_revealed"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:dropDownSelector="@color/purple_200"
+                    app:layout_constraintBottom_toTopOf="@id/fr_test_guideline50"
+                    app:layout_constraintEnd_toStartOf="@id/fr_test_guidelineMiddle"
+                    app:layout_constraintStart_toEndOf="@id/fr_test_guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@id/fr_test_guideline25"
+                    android:visibility="gone"/>
+
+
+                <EditText
+                    android:id="@+id/test_picture_author"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:hint="Author"
+                    android:inputType="textCapSentences"
+                    app:layout_constraintBottom_toTopOf="@id/fr_test_guideline50"
+                    app:layout_constraintEnd_toStartOf="@id/fr_test_guidelineEnd"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@id/fr_test_guidelineMiddle"
+                    app:layout_constraintTop_toBottomOf="@id/fr_test_guideline25"
+                    />
+                <TextView
+                    android:id="@+id/test_picture_author_revealed"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toTopOf="@id/fr_test_guideline50"
+                    app:layout_constraintEnd_toStartOf="@id/fr_test_guidelineEnd"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@id/fr_test_guidelineMiddle"
+                    app:layout_constraintTop_toBottomOf="@id/fr_test_guideline25"
+                    android:visibility="gone"
+                    />
+
+
+                <EditText
+                    android:id="@+id/test_picture_dating"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:hint="Dating"
+                    android:inputType="textCapSentences"
+                    app:layout_constraintBottom_toTopOf="@id/fr_test_guideline75"
+                    app:layout_constraintEnd_toStartOf="@id/fr_test_guidelineMiddle"
+                    app:layout_constraintStart_toEndOf="@id/fr_test_guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@id/fr_test_guideline50"
+                    />
+                <TextView
+                    android:id="@+id/test_picture_dating_revealed"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toTopOf="@id/fr_test_guideline75"
+                    app:layout_constraintEnd_toStartOf="@id/fr_test_guidelineMiddle"
+                    app:layout_constraintStart_toEndOf="@id/fr_test_guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@id/fr_test_guideline50"
+                    android:visibility="gone"
+                    />
+
+
+                <EditText
+                    android:id="@+id/test_picture_location"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:hint="Location"
+                    android:inputType="textCapSentences"
+                    app:layout_constraintBottom_toTopOf="@id/fr_test_guideline75"
+                    app:layout_constraintEnd_toStartOf="@id/fr_test_guidelineEnd"
+                    app:layout_constraintStart_toEndOf="@id/fr_test_guidelineMiddle"
+                    app:layout_constraintTop_toBottomOf="@id/fr_test_guideline50"
+                    />
+                <TextView
+                    android:id="@+id/test_picture_location_revealed"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toTopOf="@id/fr_test_guideline75"
+                    app:layout_constraintEnd_toStartOf="@id/fr_test_guidelineEnd"
+                    app:layout_constraintStart_toEndOf="@id/fr_test_guidelineMiddle"
+                    app:layout_constraintTop_toBottomOf="@id/fr_test_guideline50"
+                    android:visibility="gone"
+                    />
+
+
+                <ImageButton
+                    android:id="@+id/button_reload"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/ic_replay"
+                    app:layout_constraintBottom_toTopOf="@id/fr_test_guidelineBottom"
+                    app:layout_constraintEnd_toStartOf="@id/fr_test_guidelineMiddle"
+                    app:layout_constraintStart_toEndOf="@id/fr_test_guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@id/fr_test_guideline75"/>
+
+
+                <ImageButton
+                    android:id="@+id/button_confirm"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_done_button"
+                    android:scaleType="centerInside"
+                    app:layout_constraintBottom_toTopOf="@id/fr_test_guidelineBottom"
+                    app:layout_constraintEnd_toStartOf="@id/fr_test_guidelineEnd"
+                    app:layout_constraintStart_toEndOf="@id/fr_test_guidelineMiddle"
+                    app:layout_constraintTop_toBottomOf="@id/fr_test_guideline75"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".themainmenu.MainActivity"
+    android:orientation="horizontal"
+    android:background="@color/background_color">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="50dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/button_learn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Learn">
+        </Button>
+
+        <Button
+            android:id="@+id/button_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_learn"
+            android:text="Test">
+        </Button>
+
+        <Button
+            android:id="@+id/button_learn_from_web"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_test"
+            android:text="Learn from web">
+        </Button>
+
+        <Button
+            android:layout_marginTop="30dp"
+            android:id="@+id/button_add_new_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_learn_from_web"
+            android:text="Add new card">
+        </Button>
+
+
+        <Button
+            android:layout_marginTop="30dp"
+            android:id="@+id/button_show_all_things"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_add_new_card"
+            android:text="Periodization items"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

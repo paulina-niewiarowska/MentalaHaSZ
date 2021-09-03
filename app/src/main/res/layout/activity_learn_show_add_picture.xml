@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/layout_learn_show_add"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".picture_showeditaddtest.LearnShowAddActivity"
+    android:background="@color/background_color">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fr_test_guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.0" />
+
+
+    <RelativeLayout
+        android:id="@+id/view_for_imageview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline60Percent"
+        app:layout_constraintTop_toBottomOf="@+id/fr_test_guidelineTop"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/imageView_picture"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:contentDescription="Your Image"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <Button
+            android:id="@+id/button_change_picture_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Change picture file"
+            android:onClick="prepareStartChoosePictureIntent"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/button_choose_picture_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:onClick="prepareStartChoosePictureIntent"
+            android:text="Choose picture file" />
+
+    </RelativeLayout>
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline60Percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <RelativeLayout
+        android:id="@+id/fragment_holder_learnaddedit"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        app:layout_constraintBottom_toTopOf="@+id/fr_test_guidelineBottom"
+        app:layout_constraintTop_toBottomOf="@+id/guideline60Percent">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container_add_edit_learn_test"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            tools:layout="@layout/fr_addedit_fragment" />
+
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/fr_test_guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="1.0" />
+
+    <View
+        android:id="@+id/add_edit_cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="@color/white"
+        android:visibility="gone"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
