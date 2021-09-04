@@ -3,8 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/grey"
-    android:clickable="false">
+    android:background="@color/background_color"
+    android:clickable="false"
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/revealed"
+        android:paddingEnd="10dp">
 
     <TextView
         android:id="@+id/test_choose_movement_name"
@@ -15,7 +22,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="Movement"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layoutDirection="ltr"/>
+        android:layoutDirection="ltr"
+        android:layout_margin="10dp"/>
 
     <CheckBox
         android:id="@+id/test_choose_movement_checkbox"
@@ -26,6 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layoutDirection="ltr"
         app:layout_constraintTop_toTopOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

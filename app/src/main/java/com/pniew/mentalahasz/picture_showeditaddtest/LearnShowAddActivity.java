@@ -367,7 +367,6 @@ public class LearnShowAddActivity extends AppCompatActivity {
 
     public void nextPictureTest(){
         viewModel.getOneAfter();
-        toRemove = viewModel.getPictureId();
         if (toRemove != 0) {
             viewModel.updateArray(toRemove);
             toRemove = 0;
@@ -455,7 +454,7 @@ public class LearnShowAddActivity extends AppCompatActivity {
             //show result of the test
             new AlertDialog.Builder(this)
                     .setTitle("Test finished.")
-                    .setMessage("You've gained " + viewModel.getPoints() + " points out of " + viewModel.getMaxPoints() + " possible. Do you want to retake this test?")
+                    .setMessage("You've gained " + viewModel.getPoints() + " points out of " + viewModel.getMaxPoints() + " possible.\nDo you want to retake this test?")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -468,7 +467,7 @@ public class LearnShowAddActivity extends AppCompatActivity {
                             closeTheTest();
                         }
                     })
-                    .setIcon(R.drawable.ic_launcher_foreground)
+                    .setIcon(R.drawable.ic_done_button)
                     .show();
         } else {
             toRemove = viewModel.getPictureId();
@@ -483,6 +482,8 @@ public class LearnShowAddActivity extends AppCompatActivity {
     private void retakeTheTest() {
         viewModel.reload();
         viewModel.setFirstToTest();
+        viewModel.setPictureById();
+        toRemove = 0;
         testPictureCall();
     }
 

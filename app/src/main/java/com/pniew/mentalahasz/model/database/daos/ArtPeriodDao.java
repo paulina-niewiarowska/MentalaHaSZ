@@ -24,7 +24,7 @@ public interface ArtPeriodDao {
     @Query("DELETE FROM ArtPeriod WHERE artPeriodId = :id")
     void deleteArtPeriod(int id);
 
-    @Query("SELECT * FROM ArtPeriod")
+    @Query("SELECT * FROM ArtPeriod ORDER BY artPeriodId ASC")
     LiveData<List<ArtPeriod>> getAllArtPeriods();
 
     @Query("SELECT * FROM ArtPeriod WHERE artPeriodId = :id")

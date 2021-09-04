@@ -120,7 +120,11 @@ public class TestFragment extends Fragment {
                 datingEditTextRevealed.setText(picture.getPictureDating());
                 viewModel.setLocationString(picture.getPictureLocation());
                 locationEditTextRevealed.setText(picture.getPictureLocation());
+                if(picture.getPictureMovement() == null) {
+                    viewModel.setHasMovement(false);
+                }
                 if(picture.getPictureMovement() != null) {
+                    viewModel.setHasMovement(true);
                     viewModel.setMovementId(picture.getPictureMovement());
                     viewModel.getMovementById().observe(getViewLifecycleOwner(), new Observer<Movement>() {
                         @Override
@@ -192,12 +196,14 @@ public class TestFragment extends Fragment {
                     }
                     datingEditText.setFocusable(false);
 
-                    if (movementEditText.getText().toString().equals(viewModel.getMovementString())) {
-                        movementEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.good_answer));
-                    } else {
-                        movementEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.bad_answer));
+                    if(viewModel.hasMovement) {
+                        if (movementEditText.getText().toString().equals(viewModel.getMovementString())) {
+                            movementEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.good_answer));
+                        } else {
+                            movementEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.bad_answer));
+                        }
+                        movementEditText.setFocusable(false);
                     }
-                    movementEditText.setFocusable(false);
 
                     answersShown = true;
 

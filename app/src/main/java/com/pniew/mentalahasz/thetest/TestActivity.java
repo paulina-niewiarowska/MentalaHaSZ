@@ -1,6 +1,8 @@
 package com.pniew.mentalahasz.thetest;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -8,11 +10,15 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.SparseBooleanArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
@@ -38,6 +44,8 @@ public class TestActivity extends AppCompatActivity {
     ArrayList<Integer> artPeriodsIds;
     ArrayList<Integer> picturesIds;
 
+    private CheckBox checkBox;
+
     private Button buttonConfirm;
 
 
@@ -52,6 +60,7 @@ public class TestActivity extends AppCompatActivity {
         adapter = new MyExpandableListAdapter(this, list, artPeriods);
 
         buttonConfirm = findViewById(R.id.test_choose_button_confirm);
+
 
         list.setAdapter(adapter);
         list.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
@@ -93,7 +102,6 @@ public class TestActivity extends AppCompatActivity {
 
         // on click button "confirm" listener =======================================================================
 
-
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,12 +126,26 @@ public class TestActivity extends AppCompatActivity {
 
                 viewModel.getBackgroundExecutor().execute(() -> {
                     List<Integer> pictureIdsList = viewModel.getPictureIdsByArtPeriodOrMovementIds(artPeriodsIds, movementsIds);
-                    Collections.shuffle(pictureIdsList);
-                    int[] picturesIdsArray = pictureIdsList.stream().mapToInt(i -> i).toArray();
-                    CallsStringsIntents.startTestPictureActivity(TestActivity.this, picturesIdsArray);
-                    TestActivity.this.finish();
+                    if(!pictureIdsList.isEmpty()) {
+                        Collections.shuffle(pictureIdsList);
+                        int[] picturesIdsArray = pictureIdsList.stream().mapToInt(i -> i).toArray();
+                        CallsStringsIntents.startTestPictureActivity(TestActivity.this, picturesIdsArray);
+                        TestActivity.this.finish();
+                    } else {
+                        TestActivity.this.getMainExecutor().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                new AlertDialog.Builder(TestActivity.this)
+                                        .setTitle("No pictures found.")
+                                        .setIcon(R.drawable.ic_cancel)
+                                        .setMessage("Chosen periodization items do not contain any pictures.\nPlease go back and fill them with pictures or choose different periodization items.")
+                                        .show();
+                            }
+                        });
+                    }
                 });
             }
+
         });
 
     } // <--- end of onCreate() method ======================================================================
@@ -135,11 +157,29 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
 
-//                TestArtPeriod artPeriod = artPeriods.get(groupPosition);
-//                artPeriod.selected = !artPeriods.get(groupPosition).selected;
-//                artPeriods.set(groupPosition, artPeriod);
+                TestArtPeriod artPeriod = artPeriods.get(groupPosition);
+                if (artPeriod.subList.isEmpty()) {
+                    artPeriod.selected = !artPeriod.selected;
+                    //artPeriods.set(groupPosition, artPeriod);
+                }
 
-//                v.setBackgroundColor(Color.parseColor("#FFA63126"));
+//                adapter.getGroupView(groupPosition, false, v, parent)
+
+                checkBox = v.findViewById(R.id.test_choose_art_period_checkbox);
+
+                checkBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        artPeriod.selected = !artPeriod.selected;
+                        if (!artPeriod.subList.isEmpty()) {
+                            for (int i = 0; i < artPeriod.subList.size(); i++) {
+                                TestMovement tm = artPeriod.subList.get(i);
+                                tm.selected = artPeriod.selected;
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                });
 
                 return false;
             }
@@ -148,7 +188,6 @@ public class TestActivity extends AppCompatActivity {
         list.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-//                v.setBackgroundColor(Color.parseColor("#FFA63126"));
 
                 TestArtPeriod artPeriod;
                 TestMovement movement;

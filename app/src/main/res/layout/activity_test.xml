@@ -4,23 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".thetest.TestActivity"
-    android:background="@color/background_color">
+    android:background="@color/background_color"
+    tools:context=".thetest.TestActivity">
 
-    <ExpandableListView
-        android:id="@+id/test_expandable_list"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/test_choose_guidelineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.03"
+        app:layout_constraintGuide_begin="20dp" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/test_choose_guidelineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.97"
+        app:layout_constraintGuide_begin="20dp" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/test_choose_guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.03"
+        app:layout_constraintGuide_begin="20dp" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/test_choose_guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.97"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/test_choose_button_confirm"
-        android:layoutDirection="rtl"/>
+        app:layout_constraintTop_toTopOf="@id/test_choose_guidelineTop"
+        app:layout_constraintStart_toStartOf="@id/test_choose_guidelineStart"
+        app:layout_constraintEnd_toEndOf="@id/test_choose_guidelineEnd"
+        app:layout_constraintBottom_toTopOf="@+id/test_choose_button_confirm">
+
+        <ExpandableListView
+            android:id="@+id/test_expandable_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layoutDirection="rtl"
+            android:padding="10dp"
+            android:animateLayoutChanges="true"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/test_choose_button_confirm"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Confirm and start the test"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toEndOf="@id/test_choose_guidelineStart"
+        app:layout_constraintEnd_toStartOf="@id/test_choose_guidelineEnd"
+        app:layout_constraintBottom_toBottomOf="@id/test_choose_guidelineBottom" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

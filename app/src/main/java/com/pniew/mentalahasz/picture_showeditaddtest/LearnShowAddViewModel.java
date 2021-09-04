@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import com.pniew.mentalahasz.model.database.entities.Picture;
 import com.pniew.mentalahasz.repository.PictureRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -90,7 +91,7 @@ public class LearnShowAddViewModel extends AndroidViewModel {
 
     public void setPicturesIdsArray(int[] picturesIdsArray) {
         picturesIdsList = Arrays.stream(picturesIdsArray).boxed().collect(Collectors.toList());
-        picturesIdsListReserve = picturesIdsList;
+        picturesIdsListReserve = new ArrayList<>(picturesIdsList);
         maxPoints = picturesIdsList.size();
     }
 
@@ -151,7 +152,7 @@ public class LearnShowAddViewModel extends AndroidViewModel {
     }
 
     public void reload() {
-        picturesIdsList = picturesIdsListReserve;
+        picturesIdsList = new ArrayList<>(picturesIdsListReserve);
         points = 0;
         maxPoints = picturesIdsList.size();
     }

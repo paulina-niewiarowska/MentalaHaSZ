@@ -24,6 +24,9 @@ public class TestViewModel extends AndroidViewModel {
     private String locationString;
     private String movementString;
     private int movementId;
+    boolean isMovement;
+
+    boolean hasMovement;
 
     public TestViewModel(@NonNull Application application) {
         super(application);
@@ -66,9 +69,15 @@ public class TestViewModel extends AndroidViewModel {
     public int getMovementId() { return movementId; }
     public void setMovementId(int movementId) { this.movementId = movementId; }
 
+    public boolean isMovement() { return isMovement; }
+    public void setMovement(boolean movement) { isMovement = movement; }
+
+    public boolean isHasMovement() { return hasMovement; }
+    public void setHasMovement(boolean hasMovement) { this.hasMovement = hasMovement; }
+
     public boolean isThatCorrect(String title, String author, String location, String dating, String movement) {
-        boolean isMovement;
-        if(!movementString.isEmpty()) {
+
+        if(movementString != null && !movementString.isEmpty()) {
             isMovement = movementString.equals(movement);
         } else {isMovement = true;}
         return (nameString.equals(title) &&
