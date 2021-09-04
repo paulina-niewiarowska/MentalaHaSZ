@@ -45,12 +45,12 @@
         app:layout_constraintBottom_toTopOf="@+id/test_choose_button_confirm">
 
         <ExpandableListView
+            android:animateLayoutChanges="true"
             android:id="@+id/test_expandable_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layoutDirection="rtl"
             android:padding="10dp"
-            android:animateLayoutChanges="true"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -48,4 +48,51 @@
         app:layout_constraintEnd_toStartOf="@+id/activity_choose_guidelineEnd"/>
 
 
+    <TextView
+        android:id="@+id/textview_text_for_empty_choose_activity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@color/edition_background_color"
+        android:gravity="center"
+        android:text="@string/looks_like_you_have_no_art_periods"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/background_color"
+        app:layout_constraintTop_toBottomOf="@+id/activity_choose_guidelineTop"
+        app:layout_constraintBottom_toTopOf="@+id/choose_button_relative_layout"
+        app:layout_constraintStart_toEndOf="@+id/activity_choose_guidelineStart"
+        app:layout_constraintEnd_toStartOf="@+id/activity_choose_guidelineEnd"
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:id="@+id/choose_button_relative_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/activity_choose_guidelineTop"
+        app:layout_constraintBottom_toTopOf="@+id/activity_choose_guidelineBottom"
+        app:layout_constraintStart_toEndOf="@+id/activity_choose_guidelineStart"
+        app:layout_constraintEnd_toStartOf="@+id/activity_choose_guidelineEnd"
+        >
+        <Button
+            android:id="@+id/button_no_art_periods_add_something"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_new_art_period"
+            android:onClick="addNewArtPeriod"
+            android:visibility="gone"
+            />
+        <Button
+            android:id="@+id/button_no_pictures_add_something"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_no_art_periods_add_something"
+            android:text="@string/download_ready_made_package"
+            android:onClick="downloadSomeStuff"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,9 @@
     <string name="no_picture_movement_in_this_art_period">Looks like there is no pictures nor movements in this art period.</string>
     <string name="add_new_picture">Add new picture</string>
     <string name="empty_gallery_insert_sad_emoji">This gallery is empty. Maybe add some pictures first?</string>
+    <string name="looks_like_you_have_no_art_periods">Looks like you have no Art Periods in your library.\nPlease add some before you come here to learn.</string>
+    <string name="add_new_art_period">Add new Art Period</string>
+    <string name="download_ready_made_package">Download ready-made package</string>
 
     <!--    ==========================    activity    ===========================================-->
 </resources>

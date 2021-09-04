@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.pniew.mentalahasz.R;
@@ -184,6 +185,7 @@ public class ChooseActivity extends AppCompatActivity {
         // you can do all of this from the main menu.
         chooseViewModel.setNothingToShow(true);
 
+
     }
 
     @Override
@@ -192,5 +194,13 @@ public class ChooseActivity extends AppCompatActivity {
             finish();
         }
         return true;
+    }
+
+    public void addNewArtPeriod(View view) {
+        // todo przekieruj do dodawania nowych epok w activity do dodawania
+    }
+
+    public void downloadSomeStuff(View view) {
+        // todo przekieruj do download new package
     }
 }
