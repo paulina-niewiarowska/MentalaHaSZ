@@ -79,4 +79,6 @@ public class ThingsRepository {
     public MutableLiveData<Integer> getInsertedIdLiveData() {
         return liveDataId;
     }
+
+    public Type getTypeByItsName(String name) {return typeDao.getTypeByItsName(name); }
 }

@@ -25,7 +25,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.pniew.mentalahasz.R;
@@ -58,15 +57,22 @@ public class LearnShowAddActivity extends AppCompatActivity {
     private AddEditViewModel viewModelAddEdit;
     private ImageView imageView;
     private EditText triviaEditText;
+    private RelativeLayout viewForImageview;
     Button buttonAddPictureFile;
     Button buttonChangePictureFile;
     Bundle bundleAddNew;
     Bundle bundleEdit;
 
+    AlertDialog.Builder alert;
+
     boolean animateLeft;
     boolean animateRight;
     boolean animateFragmentLeft;
     boolean animateFragmentRight;
+
+    private boolean alertShown;
+
+    private boolean triviaEdited;
 
     private int toRemove;
 
@@ -132,8 +138,12 @@ public class LearnShowAddActivity extends AppCompatActivity {
         animateFragmentRight = false;
         toRemove = 0;
 
+        alertShown = false;
+        triviaEdited = false;
+
         viewModel = new ViewModelProvider(this).get(LearnShowAddViewModel.class);
         viewModelAddEdit = new ViewModelProvider(this).get(AddEditViewModel.class);
+        viewForImageview = findViewById(R.id.view_for_imageview);
         imageView = findViewById(R.id.imageView_picture);
         fragmentHolder = findViewById(R.id.fragment_holder_learnaddedit);
         cover = findViewById(R.id.add_edit_cover);
@@ -212,12 +222,59 @@ public class LearnShowAddActivity extends AppCompatActivity {
         }
 
 
+    } // end of ON CREATE ================================================================================================================================
 
-    } // end of ON CREATE ==========================================================================
+    private void prepareAlertDialog() {
+        alert = new AlertDialog.Builder(LearnShowAddActivity.this, R.style.TriviaDialogTheme);
+        triviaEditText = new EditText(LearnShowAddActivity.this);
+        triviaEditText.setText(viewModel.getTriviaText());
+        alert.setView(triviaEditText);
+        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                triviaEditText = null;
+                alertShown = false;
+            }
+        });
+
+        if(viewModel.getIWantTo() == LEARN || viewModel.getIWantTo() == TEST_ME) {
+            triviaEditText.setClickable(false);
+            triviaEditText.setFocusable(false);
+            alert.setTitle("Fun Fact:");
+        } else {
+            triviaEditText.setClickable(true);
+            triviaEditText.setFocusable(true);
+            if(viewModel.getIWantTo() == EDIT_A_PICTURE && !(viewModel.getTriviaText() == null) && !(viewModel.getTriviaText().isEmpty())) {
+                alert.setTitle("Edit Fun Fact");
+            } else {
+                alert.setTitle("Insert new Fun Fact");
+            }
+            alert.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                     String trivia = triviaEditText.getText().toString();
+                     viewModel.setTriviaText(trivia);
+                     if(currentFragment instanceof AddEditFragment) {
+                         ((AddEditFragment) currentFragment).setTrivia(trivia);
+                     }
+                     triviaEdited = true;
+                     alertShown = false;
+                }
+            });
+            alert.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    alertShown = false;
+                }
+            });
+        }
+    }
 
     //calls that create bundles and put them to fragments ==========================================
 
     public void testPictureCall() {
+
+        viewModel.setIWantTo(TEST_ME);
         pictureShow();
         Bundle bundle = new Bundle();
         bundle.putInt(I_WANT_TO, TEST_ME);
@@ -227,6 +284,8 @@ public class LearnShowAddActivity extends AppCompatActivity {
     }
 
     public void learnPictureCall() {
+
+        viewModel.setIWantTo(LEARN);
         pictureShow();
         Bundle bundle = new Bundle();
         bundle.putInt(I_WANT_TO, LEARN);
@@ -236,6 +295,8 @@ public class LearnShowAddActivity extends AppCompatActivity {
     }
 
     public void editPictureCall() {
+
+        viewModel.setIWantTo(EDIT_A_PICTURE);
         pictureEditable();
         bundleEdit.putInt(I_WANT_TO, EDIT_A_PICTURE);
         bundleEdit.putInt(PICTURE_ID, viewModel.getPictureId());
@@ -245,6 +306,8 @@ public class LearnShowAddActivity extends AppCompatActivity {
     }
 
     private void addNewPictureCall() {
+
+        viewModel.setIWantTo(ADD_NEW_PICTURE);
         pictureAddable();
         bundleAddNew.putInt(I_WANT_TO, ADD_NEW_PICTURE);
 
@@ -319,30 +382,25 @@ public class LearnShowAddActivity extends AppCompatActivity {
         addPictureActivityLauncher.launch(Intent.createChooser(intent, "Select Picture"));
     }
 
-
-
     //show picture in the imageView. Id is taken from viewModel. ===============================================================
     private void pictureShow(){
         viewModel.getPictureById().observe(thisActivity, new Observer<Picture>() {
             @Override
             public void onChanged(Picture picture) {
                 viewModel.setPath(picture.getPicturePath());
-                if(viewModel.getIWantTo() == TEST_ME || viewModel.getIWantTo() == LEARN) {
-                    viewModel.setTriviaText(picture.getPictureFunFact());
-                }
 
                 Glide.with(LearnShowAddActivity.this)
                         .load(viewModel.getPath())
                         .into(imageView);
 
                 if (animateRight) {
-                    imageView.setTranslationX(-width);
-                    imageView.animate().translationX(0).setDuration(500).setInterpolator(new AccelerateDecelerateInterpolator()).withEndAction(() -> animateRight = false);
+                    viewForImageview.setTranslationX(-width);
+                    viewForImageview.animate().translationX(0).setDuration(500).setInterpolator(new AccelerateDecelerateInterpolator()).withEndAction(() -> animateRight = false);
                 }
 
                 if (animateLeft) {
-                    imageView.setTranslationX(width);
-                    imageView.animate().translationX(0).setDuration(500).setInterpolator(new AccelerateDecelerateInterpolator()).withEndAction(() -> animateLeft = false);
+                    viewForImageview.setTranslationX(width);
+                    viewForImageview.animate().translationX(0).setDuration(500).setInterpolator(new AccelerateDecelerateInterpolator()).withEndAction(() -> animateLeft = false);
                 }
                 viewModel.getPictureById().removeObservers(thisActivity);
             }
@@ -377,7 +435,7 @@ public class LearnShowAddActivity extends AppCompatActivity {
     // animations and swiping ===============================================================================================
 
     public void swipeRight() {
-        if (!animateLeft || !animateRight) {
+        if (viewModel.getIWantTo() == LEARN && (!animateLeft || !animateRight)) {
 
             animateRight = true;
             //animateLeft = false;
@@ -385,20 +443,20 @@ public class LearnShowAddActivity extends AppCompatActivity {
             //animateFragmentLeft = false;
 
             width = findViewById(R.id.layout_learn_show_add).getWidth();
-            imageView.animate().translationX(width).setDuration(500).setInterpolator(new AccelerateDecelerateInterpolator()).withEndAction(this::doWhatYouGottaDoRight);
+            viewForImageview.animate().translationX(width).setDuration(500).setInterpolator(new AccelerateDecelerateInterpolator()).withEndAction(this::doWhatYouGottaDoRight);
             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).detach(currentFragment).commit(); //learnFragment
         }
     }
 
     public void swipeLeft() {
-        if (!animateLeft || !animateRight) {
+        if ((viewModel.getIWantTo() == LEARN || viewModel.getIWantTo() == TEST_ME)&& (!animateLeft || !animateRight)) {
             animateLeft = true;
             //animateRight = false;
             animateFragmentLeft = true;
             //animateFragmentRight = false;
 
             width = findViewById(R.id.layout_learn_show_add).getWidth(); // tu czekamy pół sekundy
-            imageView.animate().translationX(-width).setDuration(500).setInterpolator(new AccelerateDecelerateInterpolator()).withEndAction(this::doWhatYouGottaDoLeft);
+            viewForImageview.animate().translationX(-width).setDuration(500).setInterpolator(new AccelerateDecelerateInterpolator()).withEndAction(this::doWhatYouGottaDoLeft);
             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).detach(currentFragment).commit(); //learnFragment
         }
     }
@@ -420,7 +478,7 @@ public class LearnShowAddActivity extends AppCompatActivity {
 
     // picture added, we want to add new one =========================================================
     public void refreshAddingPicture(){
-        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).detach(currentFragment).commit(); //learnFragment
+        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).detach(currentFragment).commit();
         cover.setAlpha(1);
         cover.setVisibility(View.VISIBLE);
         imageView.setImageBitmap(null);
@@ -437,10 +495,11 @@ public class LearnShowAddActivity extends AppCompatActivity {
         bundle.putInt(I_WANT_TO, LEARN);
         bundle.putInt(PICTURE_ID, viewModel.getPictureId());
 
-        replaceFragmentWithAnimation(LearnFragment.newInstance(), bundle);
+        learnPictureCall();
     }
 
     public void editFinishedChangedParticipation() { //edited but goes away to another art period / movement
+        viewModel.setIWantTo(LEARN);
         buttonChangePictureFile.setVisibility(View.GONE);
         toRemove = viewModel.getPictureId();
         swipeLeft();
@@ -452,7 +511,7 @@ public class LearnShowAddActivity extends AppCompatActivity {
         viewModel.addPoint(gotPoint);
         if (viewModel.isArrayFinished()) {
             //show result of the test
-            new AlertDialog.Builder(this)
+            new AlertDialog.Builder(this, R.style.HaSZDialogTheme)
                     .setTitle("Test finished.")
                     .setMessage("You've gained " + viewModel.getPoints() + " points out of " + viewModel.getMaxPoints() + " possible.\nDo you want to retake this test?")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -501,41 +560,26 @@ public class LearnShowAddActivity extends AppCompatActivity {
         return true;
     }
 
-    public void setNewTrivia(View view) {
-        triviaEditText = new EditText(LearnShowAddActivity.this);
-        AlertDialog.Builder alert = new AlertDialog.Builder(LearnShowAddActivity.this, R.style.Theme_MentalaHaSZ);
-        alert.setView(triviaEditText);
-        if(viewModel.getIWantTo() == LEARN || viewModel.getIWantTo() == TEST_ME) {
-            //show trivia, not edit it. We can get it while getting picture in livedata above.
-            triviaEditText.setText(viewModel.getTriviaText());
-            triviaEditText.setEnabled(false);
-            alert.setTitle("Fun Fact:");
-        } else {
-            alert.setTitle("Insert new Fun Fact");
-            alert.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+    public void setUpTriviaView(View view) {
+        if (!alertShown && !triviaEdited && !(viewModel.getIWantTo()==ADD_NEW_PICTURE)) {
+            viewModel.getPictureById().observe(thisActivity, new Observer<Picture>() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String trivia = triviaEditText.getText().toString();
-                    switch (viewModel.getIWantTo()) {
-                        case EDIT_A_PICTURE:
-                            viewModel.setPictureFunFact(trivia);
-                            break;
-                        case ADD_NEW_PICTURE:
-                            // pass data to fragment so it can put it to add later
-                            if(currentFragment instanceof AddEditFragment) {
-                                ((AddEditFragment) currentFragment).setTrivia(trivia);
-                            }
-                            break;
+                public void onChanged(Picture picture) {
+                    if (!(viewModel.getIWantTo() == ADD_NEW_PICTURE)) {
+                        viewModel.setTriviaText(picture.getPictureFunFact());
                     }
-                }
-            });
-            alert.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
+                    prepareAlertDialog();
+                    triviaEdited = false;
 
+                    alertShown = true;
+                    alert.show();
+
+                    viewModel.getPictureById().removeObservers(thisActivity);
                 }
             });
+        } else if (!alertShown){
+            prepareAlertDialog();
+            alert.show();
         }
-        alert.show();
     }
 }

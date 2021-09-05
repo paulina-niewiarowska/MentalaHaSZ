@@ -37,6 +37,10 @@ public class MovementRepository {
         });
     }
 
+    public void insertNewMovementButSynchronicznie(Movement movement){
+        movementDao.insertMovement(movement);
+    }
+
     //to update
 
     public void updateMovement(int idOfOldMovement, String newName, String newDating, String newLocation, int artPeriod){
@@ -67,4 +71,6 @@ public class MovementRepository {
     public LiveData<Movement> getMovementById(int id){ return movementDao.getMovementById(id); }
 
     public LiveData<List<Movement>> getMovementListByArtPeriodId(int id) { return movementDao.getMovementListByArtPeriodId(id); }
+
+    public Movement getMovementByItsName(String name) { return  movementDao.getMovementByItsName(name); }
 }

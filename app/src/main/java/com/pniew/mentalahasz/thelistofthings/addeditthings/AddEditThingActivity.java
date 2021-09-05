@@ -293,7 +293,7 @@ public class AddEditThingActivity extends AppCompatActivity {
 
     public void cancelDelete(View view) {
         if (iWantTo == EDIT_A_THING) {
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(AddEditThingActivity.this);
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(AddEditThingActivity.this, R.style.HaSZErrorDialogTheme);
             DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -311,7 +311,9 @@ public class AddEditThingActivity extends AppCompatActivity {
                     }
                 }
             };
-            alertBuilder.setMessage("Do you want to permanently remove this item?\nThis is cascade delete. All the items and pictures under this item will be removed as well.\nYou will not be able to undo this operation.")
+            alertBuilder
+                    .setTitle("Warning! Cascade delete!")
+                    .setMessage("Do you want to permanently remove this item?\nThis is cascade delete. All the items and pictures under this item will be removed as well.\nYou will not be able to undo this operation.")
                     .setPositiveButton("Yes, delete", onClickListener)
                     .setNegativeButton("No, cancel", onClickListener)
                     .show();

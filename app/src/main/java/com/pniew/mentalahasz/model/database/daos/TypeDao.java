@@ -27,4 +27,7 @@ public interface TypeDao {
 
     @Query("SELECT * FROM Type WHERE typeId = :id")
     LiveData<Type> getTypeById(int id);
+
+    @Query("SELECT * FROM Type WHERE typeName = :name")
+    Type getTypeByItsName(String name);
 }

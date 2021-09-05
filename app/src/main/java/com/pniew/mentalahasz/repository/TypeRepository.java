@@ -34,6 +34,10 @@ public class TypeRepository {
         });
     }
 
+    public int insertNewTypeSynchronicznie(Type type) {
+        return (int) typeDao.insertType(type);
+    }
+
 
 
     //to update
@@ -57,4 +61,8 @@ public class TypeRepository {
     public LiveData<List<Type>> getAllTypes(){ return allTypes; }
 
     public LiveData<Type> getTypeById(){ return typeLiveData; }
+
+    public Type getTypeByItsName(String name){
+        return typeDao.getTypeByItsName(name);
+    }
 }

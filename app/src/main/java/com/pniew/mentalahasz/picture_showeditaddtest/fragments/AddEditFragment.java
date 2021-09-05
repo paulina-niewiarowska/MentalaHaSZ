@@ -487,7 +487,7 @@ public class AddEditFragment extends Fragment {
 
             //todo: asking, deleting, toast
 
-            AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+            AlertDialog.Builder alert = new AlertDialog.Builder(getContext(), R.style.HaSZDialogTheme);
             DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

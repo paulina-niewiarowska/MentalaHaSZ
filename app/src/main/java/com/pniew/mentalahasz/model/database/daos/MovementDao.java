@@ -33,4 +33,7 @@ public interface MovementDao {
     @Query("SELECT * FROM Movement WHERE movementArtPeriod = :id")
     LiveData<List<Movement>> getMovementListByArtPeriodId(int id);
 
+    @Query("SELECT * FROM Movement WHERE movementName = :name LIMIT 1")
+    Movement getMovementByItsName(String name);
+
 }

@@ -188,6 +188,7 @@ public class AddEditViewModel extends AndroidViewModel {
 
     public int updatePicture(){
         if(path == null || name == null || author == null || dating == null || location == null
+                || typeId == 0 || artPeriodId == 0 || typeId == -1 || artPeriodId == -1
                 || path.trim().equals("")
                 || name.trim().equals("")
                 || author.trim().equals("")
@@ -205,7 +206,7 @@ public class AddEditViewModel extends AndroidViewModel {
             if(callingThing == TYPE && callingThingId != typeId){
                 changedThing = true;
             }
-            pictureRepository.updatePicture(id, path, name, author, dating, location, typeId, movementId, artPeriodId);
+            pictureRepository.updatePicture(id, path, name, author, dating, location, typeId, movementId, artPeriodId, trivia);
             return 1;
         }
     }

@@ -13,4 +13,16 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="TriviaDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">#D7AC8A36</item>
+        <item name="colorOnPrimary">@color/black</item>
+    </style>
+    <style name="HaSZErrorDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">#B1846C</item>
+        <item name="colorOnPrimary">@color/black</item>
+    </style>
+    <style name="HaSZDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">#BABABA</item>
+        <item name="colorOnPrimary">@color/black</item>
+    </style>
 </resources>

@@ -115,7 +115,7 @@ public class ListOfThingsActivity extends AppCompatActivity {
                         Things thingToRemove = (Things) adapter.getThingAt(viewHolder.getAdapterPosition());
                         String objectType = thingToRemove.getObjectType();
 
-                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ListOfThingsActivity.this);
+                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ListOfThingsActivity.this, R.style.HaSZDialogTheme);
                         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {

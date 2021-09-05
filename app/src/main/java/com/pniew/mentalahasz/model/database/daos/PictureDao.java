@@ -15,8 +15,8 @@ public interface PictureDao {
     @Insert
     long insertPicture(Picture picture);
 
-    @Update
-    void updatePicture(Picture picture);
+    @Query("UPDATE Picture SET picturePath = :newPath, pictureName = :name, pictureAuthor = :author, pictureLocation = :location, pictureDating = :dating, pictureArtPeriod = :artPeriod, pictureMovement = :movement, pictureType = :type, pictureFunFact = :trivia WHERE pictureId = :id")
+    void updatePicture(int id, String newPath, String name, String author, String location, String dating, int artPeriod, int movement, int type, String trivia);
 
     @Query("UPDATE Picture SET pictureKnowledgeDegree = :pictureNewDegree WHERE pictureId = :pictureId")
     void updatePictureKnowledgeDegree(int pictureId, int pictureNewDegree);
@@ -44,4 +44,6 @@ public interface PictureDao {
 
     @Query("SELECT * FROM Picture WHERE pictureArtPeriod IN (:artPeriodIds) OR pictureMovement IN (:pictureMovementIds)")
     List<Picture> getPictureListByArtPeriodIdOrMovementIdSync(List<Integer> artPeriodIds, List<Integer> pictureMovementIds);
+
+
 }

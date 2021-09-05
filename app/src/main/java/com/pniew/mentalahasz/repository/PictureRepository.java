@@ -1,7 +1,9 @@
 package com.pniew.mentalahasz.repository;
 
 import android.app.Application;
+import android.content.Intent;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 
 import com.pniew.mentalahasz.model.database.HaszDatabase;
@@ -55,20 +57,15 @@ public class PictureRepository {
         });
     }
 
+    public void insertNewPictureButSynchronicznie(Picture picture) {
+        pictureDao.insertPicture(picture);
+    }
+
     //to update
 
-    public void updatePicture(int idOfOldPicture, String newPath, String newName, String newAuthor, String newDating, String newLocation, int type, Integer movement, int artPeriod){
+    public void updatePicture(int idOfOldPicture, String newPath, String newName, String newAuthor, String newDating, String newLocation, int type, Integer movement, int artPeriod, @Nullable String trivia){
         executorService.execute(() -> {
-            Picture picture = new Picture(newPath, newName, newAuthor, newDating, newLocation);
-            picture.setPictureId(idOfOldPicture);
-            picture.setPictureArtPeriod(artPeriod);
-            if(movement != -1) {
-                picture.setPictureMovement(movement);
-            } else {
-                picture.setPictureMovement(null);
-            }
-            picture.setPictureType(type);
-            pictureDao.updatePicture(picture);
+            pictureDao.updatePicture(idOfOldPicture, newPath, newName, newAuthor, newLocation, newDating, artPeriod, movement, type, trivia);
         });
     }
 

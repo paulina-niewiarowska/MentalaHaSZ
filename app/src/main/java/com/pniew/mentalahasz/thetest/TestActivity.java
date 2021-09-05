@@ -61,7 +61,6 @@ public class TestActivity extends AppCompatActivity {
 
         buttonConfirm = findViewById(R.id.test_choose_button_confirm);
 
-
         list.setAdapter(adapter);
         list.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
 
@@ -135,7 +134,7 @@ public class TestActivity extends AppCompatActivity {
                         TestActivity.this.getMainExecutor().execute(new Runnable() {
                             @Override
                             public void run() {
-                                new AlertDialog.Builder(TestActivity.this)
+                                new AlertDialog.Builder(TestActivity.this, R.style.HaSZDialogTheme)
                                         .setTitle("No pictures found.")
                                         .setIcon(R.drawable.ic_cancel)
                                         .setMessage("Chosen periodization items do not contain any pictures.\nPlease go back and fill them with pictures or choose different periodization items.")
@@ -166,7 +165,7 @@ public class TestActivity extends AppCompatActivity {
 //                adapter.getGroupView(groupPosition, false, v, parent)
 
                 checkBox = v.findViewById(R.id.test_choose_art_period_checkbox);
-
+                checkBox.setEnabled(true);
                 checkBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

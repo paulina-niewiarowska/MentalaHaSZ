@@ -1,5 +1,6 @@
 package com.pniew.mentalahasz.model.database.entities;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;

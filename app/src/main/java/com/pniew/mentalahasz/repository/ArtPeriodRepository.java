@@ -34,6 +34,10 @@ public class ArtPeriodRepository {
         });
     }
 
+    public int insertNewArtPeriodButSynchronicznie(ArtPeriod artPeriod){
+        return (int) artPeriodDao.insertArtPeriod(artPeriod);
+    }
+
     //to update
 
     public void updateArtPeriod(int idOfOldArtPeriod, String newName, String newDating){
@@ -61,5 +65,7 @@ public class ArtPeriodRepository {
     public LiveData<List<ArtPeriod>> getAllArtPeriods(){ return allArtPeriods; }
 
     public LiveData<ArtPeriod> getArtPeriodById(int id){ return artPeriodLiveData; }
+
+    public ArtPeriod getArtPeriodByItsName(String name) {return artPeriodDao.getArtPeriodByItsName(name); }
 
 }

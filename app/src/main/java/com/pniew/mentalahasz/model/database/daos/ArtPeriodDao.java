@@ -31,4 +31,7 @@ public interface ArtPeriodDao {
 
     @Query("SELECT * FROM ArtPeriod WHERE artPeriodId = :id")
     LiveData<ArtPeriod> getArtPeriodById(int id);
+
+    @Query("SELECT * FROM ArtPeriod WHERE artPeriodName = :name LIMIT 1")
+    ArtPeriod getArtPeriodByItsName(String name);
 }

@@ -83,9 +83,8 @@
             app:tint="@color/white"
             android:layout_alignParentEnd="true"
             android:contentDescription="@string/set_trivia"
-            android:onClick="setNewTrivia"
+            android:onClick="setUpTriviaView"
             />
-
 
     </RelativeLayout>
 
@@ -129,6 +128,10 @@
         android:layout_height="match_parent"
         android:foreground="@color/white"
         android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         />
 
 
