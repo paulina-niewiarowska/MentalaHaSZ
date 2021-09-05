@@ -40,6 +40,21 @@ public class PictureRepository {
         });
     }
 
+    public void insertNewPicture(String path, String name, String author, String dating, String location, int type, Integer movement, int artPeriod, String trivia){
+        executorService.execute(() -> {
+            Picture picture = new Picture(path, name, author, dating, location);
+            picture.setPictureArtPeriod(artPeriod);
+            if(movement != -1) {
+                picture.setPictureMovement(movement);
+            } else {
+                picture.setPictureMovement(null);
+            }
+            picture.setPictureType(type);
+            picture.setPictureFunFact(trivia);
+            pictureDao.insertPicture(picture);
+        });
+    }
+
     //to update
 
     public void updatePicture(int idOfOldPicture, String newPath, String newName, String newAuthor, String newDating, String newLocation, int type, Integer movement, int artPeriod){
@@ -57,13 +72,11 @@ public class PictureRepository {
         });
     }
 
-    public void setPictureFunFact(Picture picture, String funFact){
+    public void setPictureFunFact(int pictureId, String pictureFunFact){
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                picture.setPictureFunFact(funFact);
-                pictureDao.updatePicture(picture);
-
+                pictureDao.setPictureFunFact(pictureId, pictureFunFact);
             }
         });
     }

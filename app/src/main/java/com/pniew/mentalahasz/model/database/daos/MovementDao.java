@@ -21,6 +21,9 @@ public interface MovementDao {
     @Query("DELETE FROM Movement WHERE movementId = :id")
     void deleteMovement(int id);
 
+    @Query("UPDATE Movement SET movementFunFact = :movementFunFact WHERE movementId = :movementId")
+    void setMovementFunFact(int movementId, String movementFunFact);
+
     @Query("SELECT * FROM Movement")
     LiveData<List<Movement>> getAllMovements();
 

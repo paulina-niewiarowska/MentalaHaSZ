@@ -27,6 +27,7 @@ public class LearnShowAddViewModel extends AndroidViewModel {
     private int calledBy;
     private int idOfCallingThing;
     private int parentPeriodId;
+    private String triviaText;
 
     private int points;
     private int maxPoints;
@@ -37,7 +38,6 @@ public class LearnShowAddViewModel extends AndroidViewModel {
     public LearnShowAddViewModel(@NonNull Application application) {
         super(application);
         pictureRepository = new PictureRepository(application);
-
     }
 
     // setters getters
@@ -66,6 +66,9 @@ public class LearnShowAddViewModel extends AndroidViewModel {
 
     public int getCalledBy() { return calledBy; }
     public void setCalledBy(int calledBy) { this.calledBy = calledBy; }
+
+    public String getTriviaText() { return triviaText; }
+    public void setTriviaText(String triviaText) { this.triviaText = triviaText; }
 
     public int getIdOfCallingThing() { return idOfCallingThing; }
     public void setIdOfCallingThing(int idOfCallingThing) { this.idOfCallingThing = idOfCallingThing; }
@@ -161,5 +164,9 @@ public class LearnShowAddViewModel extends AndroidViewModel {
         if(gotPoint) {
             points++;
         }
+    }
+
+    public void setPictureFunFact(String funFact){
+        pictureRepository.setPictureFunFact(pictureId, funFact);
     }
 }

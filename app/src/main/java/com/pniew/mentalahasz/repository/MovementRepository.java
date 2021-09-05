@@ -48,6 +48,12 @@ public class MovementRepository {
         });
     }
 
+    public void setMovementFunFact(int movementId, String movementFunFact){
+        executorService.execute(() -> {
+            movementDao.setMovementFunFact(movementId, movementFunFact);
+        });
+    }
+
     //to delete
 
     public void deleteMovementAndItsChildren(int movementId){

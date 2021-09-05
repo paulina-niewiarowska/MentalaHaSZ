@@ -2,6 +2,7 @@ package com.pniew.mentalahasz.model.database;
 
 import android.content.Context;
 
+import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -19,11 +20,8 @@ import com.pniew.mentalahasz.model.database.entities.Type;
 
 @Database(entities = {Picture.class, ArtPeriod.class, Movement.class, Type.class},
         views = {Things.class},
-        version = 6,
+        version = 7,
         exportSchema = true
-//        ,autoMigrations = {
-//                @AutoMigration(from = 4, to = 5)
-//        }
         )
 public abstract class HaszDatabase extends RoomDatabase {
     private static HaszDatabase instance;

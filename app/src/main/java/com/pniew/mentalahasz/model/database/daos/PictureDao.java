@@ -18,8 +18,11 @@ public interface PictureDao {
     @Update
     void updatePicture(Picture picture);
 
-    @Query("UPDATE Picture SET PictureKnowledgeDegree = :pictureNewDegree WHERE PictureId = :pictureId")
+    @Query("UPDATE Picture SET pictureKnowledgeDegree = :pictureNewDegree WHERE pictureId = :pictureId")
     void updatePictureKnowledgeDegree(int pictureId, int pictureNewDegree);
+
+    @Query("UPDATE Picture SET pictureFunFact = :pictureFunFact WHERE pictureId = :pictureId")
+    void setPictureFunFact(int pictureId, String pictureFunFact);
 
     @Query("DELETE FROM Picture WHERE pictureId = :id")
     void deletePicture(int id);

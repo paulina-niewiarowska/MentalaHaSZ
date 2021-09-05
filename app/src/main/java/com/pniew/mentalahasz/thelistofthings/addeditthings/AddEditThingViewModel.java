@@ -193,7 +193,7 @@ public class AddEditThingViewModel extends AndroidViewModel {
             case (CHOSEN_ART_PERIOD):
                 if (id != 0) {
                     artPeriodRepository.deleteArtPeriodAndItsChildren(id);
-                    result.setToast("Art Period deleted (along with all its pictures)");
+                    result.setToast("Art Period deleted (along with all its movements and pictures)");
                 }
                 return result;
 

@@ -18,6 +18,7 @@ public class Movement implements AThing {
     private String movementDating;
     private String movementLocation;
     private int movementArtPeriod;
+    private String movementFunFact;
 
     public Movement(String movementName, String movementDating, String movementLocation) {
         this.movementName = movementName;
@@ -68,6 +69,14 @@ public class Movement implements AThing {
 
     public void setMovementArtPeriod(int movementArtPeriod) {
         this.movementArtPeriod = movementArtPeriod;
+    }
+
+    public String getMovementFunFact() {
+        return movementFunFact;
+    }
+
+    public void setMovementFunFact(String movementFunFact) {
+        this.movementFunFact = movementFunFact;
     }
 
     @Override

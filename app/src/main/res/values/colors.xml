@@ -17,4 +17,5 @@
     <color name="icon">#A68326</color>
     <color name="good_answer">#66A626</color>
     <color name="bad_answer">#A63126</color>
+    <color name="background_transparent">#8AECCC7C</color>
 </resources>

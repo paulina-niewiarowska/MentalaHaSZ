@@ -18,7 +18,7 @@
             android:id="@+id/button_learn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Learn">
+            android:text="@string/learn">
         </Button>
 
         <Button
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/button_learn"
-            android:text="Test">
+            android:text="@string/test">
         </Button>
 
         <Button
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/button_test"
-            android:text="Learn from web">
+            android:text="@string/learn_from_web">
         </Button>
 
         <Button
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/button_learn_from_web"
-            android:text="Add new card">
+            android:text="@string/add_new_card">
         </Button>
 
 
@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/button_add_new_card"
-            android:text="Periodization items"/>
+            android:text="@string/periodization_items"/>
 
     </RelativeLayout>
 

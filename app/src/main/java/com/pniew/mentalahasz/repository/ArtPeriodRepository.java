@@ -44,6 +44,12 @@ public class ArtPeriodRepository {
         });
     }
 
+    public void setArtPeriodFunFact(int artPeriodId, String artPeriodFunFact){
+        executorService.execute(() -> {
+            artPeriodDao.setArtPeriodFunFact(artPeriodId, artPeriodFunFact);
+        });
+    }
+
     //to delete
 
     public void deleteArtPeriodAndItsChildren(int artPeriodId){

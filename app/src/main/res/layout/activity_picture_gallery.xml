@@ -55,10 +55,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:padding="10dp"
         android:background="@color/edition_background_color"
         android:gravity="center"
         android:text="@string/no_picture_movement_in_this_art_period"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/background_color"
         app:layout_constraintBottom_toTopOf="@+id/gallery_button_relative_layout"
         app:layout_constraintEnd_toStartOf="@+id/activity_gallery_guidelineEnd"
@@ -83,6 +84,7 @@
             android:text="@string/add_new_movement"
             android:onClick="addNewMovement"
             android:visibility="gone"
+            android:layout_centerHorizontal="true"
             />
 
         <Button
@@ -93,6 +95,7 @@
             android:text="@string/add_new_picture"
             android:onClick="addNewPicture"
             android:visibility="gone"
+            android:layout_centerHorizontal="true"
             />
 
     </RelativeLayout>

@@ -10,12 +10,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pniew.mentalahasz.R;
 import com.pniew.mentalahasz.model.database.entities.ArtPeriod;
 import com.pniew.mentalahasz.model.database.entities.Movement;
 import com.pniew.mentalahasz.thegallery.gallery.PictureGalleryActivity;
+import com.pniew.mentalahasz.thelistofthings.addeditthings.AddEditThingActivity;
 
 import java.util.List;
 
@@ -24,6 +27,10 @@ import static com.pniew.mentalahasz.utils.CallsStringsIntents.*;
 public class ChooseActivity extends AppCompatActivity {
 
     private ChooseViewModel chooseViewModel;
+    private RecyclerView recyclerView;
+    private TextView text;
+    private Button addNew;
+    private Button downloadSome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +43,12 @@ public class ChooseActivity extends AppCompatActivity {
         // of the livedata which returns any value in the livedata lists (both of art periods and
         // of movements)
 
-        RecyclerView recyclerView = findViewById(R.id.choose_recycler_view);
+        recyclerView = findViewById(R.id.choose_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        text = findViewById(R.id.textview_text_for_empty_choose_activity);
+        addNew = findViewById(R.id.button_no_art_periods_add_something);
+        downloadSome = findViewById(R.id.button_download_something);
 
         chooseViewModel = new ViewModelProvider(this,
                 ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).
@@ -60,6 +71,9 @@ public class ChooseActivity extends AppCompatActivity {
                 @Override
                 public void onChanged(List<ArtPeriod> artPeriods) {
                     if (!artPeriods.isEmpty()) {
+                        text.setVisibility(View.GONE);
+                        addNew.setVisibility(View.GONE);
+                        downloadSome.setVisibility(View.GONE);
                         chooseViewModel.setNothingToShow(false);
                         adapter.submitList(artPeriods);
                     } else {
@@ -176,15 +190,10 @@ public class ChooseActivity extends AppCompatActivity {
     //----------------------------------------------------------------------------------------------
 
     private void nothingToShow(){
-        //todo: here message that nothing is created yet and you can add new art periods
-        // and their movements by clicking here and then you can add new pictures here
-        // and if you want you can download some pre-added stuff from web here
-        // or you can do this all from the main menu.
-        // It would be good if there was a fragment that holds all the things:
-        // the text and the buttons. For now it can be just text that says that
-        // you can do all of this from the main menu.
         chooseViewModel.setNothingToShow(true);
-
+        text.setVisibility(View.VISIBLE);
+        addNew.setVisibility(View.VISIBLE);
+        downloadSome.setVisibility(View.VISIBLE);
 
     }
 
@@ -197,10 +206,15 @@ public class ChooseActivity extends AppCompatActivity {
     }
 
     public void addNewArtPeriod(View view) {
-        // todo przekieruj do dodawania nowych epok w activity do dodawania
+        Intent intent = new Intent(ChooseActivity.this, AddEditThingActivity.class);
+        intent.putExtra(I_WANT_TO, ADD_NEW_THING);
+        ChooseActivity.this.startActivity(intent);
+
     }
 
     public void downloadSomeStuff(View view) {
         // todo przekieruj do download new package
+        //Intent intent = new Intent(ChooseActivity.this, )
+        //ChooseActivity.this.startActivity(intent);
     }
 }

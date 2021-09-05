@@ -13,6 +13,9 @@ public class ArtPeriod implements AThing {
 
     @PrimaryKey(autoGenerate = true)
     private int artPeriodId;
+    private String artPeriodName;
+    private String artPeriodDating;
+    private String artPeriodFunFact;
 
     @Override
     public boolean equals(AThing t) {
@@ -29,36 +32,24 @@ public class ArtPeriod implements AThing {
         return Objects.hash(getArtPeriodId(), getArtPeriodName(), getArtPeriodDating());
     }
 
-    private String artPeriodName;
-    private String artPeriodDating;
 
     public ArtPeriod(String artPeriodName, String artPeriodDating) {
         this.artPeriodName = artPeriodName;
         this.artPeriodDating = artPeriodDating;
     }
 
-    public int getArtPeriodId() {
-        return artPeriodId;
-    }
+    public int getArtPeriodId() { return artPeriodId; }
+    public void setArtPeriodId(int artPeriodId) { this.artPeriodId = artPeriodId; }
 
-    public void setArtPeriodId(int artPeriodId) {
-        this.artPeriodId = artPeriodId;
-    }
+    public String getArtPeriodName() { return artPeriodName; }
+    public void setArtPeriodName(String artPeriodName) { this.artPeriodName = artPeriodName; }
 
-    public String getArtPeriodName() {
-        return artPeriodName;
-    }
+    public String getArtPeriodDating() { return artPeriodDating; }
+    public void setArtPeriodDating(String artPeriodDating) { this.artPeriodDating = artPeriodDating; }
 
-    public void setArtPeriodName(String artPeriodName) {
-        this.artPeriodName = artPeriodName;
-    }
-
-    public String getArtPeriodDating() {
-        return artPeriodDating;
-    }
-
-    public void setArtPeriodDating(String artPeriodDating) {
-        this.artPeriodDating = artPeriodDating;
+    public String getArtPeriodFunFact() { return artPeriodFunFact; }
+    public void setArtPeriodFunFact(String artPeriodFunFact) {
+        this.artPeriodFunFact = artPeriodFunFact;
     }
 
     @Override

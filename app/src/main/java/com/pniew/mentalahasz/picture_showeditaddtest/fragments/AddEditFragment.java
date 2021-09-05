@@ -511,6 +511,10 @@ public class AddEditFragment extends Fragment {
         }
     }
 
+    public void setTrivia(String trivia) {
+        viewModel.setTrivia(trivia);
+    }
+
 
 
 }

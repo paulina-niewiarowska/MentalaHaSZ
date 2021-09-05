@@ -11,12 +11,33 @@
     android:background="@color/background_color">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/fr_test_guidelineTop"
+        android:id="@+id/learnshow_guidelineTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
         app:layout_constraintGuide_percent="0.0" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/learnshow_guidelineMiddleVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.3" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/learnshow_guidelineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="1" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/learnshow_guidelineMiddleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp"
+        app:layout_constraintGuide_percent="0.35" />
 
 
     <RelativeLayout
@@ -24,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline60Percent"
-        app:layout_constraintTop_toBottomOf="@+id/fr_test_guidelineTop"
+        app:layout_constraintTop_toBottomOf="@+id/learnshow_guidelineTop"
         android:layout_margin="10dp">
 
         <ImageView
@@ -32,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"
-            android:contentDescription="Your Image"
+            android:contentDescription="@string/your_image"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <Button
@@ -40,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Change picture file"
+            android:text="@string/change_picture_file"
             android:onClick="prepareStartChoosePictureIntent"
             android:visibility="gone"/>
 
@@ -51,10 +72,22 @@
             android:layout_centerInParent="true"
             android:visibility="gone"
             android:onClick="prepareStartChoosePictureIntent"
-            android:text="Choose picture file" />
+            android:text="@string/choose_picture_file" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_funfact"
+            android:scaleType="centerInside"
+            app:maxImageSize="36dp"
+            app:tint="@color/white"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/set_trivia"
+            android:onClick="setNewTrivia"
+            />
+
 
     </RelativeLayout>
-
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline60Percent"
@@ -70,7 +103,7 @@
         android:layout_height="0dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        app:layout_constraintBottom_toTopOf="@+id/fr_test_guidelineBottom"
+        app:layout_constraintBottom_toTopOf="@+id/learnshow_guidelineBottom"
         app:layout_constraintTop_toBottomOf="@+id/guideline60Percent">
 
         <androidx.fragment.app.FragmentContainerView
@@ -83,7 +116,7 @@
     </RelativeLayout>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/fr_test_guidelineBottom"
+        android:id="@+id/learnshow_guidelineBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

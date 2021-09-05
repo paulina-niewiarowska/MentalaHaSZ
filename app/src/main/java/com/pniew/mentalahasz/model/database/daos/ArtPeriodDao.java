@@ -14,7 +14,6 @@ import java.util.List;
 @Dao
 public interface ArtPeriodDao {
 
-
     @Insert
     long insertArtPeriod(ArtPeriod artPeriod);
 
@@ -23,6 +22,9 @@ public interface ArtPeriodDao {
 
     @Query("DELETE FROM ArtPeriod WHERE artPeriodId = :id")
     void deleteArtPeriod(int id);
+
+    @Query("UPDATE ArtPeriod SET artPeriodFunFact = :artPeriodFunFact WHERE artPeriodId = :artPeriodId")
+    void setArtPeriodFunFact(int artPeriodId, String artPeriodFunFact);
 
     @Query("SELECT * FROM ArtPeriod ORDER BY artPeriodId ASC")
     LiveData<List<ArtPeriod>> getAllArtPeriods();

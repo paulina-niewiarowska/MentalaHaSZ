@@ -83,6 +83,7 @@ public class Picture implements AThing {
         this.pictureDating = pictureDating;
     }
 
+    @org.jetbrains.annotations.Nullable
     public String getPictureFunFact() { return pictureFunFact; }
 
     public void setPictureFunFact(String pictureFunFact) { this.pictureFunFact = pictureFunFact; }

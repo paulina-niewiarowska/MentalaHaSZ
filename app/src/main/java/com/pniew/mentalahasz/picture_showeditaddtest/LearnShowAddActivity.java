@@ -22,8 +22,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.pniew.mentalahasz.R;
@@ -49,15 +51,13 @@ public class LearnShowAddActivity extends AppCompatActivity {
     LifecycleOwner thisActivity;
 
     Fragment currentFragment;
-    //AddEditFragment addEditFragment;
-    //LearnFragment learnFragment;
-    //TestFragment testFragment;
     RelativeLayout fragmentHolder;
     View cover;
 
     private LearnShowAddViewModel viewModel;
     private AddEditViewModel viewModelAddEdit;
     private ImageView imageView;
+    private EditText triviaEditText;
     Button buttonAddPictureFile;
     Button buttonChangePictureFile;
     Bundle bundleAddNew;
@@ -116,7 +116,7 @@ public class LearnShowAddActivity extends AppCompatActivity {
             }
     );
 
-    //ONCREATE starts here ==============================================================================
+    //ONCREATE starts here ============================================================================================================== on Create() =======
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -327,8 +327,8 @@ public class LearnShowAddActivity extends AppCompatActivity {
             @Override
             public void onChanged(Picture picture) {
                 viewModel.setPath(picture.getPicturePath());
-                if(viewModel.getIWantTo() == TEST_ME) {
-                    //todo------------------------------------------------------!!!!!!!!!1 anyhting here to do?
+                if(viewModel.getIWantTo() == TEST_ME || viewModel.getIWantTo() == LEARN) {
+                    viewModel.setTriviaText(picture.getPictureFunFact());
                 }
 
                 Glide.with(LearnShowAddActivity.this)
@@ -499,5 +499,43 @@ public class LearnShowAddActivity extends AppCompatActivity {
             finish();
         }
         return true;
+    }
+
+    public void setNewTrivia(View view) {
+        triviaEditText = new EditText(LearnShowAddActivity.this);
+        AlertDialog.Builder alert = new AlertDialog.Builder(LearnShowAddActivity.this, R.style.Theme_MentalaHaSZ);
+        alert.setView(triviaEditText);
+        if(viewModel.getIWantTo() == LEARN || viewModel.getIWantTo() == TEST_ME) {
+            //show trivia, not edit it. We can get it while getting picture in livedata above.
+            triviaEditText.setText(viewModel.getTriviaText());
+            triviaEditText.setEnabled(false);
+            alert.setTitle("Fun Fact:");
+        } else {
+            alert.setTitle("Insert new Fun Fact");
+            alert.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String trivia = triviaEditText.getText().toString();
+                    switch (viewModel.getIWantTo()) {
+                        case EDIT_A_PICTURE:
+                            viewModel.setPictureFunFact(trivia);
+                            break;
+                        case ADD_NEW_PICTURE:
+                            // pass data to fragment so it can put it to add later
+                            if(currentFragment instanceof AddEditFragment) {
+                                ((AddEditFragment) currentFragment).setTrivia(trivia);
+                            }
+                            break;
+                    }
+                }
+            });
+            alert.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+        }
+        alert.show();
     }
 }

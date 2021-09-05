@@ -55,6 +55,7 @@ public class LearnFragment extends Fragment {
     boolean animatingAuthor;
     boolean animatingLocation;
     boolean animatingDating;
+    boolean animatingMovement;
 
 
     public static LearnFragment newInstance() {
@@ -75,6 +76,7 @@ public class LearnFragment extends Fragment {
         animatingAuthor = false;
         animatingLocation = false;
         animatingDating = false;
+        animatingMovement = false;
 
 
         LiveData<Picture> picture = viewModel.getPictureById();
@@ -202,6 +204,9 @@ public class LearnFragment extends Fragment {
         } else if ((toHide == dating || toHide == datingRevealed) && !animatingDating) {
             animatingDating = true;
             return true;
+        } else if ((toHide == movement || toHide == movementRevealed) && !animatingMovement) {
+            animatingMovement = true;
+            return true;
         }
         return false;
     }
@@ -233,6 +238,8 @@ public class LearnFragment extends Fragment {
                         animatingLocation = false;
                     } else if (toHide == dating || toHide == datingRevealed) {
                         animatingDating = false;
+                    } else if (toHide == movement || toHide == movementRevealed) {
+                        animatingMovement = false;
                     }
                     super.onAnimationEnd(animation);
                 }

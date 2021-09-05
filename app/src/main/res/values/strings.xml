@@ -13,6 +13,16 @@
     <string name="looks_like_you_have_no_art_periods">Looks like you have no Art Periods in your library.\nPlease add some before you come here to learn.</string>
     <string name="add_new_art_period">Add new Art Period</string>
     <string name="download_ready_made_package">Download ready-made package</string>
+    <string name="set_trivia">Set Trivia</string>
+    <string name="choose_picture_file">Choose picture file</string>
+    <string name="change_picture_file">Change picture file</string>
+    <string name="your_image">Your Image</string>
+    <string name="periodization_items">Periodization items</string>
+    <string name="add_new_card">Add new card</string>
+    <string name="fun_facts">Fun Facts</string>
+    <string name="learn_from_web">Learn from web</string>
+    <string name="test">Test</string>
+    <string name="learn">Learn</string>
 
     <!--    ==========================    activity    ===========================================-->
 </resources>

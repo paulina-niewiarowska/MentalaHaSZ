@@ -38,6 +38,7 @@ public class AddEditViewModel extends AndroidViewModel {
     private int artPeriodId;
     private int movementId;
     private int typeId;
+    private String trivia;
 
     private int callingThing;
     private int callingThingId;
@@ -104,6 +105,9 @@ public class AddEditViewModel extends AndroidViewModel {
     public String getPath() { return path; }
     public void setPath(String path) { this.path = path; }
 
+    public String getTrivia() { return trivia; }
+    public void setTrivia(String trivia) { this.trivia = trivia; }
+
     public int getSpinnerArtPeriodSelection() { return spinnerArtPeriodSelection; }
     public void setSpinnerArtPeriodSelection(int spinnerArtPeriodSelection) {
         this.spinnerArtPeriodSelection = spinnerArtPeriodSelection; }
@@ -165,15 +169,19 @@ public class AddEditViewModel extends AndroidViewModel {
 
     public int savePicture(){
         if(path == null || name == null || author == null || dating == null || location == null
+                || typeId == 0 || artPeriodId == 0 || typeId == -1 || artPeriodId == -1
                 || path.trim().equals("")
                 || name.trim().equals("")
                 || author.trim().equals("")
                 || dating.trim().equals("")
                 || location.trim().equals("")) {
-            //Toast.makeText(getApplication(), "path: " + path, Toast.LENGTH_SHORT).show();
             return 0;
         } else {
-            pictureRepository.insertNewPicture(path, name, author, dating, location, typeId, movementId, artPeriodId);
+            if(trivia == null) {
+                pictureRepository.insertNewPicture(path, name, author, dating, location, typeId, movementId, artPeriodId);
+            } else {
+                pictureRepository.insertNewPicture(path, name, author, dating, location, typeId, movementId, artPeriodId, trivia);
+            }
             return 1;
         }
     }
