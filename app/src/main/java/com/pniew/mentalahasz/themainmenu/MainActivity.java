@@ -17,6 +17,7 @@ import com.pniew.mentalahasz.thelistofthings.ListOfThingsActivity;
 import com.pniew.mentalahasz.thegallery.choosing.ChooseActivity;
 import com.pniew.mentalahasz.R;
 import com.pniew.mentalahasz.thetest.TestActivity;
+import com.pniew.mentalahasz.web.WebActivity;
 
 import java.util.List;
 
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         buttonWeb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, WebActivity.class);
+                MainActivity.this.startActivity(intent);
 
             }
         });

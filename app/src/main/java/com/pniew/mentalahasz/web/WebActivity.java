@@ -7,6 +7,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.View;
 
 import com.pniew.mentalahasz.R;
 
@@ -35,5 +36,15 @@ public class WebActivity extends AppCompatActivity {
         downloadManager.enqueue(request);
     }
 
+    public void downloadTestPackage(View view) {
+        requestDownload("Test Pack", "https://onedrive.live.com/download?cid=27A94A812CFD3978&resid=27A94A812CFD3978%218060&authkey=AC0jO1aH_HZncOI");
+    }
 
+    public void downloadPrehistoryPackage(View view) {
+        requestDownload("Prehistoria", "https://onedrive.live.com/download?cid=27A94A812CFD3978&resid=27A94A812CFD3978%218061&authkey=AOXWs4Ul7_Dv4D0");
+    }
+
+    public void downloadClassicalPackage(View view) {
+        requestDownload("Starożytność", "https://onedrive.live.com/download?cid=27A94A812CFD3978&resid=27A94A812CFD3978%218062&authkey=AJaWmwXbOA8zxMA");
+    }
 }

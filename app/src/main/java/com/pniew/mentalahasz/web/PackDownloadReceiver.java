@@ -6,6 +6,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.pniew.mentalahasz.model.database.entities.ArtPeriod;
 import com.pniew.mentalahasz.model.database.entities.Movement;
@@ -24,8 +26,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.concurrent.Executors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -49,6 +53,7 @@ public class PackDownloadReceiver extends BroadcastReceiver {
         artPeriodRepository = new ArtPeriodRepository(application);
         typeRepository = new TypeRepository(application);
 
+        Toast.makeText(context, "Download completed. Unpacking...", Toast.LENGTH_LONG).show();
 
         long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
         DownloadManager manager = context.getSystemService(DownloadManager.class);
@@ -73,19 +78,22 @@ public class PackDownloadReceiver extends BroadcastReceiver {
                         ArtPeriod artPeriod = artPeriodRepository.getArtPeriodByItsName(artPeriodObject.getString("name"));
                         if (artPeriod == null) {
                             artPeriod = new ArtPeriod(artPeriodObject.getString("name"), artPeriodObject.getString("dating"));
-                            artPeriod.setArtPeriodFunFact(artPeriodObject.getString("funFact"));
+                            artPeriod.setArtPeriodFunFact(artPeriodObject.optString("funFact"));
                             int id = artPeriodRepository.insertNewArtPeriodButSynchronicznie(artPeriod);
                             artPeriod.setArtPeriodId(id);
                         }
-                        JSONArray movementsArray = artPeriodObject.getJSONArray("movements");
-                        for(int j = 0; j < movementsArray.length(); j++){
-                            JSONObject movementObject = movementsArray.getJSONObject(j);
-                            Movement movement = movementRepository.getMovementByItsName(movementObject.getString("name"));
-                            if(movement == null) {
-                                movement = new Movement(movementObject.getString("name"), movementObject.getString("dating"), movementObject.getString("location"));
-                                movement.setMovementArtPeriod(artPeriod.getArtPeriodId());
-                                movement.setMovementFunFact(movementObject.getString("funFact"));
-                                movementRepository.insertNewMovementButSynchronicznie(movement);
+
+                        JSONArray movementsArray = artPeriodObject.optJSONArray("movements");
+                        if(movementsArray != null) {
+                            for (int j = 0; j < movementsArray.length(); j++) {
+                                JSONObject movementObject = movementsArray.getJSONObject(j);
+                                Movement movement = movementRepository.getMovementByItsName(movementObject.getString("name"));
+                                if (movement == null) {
+                                    movement = new Movement(movementObject.getString("name"), movementObject.getString("dating"), movementObject.getString("location"));
+                                    movement.setMovementArtPeriod(artPeriod.getArtPeriodId());
+                                    movement.setMovementFunFact(movementObject.optString("funFact"));
+                                    movementRepository.insertNewMovementButSynchronicznie(movement);
+                                }
                             }
                         }
                     }
@@ -100,11 +108,13 @@ public class PackDownloadReceiver extends BroadcastReceiver {
                                     destinationImagePath,
                                     imageData.getString("name"),
                                     imageData.getString("author"),
-                                    imageData.getString("location"),
-                                    imageData.getString("dating")
+                                    imageData.getString("dating"),
+                                    imageData.getString("location")
                                     );
                             picture.setPictureArtPeriod(artPeriodRepository.getArtPeriodByItsName(imageData.getString("artPeriod")).getArtPeriodId());
-                            picture.setPictureMovement(movementRepository.getMovementByItsName(imageData.getString("movement")).getMovementId());
+                            if(imageData.has("movement")) {
+                                picture.setPictureMovement(movementRepository.getMovementByItsName(imageData.getString("movement")).getMovementId());
+                            }
                             Type type = typeRepository.getTypeByItsName(imageData.getString("type"));
                             int typeId;
                             if(type == null){
@@ -114,10 +124,11 @@ public class PackDownloadReceiver extends BroadcastReceiver {
                                 typeId = type.getTypeId();
                             }
                             picture.setPictureType(typeId);
-                            picture.setPictureFunFact(imageData.getString("funFact"));
+                            picture.setPictureFunFact(imageData.optString("funFact"));
                             pictureRepository.insertNewPictureButSynchronicznie(picture);
-                            
-                        } catch (IOException | JSONException e) {
+
+                        } catch (IOException | JSONException | NullPointerException e) {
+                            Log.e(this.getClass().getName(),"Format error in json: " + zipEntry.getName());
                             e.printStackTrace();
                         }
                     });
