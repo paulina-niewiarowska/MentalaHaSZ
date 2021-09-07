@@ -78,6 +78,9 @@ public class LearnFragment extends Fragment {
         animatingDating = false;
         animatingMovement = false;
 
+        movement = v.findViewById(R.id.learn_text_movement);
+        movementRevealed = v.findViewById(R.id.learn_text_movement_revealed);
+
 
         LiveData<Picture> picture = viewModel.getPictureById();
         // todo: if there is no picture with this id, show message
@@ -90,14 +93,24 @@ public class LearnFragment extends Fragment {
                 viewModel.setLocationString(picture.getPictureLocation());
                 if(picture.getPictureMovement() != null) {
                     viewModel.setMovementId(picture.getPictureMovement());
+                } else {
+                    viewModel.setMovementString(null);
+                    movement.setText("-");
                 }
                 viewModel.setCurrentKnowledgeDegree(picture.getPictureKnowledgeDegree());
                 if(viewModel.getMovementId() > 0) {
                     movementLiveData = viewModel.getMovementById(); //we already have id in viewModel so we don't have to pass it
                     movementLiveData.observe(getViewLifecycleOwner(), new Observer<Movement>() {
                         @Override
-                        public void onChanged(Movement movement) {
-                            viewModel.setMovementString(movement.getMovementName());
+                        public void onChanged(Movement movement1) {
+                            viewModel.setMovementString(movement1.getMovementName());
+                            movement.setOnClickListener(anonymousMethod -> {
+                                movementRevealed.setText(viewModel.getMovementString());
+                                flipTheCard(v.getContext(), movement, movementRevealed);
+                            });
+                            movementRevealed.setOnClickListener(anonymousMethod -> {
+                                flipTheCard(v.getContext(), movementRevealed, movement);
+                            });
                         }
                     });
                 }
@@ -105,6 +118,8 @@ public class LearnFragment extends Fragment {
         });
 
         finishedAnimating = true;
+
+
 
         name = v.findViewById(R.id.learn_text_name);
         nameRevealed = v.findViewById(R.id.learn_text_name_revealed);
@@ -114,8 +129,6 @@ public class LearnFragment extends Fragment {
         datingRevealed = v.findViewById(R.id.learn_text_dating_revealed);
         location = v.findViewById(R.id.learn_text_location);
         locationRevealed = v.findViewById(R.id.learn_text_location_revealed);
-        movement = v.findViewById(R.id.learn_text_movement);
-        movementRevealed = v.findViewById(R.id.learn_text_movement_revealed);
 
         buttonIKnewThat = v.findViewById(R.id.button_i_knew_that);
         buttonDidntKnow = v.findViewById(R.id.button_didnt_know);
@@ -180,13 +193,7 @@ public class LearnFragment extends Fragment {
             flipTheCard(v.getContext(), locationRevealed, location);
         });
 
-        movement.setOnClickListener(anonymousMethod -> {
-            movementRevealed.setText(viewModel.getMovementString());
-            flipTheCard(v.getContext(), movement, movementRevealed);
-        });
-        movementRevealed.setOnClickListener(anonymousMethod -> {
-            flipTheCard(v.getContext(), movementRevealed, movement);
-        });
+
 
         return v;
     }

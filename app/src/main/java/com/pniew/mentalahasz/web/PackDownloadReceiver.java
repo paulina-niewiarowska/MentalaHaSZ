@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
@@ -132,16 +133,16 @@ public class PackDownloadReceiver extends BroadcastReceiver {
                             picture.setPictureFunFact(imageData.optString("funFact"));
                             pictureRepository.insertNewPictureButSynchronicznie(picture);
 
-                            context.getMainExecutor().execute(new Runnable() {
-                                @Override
-                                public void run() {
-                                    WebActivity.Instance.stopTheLoader();
-                                }
-                            });
-
                         } catch (IOException | JSONException | NullPointerException e) {
                             Log.e(this.getClass().getName(),"Format error in json: " + zipEntry.getName());
                             e.printStackTrace();
+                        }
+                    });
+                    context.getMainExecutor().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            WebActivity.Instance.stopTheLoader();
+                            Toast.makeText(context, "Items unpacked. You can now check them out in the learning section.", Toast.LENGTH_LONG).show();
                         }
                     });
                 } catch (IOException | JSONException e) {
