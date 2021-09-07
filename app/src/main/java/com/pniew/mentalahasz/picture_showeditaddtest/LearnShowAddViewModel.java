@@ -1,9 +1,12 @@
 package com.pniew.mentalahasz.picture_showeditaddtest;
 
 import android.app.Application;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
@@ -12,6 +15,7 @@ import com.pniew.mentalahasz.repository.PictureRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -108,7 +112,7 @@ public class LearnShowAddViewModel extends AndroidViewModel {
     }
 
 
-    public void getOneBefore(){
+    public void getOneBefore(Context context){
         int pId;
         if (picturesIdsList.size() == 0) {
             pId = -1;
@@ -118,6 +122,8 @@ public class LearnShowAddViewModel extends AndroidViewModel {
         for (int i = 0; i < picturesIdsList.size(); i++) {
             if (picturesIdsList.get(i)==pictureId) {
                 if(i == 0) {
+                    Collections.shuffle(picturesIdsList);
+                    Toast.makeText(context, "Reshuffling...", Toast.LENGTH_SHORT).show();
                     pId = picturesIdsList.get(picturesIdsList.size()-1);
                 } else {
                     pId = picturesIdsList.get(i - 1);
@@ -128,7 +134,7 @@ public class LearnShowAddViewModel extends AndroidViewModel {
         }
     }
 
-    public void getOneAfter() {
+    public void getOneAfter(Context context) {
         int pId;
         if (picturesIdsList.size() == 0) {
             pId = -1;
@@ -138,6 +144,8 @@ public class LearnShowAddViewModel extends AndroidViewModel {
         for (int i = 0; i < picturesIdsList.size(); i++) {
             if (picturesIdsList.get(i) == pictureId) {
                 if (i == picturesIdsList.size() - 1) {
+                    Collections.shuffle(picturesIdsList);
+                    Toast.makeText(context, "Reshuffling...", Toast.LENGTH_SHORT).show();
                     pId = picturesIdsList.get(0);
                 } else {
                     pId = picturesIdsList.get(i + 1);
@@ -155,6 +163,7 @@ public class LearnShowAddViewModel extends AndroidViewModel {
     }
 
     public void reload() {
+        Collections.shuffle(picturesIdsListReserve);
         picturesIdsList = new ArrayList<>(picturesIdsListReserve);
         points = 0;
         maxPoints = picturesIdsList.size();

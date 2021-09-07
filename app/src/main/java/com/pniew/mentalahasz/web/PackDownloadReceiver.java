@@ -7,8 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.pniew.mentalahasz.R;
 import com.pniew.mentalahasz.model.database.entities.ArtPeriod;
 import com.pniew.mentalahasz.model.database.entities.Movement;
 import com.pniew.mentalahasz.model.database.entities.Picture;
@@ -42,6 +44,7 @@ public class PackDownloadReceiver extends BroadcastReceiver {
     MovementRepository movementRepository;
     ArtPeriodRepository artPeriodRepository;
     TypeRepository typeRepository;
+    int which;
 
 
     @Override
@@ -60,9 +63,11 @@ public class PackDownloadReceiver extends BroadcastReceiver {
         Uri uri = manager.getUriForDownloadedFile(downloadId);
         String downloadedPackagePath = getRealPath(context, uri);
 
-        File destinationPath = context.getFilesDir();
-        File file = new File(destinationPath.getPath()+"/images");
-        file.mkdir();
+        try {
+            File destinationPath = context.getFilesDir();
+            File file = new File(destinationPath.getPath() + "/images");
+            file.mkdir();
+
 
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
@@ -127,6 +132,13 @@ public class PackDownloadReceiver extends BroadcastReceiver {
                             picture.setPictureFunFact(imageData.optString("funFact"));
                             pictureRepository.insertNewPictureButSynchronicznie(picture);
 
+                            context.getMainExecutor().execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    WebActivity.Instance.stopTheLoader();
+                                }
+                            });
+
                         } catch (IOException | JSONException | NullPointerException e) {
                             Log.e(this.getClass().getName(),"Format error in json: " + zipEntry.getName());
                             e.printStackTrace();
@@ -138,6 +150,9 @@ public class PackDownloadReceiver extends BroadcastReceiver {
             }
         });
 
+        } catch (Exception e) {
+            Toast.makeText(context, "Read Error", Toast.LENGTH_LONG).show();
+        }
     }
 
     public JSONObject getJsonObjectFromZipEntry(ZipFile zipFile, ZipEntry zipEntry) throws IOException, JSONException {

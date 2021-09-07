@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +21,10 @@ import com.pniew.mentalahasz.model.database.entities.ArtPeriod;
 import com.pniew.mentalahasz.model.database.entities.Movement;
 import com.pniew.mentalahasz.thegallery.gallery.PictureGalleryActivity;
 import com.pniew.mentalahasz.thelistofthings.addeditthings.AddEditThingActivity;
+import com.pniew.mentalahasz.utils.Permissions;
+import com.pniew.mentalahasz.web.WebActivity;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -31,6 +37,12 @@ public class ChooseActivity extends AppCompatActivity {
     private TextView text;
     private Button addNew;
     private Button downloadSome;
+    private int movementIdToLoad;
+    private boolean movementCalling;
+    private int artPeriodIdToLoad;
+    private boolean artPeriodCalling;
+    private String movementNameToLoad;
+    private String artPeriodNameToLoad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +67,9 @@ public class ChooseActivity extends AppCompatActivity {
                 get(ChooseViewModel.class);
         chooseViewModel.setNothingToShow(false);
 
+        movementCalling = false;
+        artPeriodCalling = false;
+
 
         int itemsToLoad = getIntent().getIntExtra(LOAD, 0);
 
@@ -62,6 +77,7 @@ public class ChooseActivity extends AppCompatActivity {
         // =========================================================================================
         //WE LOAD ART PERIODS:
         if(itemsToLoad == ART_PERIOD && !chooseViewModel.isNothingToShow()){
+            setTitle("Choose Art Period to Learn");
             ItemToChooseAdapter<ArtPeriod> adapter = new ItemToChooseAdapter<>();
             recyclerView.setAdapter(adapter);
 
@@ -92,6 +108,8 @@ public class ChooseActivity extends AppCompatActivity {
 
         // WE LOAD MOVEMENTS:
         } else if (itemsToLoad == MOVEMENT && !chooseViewModel.isNothingToShow()) {
+            ChooseActivity.this.setTitle(getIntent().getStringExtra(NAME));
+            setTitle("Choose Movement to Learn");
             ItemToChooseAdapter<Movement> adapter = new ItemToChooseAdapter<>();
             recyclerView.setAdapter(adapter);
 
@@ -121,7 +139,13 @@ public class ChooseActivity extends AppCompatActivity {
                 adapter.setOnItemClickListener(new ItemToChooseAdapter.onItemClickListener<Movement>() {
                     @Override
                     public void onItemClick(Movement item) {
-                        createIntentAndStartActivity(PICTURES, MOVEMENT, item.getMovementId());
+                        movementNameToLoad = item.getMovementName();
+                        movementIdToLoad = item.getMovementId();
+                        movementCalling = true;
+                        Permissions.showPhoneStatePermission(ChooseActivity.this,
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Permissions.PERMISSION_READ_EXTERNAL_STORAGE,
+                                getResources().getString(R.string.gallery_needs_to_show_pictures));
                     }
                 });
             }
@@ -148,6 +172,7 @@ public class ChooseActivity extends AppCompatActivity {
         // any movements (like prehistory), we want to load its pictures.
 
         //load this period's list of movements
+        artPeriodNameToLoad = item.getArtPeriodName();
         chooseViewModel.setParentPeriodId(item.getArtPeriodId());
         chooseViewModel.getMovementListByPeriodId().observe(ChooseActivity.this, new Observer<List<Movement>>() {
             @Override
@@ -156,11 +181,16 @@ public class ChooseActivity extends AppCompatActivity {
 
                 // no movements under this period, go to picture gallery of this art period:
                 if (isMovementListEmpty) {
-                    createIntentAndStartActivity(PICTURES, ART_PERIOD, item.getArtPeriodId());
+                    artPeriodIdToLoad = item.getArtPeriodId();
+                    artPeriodCalling = true;
+                    Permissions.showPhoneStatePermission(ChooseActivity.this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Permissions.PERMISSION_READ_EXTERNAL_STORAGE,
+                            getResources().getString(R.string.gallery_needs_to_show_pictures));
 
                 //there are movements under this period, load them
                 } else {
-                    createIntentAndStartActivity(MOVEMENT, ART_PERIOD, item.getArtPeriodId());
+                    createIntentAndStartActivity(MOVEMENT, ART_PERIOD, item.getArtPeriodId(), artPeriodNameToLoad);
                 }
             }
         });
@@ -169,7 +199,7 @@ public class ChooseActivity extends AppCompatActivity {
 
     //----------------------------------------------------------------------------------------------
 
-    private void createIntentAndStartActivity(int toLoad, int calledBy, int childOf) {
+    private void createIntentAndStartActivity(int toLoad, int calledBy, int childOf, String nameToLoad) {
         Intent intent;
         if (toLoad == MOVEMENT) {
             intent = new Intent(ChooseActivity.this, ChooseActivity.class);
@@ -182,6 +212,7 @@ public class ChooseActivity extends AppCompatActivity {
         intent.putExtra(LOAD, toLoad);
         intent.putExtra(CALLED_BY, calledBy);
         intent.putExtra(CHILD_OF, childOf);
+        intent.putExtra(NAME, nameToLoad);
         ChooseActivity.this.startActivity(intent);
 
     }
@@ -213,8 +244,26 @@ public class ChooseActivity extends AppCompatActivity {
     }
 
     public void downloadSomeStuff(View view) {
-        // todo przekieruj do download new package
-        //Intent intent = new Intent(ChooseActivity.this, )
-        //ChooseActivity.this.startActivity(intent);
+        Intent intent = new Intent(ChooseActivity.this, WebActivity.class);
+        ChooseActivity.this.startActivity(intent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NotNull String[] permissions, @NotNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == Permissions.PERMISSION_READ_EXTERNAL_STORAGE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //Permission Granted!
+                if(movementCalling) {
+                    createIntentAndStartActivity(PICTURES, MOVEMENT, movementIdToLoad, movementNameToLoad);
+                }
+                if(artPeriodCalling){
+                    createIntentAndStartActivity(PICTURES, ART_PERIOD, artPeriodIdToLoad, artPeriodNameToLoad);
+                }
+
+            } else if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(ChooseActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

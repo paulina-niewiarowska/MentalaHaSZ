@@ -8,10 +8,12 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
 import android.net.Uri;
@@ -25,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.pniew.mentalahasz.R;
@@ -32,9 +35,14 @@ import com.pniew.mentalahasz.picture_showeditaddtest.fragments.AddEditFragment;
 import com.pniew.mentalahasz.picture_showeditaddtest.fragments.AddEditViewModel;
 import com.pniew.mentalahasz.picture_showeditaddtest.fragments.LearnFragment;
 import com.pniew.mentalahasz.picture_showeditaddtest.fragments.TestFragment;
+import com.pniew.mentalahasz.themainmenu.MainActivity;
 import com.pniew.mentalahasz.utils.OnSwipeListener;
+import com.pniew.mentalahasz.utils.Permissions;
 import com.pniew.mentalahasz.utils.RealPathUtil;
 import com.pniew.mentalahasz.model.database.entities.Picture;
+import com.pniew.mentalahasz.web.WebActivity;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
@@ -160,9 +168,6 @@ public class LearnShowAddActivity extends AppCompatActivity {
             viewModel.setPicturesIdsArray(dataFromCaller.getIntArrayExtra(PICTURES_IDS_ARRAY));
         }
 
-        /* todo:
-            test activity needs to send the learn-view activity following data:
-            i want to (int), picture ids array (int array) */
 
         // prepare bundles for fragments -----------------------------------------------------------
         bundleAddNew = new Bundle();
@@ -273,6 +278,7 @@ public class LearnShowAddActivity extends AppCompatActivity {
     //calls that create bundles and put them to fragments ==========================================
 
     public void testPictureCall() {
+        setTitle("Fill the Fields:");
 
         viewModel.setIWantTo(TEST_ME);
         pictureShow();
@@ -284,6 +290,7 @@ public class LearnShowAddActivity extends AppCompatActivity {
     }
 
     public void learnPictureCall() {
+        setTitle("Do you know this picture?");
 
         viewModel.setIWantTo(LEARN);
         pictureShow();
@@ -295,6 +302,7 @@ public class LearnShowAddActivity extends AppCompatActivity {
     }
 
     public void editPictureCall() {
+        setTitle("Edit a Picture");
 
         viewModel.setIWantTo(EDIT_A_PICTURE);
         pictureEditable();
@@ -306,6 +314,8 @@ public class LearnShowAddActivity extends AppCompatActivity {
     }
 
     private void addNewPictureCall() {
+
+        setTitle("Add New Picture");
 
         viewModel.setIWantTo(ADD_NEW_PICTURE);
         pictureAddable();
@@ -373,6 +383,12 @@ public class LearnShowAddActivity extends AppCompatActivity {
     //start activity for result: take picture from user. Method to be applied after this is to be
     //found at the top of the class, where we have to register the activity for result.
     public void prepareStartChoosePictureIntent(View v) {
+        Permissions.showPhoneStatePermission(LearnShowAddActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Permissions.PERMISSION_READ_EXTERNAL_STORAGE,
+                getResources().getString(R.string.add_picture_needs_picture));
+    }
+    private void continueWithLoadingAPicture(){
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -410,7 +426,7 @@ public class LearnShowAddActivity extends AppCompatActivity {
 
     //methods to change viewModel.pictureId so we can work on it =========================================================
     public void nextPictureLearn(){
-        viewModel.getOneAfter();
+        viewModel.getOneAfter(this);
         if (toRemove != 0) {
             viewModel.updateArray(toRemove);
             toRemove = 0;
@@ -419,12 +435,12 @@ public class LearnShowAddActivity extends AppCompatActivity {
     }
 
     public void previousPictureLearn(){
-        viewModel.getOneBefore();
+        viewModel.getOneBefore(this);
         learnPictureCall();
     }
 
     public void nextPictureTest(){
-        viewModel.getOneAfter();
+        viewModel.getOneAfter(this);
         if (toRemove != 0) {
             viewModel.updateArray(toRemove);
             toRemove = 0;
@@ -438,9 +454,9 @@ public class LearnShowAddActivity extends AppCompatActivity {
         if (viewModel.getIWantTo() == LEARN && (!animateLeft || !animateRight)) {
 
             animateRight = true;
-            //animateLeft = false;
+            animateLeft = false;
             animateFragmentRight = true;
-            //animateFragmentLeft = false;
+            animateFragmentLeft = false;
 
             width = findViewById(R.id.layout_learn_show_add).getWidth();
             viewForImageview.animate().translationX(width).setDuration(500).setInterpolator(new AccelerateDecelerateInterpolator()).withEndAction(this::doWhatYouGottaDoRight);
@@ -451,11 +467,11 @@ public class LearnShowAddActivity extends AppCompatActivity {
     public void swipeLeft() {
         if ((viewModel.getIWantTo() == LEARN || viewModel.getIWantTo() == TEST_ME)&& (!animateLeft || !animateRight)) {
             animateLeft = true;
-            //animateRight = false;
+            animateRight = false;
             animateFragmentLeft = true;
-            //animateFragmentRight = false;
+            animateFragmentRight = false;
 
-            width = findViewById(R.id.layout_learn_show_add).getWidth(); // tu czekamy pół sekundy
+            width = findViewById(R.id.layout_learn_show_add).getWidth();
             viewForImageview.animate().translationX(-width).setDuration(500).setInterpolator(new AccelerateDecelerateInterpolator()).withEndAction(this::doWhatYouGottaDoLeft);
             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).detach(currentFragment).commit(); //learnFragment
         }
@@ -582,4 +598,19 @@ public class LearnShowAddActivity extends AppCompatActivity {
             alert.show();
         }
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NotNull String[] permissions, @NotNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == Permissions.PERMISSION_READ_EXTERNAL_STORAGE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //Permission Granted!
+                continueWithLoadingAPicture();
+            } else if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(LearnShowAddActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
 }

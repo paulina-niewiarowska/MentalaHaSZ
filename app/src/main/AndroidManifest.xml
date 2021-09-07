@@ -14,28 +14,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MentalaHaSZ">
-        <activity android:name=".web.WebActivity"></activity>
+        <activity android:name=".web.WebActivity"
+            android:parentActivityName=".themainmenu.MainActivity"
+            android:label="Download a package"/>
         <activity
             android:name=".thelistofthings.ListOfThingsActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".themainmenu.MainActivity" />
+            android:parentActivityName=".themainmenu.MainActivity"
+            android:label="Periodization Items"/>
         <activity
             android:name=".thelistofthings.addeditthings.AddEditThingActivity"
             android:parentActivityName=".thelistofthings.ListOfThingsActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:label="Add/Edit Periodization Item"/>
         <activity
             android:name=".thegallery.gallery.PictureGalleryActivity"
-            android:parentActivityName=".thegallery.choosing.ChooseActivity" />
+            android:parentActivityName=".thegallery.choosing.ChooseActivity"/>
         <activity
             android:name=".thegallery.choosing.ChooseActivity"
-            android:parentActivityName=".themainmenu.MainActivity" />
+            android:parentActivityName=".themainmenu.MainActivity"/>
         <activity
             android:name=".thetest.TestActivity"
-            android:parentActivityName=".themainmenu.MainActivity" />
+            android:parentActivityName=".themainmenu.MainActivity"
+            android:label="The Test"/>
         <activity
             android:name=".picture_showeditaddtest.LearnShowAddActivity"
             android:parentActivityName=".thegallery.gallery.PictureGalleryActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"/>
+
+
         <activity android:name=".themainmenu.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

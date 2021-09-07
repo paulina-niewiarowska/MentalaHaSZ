@@ -1,39 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="horizontal"
     tools:context=".web.WebActivity">
 
-    <Button
-        android:id="@+id/downloadTestPackage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:onClick="downloadTestPackage"
-        android:text="Test Pack" />
+    <RelativeLayout
+        android:id="@+id/web_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="50dp">
 
-    <Button
-        android:id="@+id/downloadPrehistoryPackage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/downloadTestPackage"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:onClick="downloadPrehistoryPackage"
-        android:text="Prehistoria" />
+        <ProgressBar
+            android:id="@+id/prehistory_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:indeterminate="true"
+            android:visibility="gone"/>
 
-    <Button
-        android:id="@+id/downloadClassicalPackage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/downloadPrehistoryPackage"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:onClick="downloadClassicalPackage"
-        android:text="Starożytność" />
+        <Button
+            android:id="@+id/download_prehistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_toStartOf="@id/prehistory_loading"
+            android:onClick="downloadPrehistoryPackage"
+            android:text="@string/prehistoria"
+            />
+
+        <ProgressBar
+            android:id="@+id/classical_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/download_prehistory"
+            android:indeterminate="true"
+            android:visibility="gone"/>
 
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/download_classical_art"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/download_prehistory"
+            android:layout_toStartOf="@id/classical_loading"
+            android:layout_centerHorizontal="true"
+            android:onClick="downloadClassicalPackage"
+            android:text="@string/starozytnosc" />
+
+        <ProgressBar
+            android:id="@+id/middle_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/download_classical_art"
+            android:layout_alignParentEnd="true"
+            android:indeterminate="true"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/download_middle_ages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/download_classical_art"
+            android:layout_toStartOf="@id/middle_loading"
+            android:layout_centerHorizontal="true"
+            android:onClick="downloadMiddleAgesPackage"
+            android:text="@string/sredniowiecze" />
+
+
+    </RelativeLayout>
+</LinearLayout>

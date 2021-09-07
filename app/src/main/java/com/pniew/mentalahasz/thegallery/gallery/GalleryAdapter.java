@@ -56,8 +56,8 @@ public class GalleryAdapter extends ListAdapter<Picture, GalleryAdapter.PictureH
         Glide.with(holder.imageView.getContext()).load(currentPicture.getPicturePath()).dontAnimate().into(holder.imageView);
 //        Bitmap bitmap = currentPicture.getBitmap();
 //        holder.imageView.setImageBitmap(bitmap);
-        int transparency = currentPicture.getPictureKnowledgeDegree();
-        holder.setAlphaForImage(transparency);
+        int currentKnowledge = currentPicture.getPictureKnowledgeDegree();
+        holder.setAlphaForImage(currentKnowledge);
     }
 
     class PictureHolder extends RecyclerView.ViewHolder{
@@ -67,11 +67,10 @@ public class GalleryAdapter extends ListAdapter<Picture, GalleryAdapter.PictureH
         private int transparency;
         private int alpha;
 
-        public void setAlphaForImage(int transparency){
-            alpha = (int) (255 * (transparency * 0.1));
-            if(alpha < 10) {
-                alpha = 40;
-            }
+        public void setAlphaForImage(int currentKnowledge){
+            alpha = (int) ((currentKnowledge*(255-40))/10f + 40);
+            if(alpha > 255){alpha = 255;}
+            if(alpha < 0){alpha = 0;}
             imageView.setImageAlpha(alpha);
         }
 

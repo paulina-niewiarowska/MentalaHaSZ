@@ -135,18 +135,34 @@ public class Picture implements AThing {
 
     @Override
     public boolean equals(AThing t) {
+        if(t == null) return false;
         if (this == t) return true;
         if (t == null || getClass() != t.getClass()) return false;
         Picture picture = (Picture) t;
-        return getPictureId() == picture.getPictureId() &&
-                getPictureArtPeriod() == picture.getPictureArtPeriod() &&
-                getPictureMovement() == picture.getPictureMovement() &&
-                getPictureType() == picture.getPictureType() &&
-                getPicturePath().equals(picture.getPicturePath()) &&
-                getPictureName().equals(picture.getPictureName()) &&
-                getPictureAuthor().equals(picture.getPictureAuthor()) &&
-                getPictureDating().equals(picture.getPictureDating()) &&
-                getPictureLocation().equals(picture.getPictureLocation());
+        if(getPictureMovement() != null && picture.getPictureMovement() != null) {
+            return getPictureId() == picture.getPictureId() &&
+                    getPictureArtPeriod() == picture.getPictureArtPeriod() &&
+                    getPictureMovement().equals(picture.getPictureMovement()) &&
+                    getPictureType() == picture.getPictureType() &&
+                    getPicturePath().equals(picture.getPicturePath()) &&
+                    getPictureName().equals(picture.getPictureName()) &&
+                    getPictureAuthor().equals(picture.getPictureAuthor()) &&
+                    getPictureDating().equals(picture.getPictureDating()) &&
+                    getPictureLocation().equals(picture.getPictureLocation()) &&
+                    getPictureKnowledgeDegree() == picture.getPictureKnowledgeDegree() &&
+                    getPictureFunFact().equals(picture.getPictureFunFact());
+        } else {
+            return getPictureId() == picture.getPictureId() &&
+                    getPictureArtPeriod() == picture.getPictureArtPeriod() &&
+                    getPictureType() == picture.getPictureType() &&
+                    getPicturePath().equals(picture.getPicturePath()) &&
+                    getPictureName().equals(picture.getPictureName()) &&
+                    getPictureAuthor().equals(picture.getPictureAuthor()) &&
+                    getPictureDating().equals(picture.getPictureDating()) &&
+                    getPictureLocation().equals(picture.getPictureLocation()) &&
+                    getPictureKnowledgeDegree() == picture.getPictureKnowledgeDegree() &&
+                    getPictureFunFact().equals(picture.getPictureFunFact());
+        }
     }
 
     @Override

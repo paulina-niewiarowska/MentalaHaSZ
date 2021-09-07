@@ -7,7 +7,9 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,13 +22,18 @@ import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pniew.mentalahasz.R;
 import com.pniew.mentalahasz.model.database.entities.ArtPeriod;
 import com.pniew.mentalahasz.model.database.entities.Movement;
 import com.pniew.mentalahasz.model.database.entities.Picture;
+import com.pniew.mentalahasz.picture_showeditaddtest.LearnShowAddActivity;
 import com.pniew.mentalahasz.utils.CallsStringsIntents;
+import com.pniew.mentalahasz.utils.Permissions;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,9 +47,11 @@ public class TestActivity extends AppCompatActivity {
     private ExpandableListView list;
     private ArrayList<TestArtPeriod> artPeriods;
     private MyExpandableListAdapter adapter;
-    ArrayList<Integer> movementsIds;
-    ArrayList<Integer> artPeriodsIds;
-    ArrayList<Integer> picturesIds;
+    private ArrayList<Integer> movementsIds;
+    private ArrayList<Integer> artPeriodsIds;
+    private ArrayList<Integer> picturesIds;
+    private List<Integer> pictureIdsList;
+    private TextView textView;
 
     private CheckBox checkBox;
 
@@ -60,6 +69,7 @@ public class TestActivity extends AppCompatActivity {
         adapter = new MyExpandableListAdapter(this, list, artPeriods);
 
         buttonConfirm = findViewById(R.id.test_choose_button_confirm);
+        textView = findViewById(R.id.textview_text_for_empty_test_activity);
 
         list.setAdapter(adapter);
         list.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
@@ -68,32 +78,39 @@ public class TestActivity extends AppCompatActivity {
         viewModel.getArtPeriods().observe(owner, new Observer<List<ArtPeriod>>() {
             @Override
             public void onChanged(List<ArtPeriod> artPeriodsList) {
-                for (int i = 0; i < artPeriodsList.size(); i++) {
-                    TestArtPeriod artPeriod = new TestArtPeriod();
-                    artPeriod.id = artPeriodsList.get(i).getArtPeriodId();
-                    artPeriod.artPeriodName = artPeriodsList.get(i).getArtPeriodName();
-                    ArrayList<TestMovement> testMovementArrayList = new ArrayList<>();
-                    int id = artPeriodsList.get(i).getArtPeriodId();
+                if (artPeriodsList.isEmpty()) {
+                    textView.setVisibility(View.VISIBLE);
+                    buttonConfirm.setVisibility(View.GONE);
+                } else {
+                    textView.setVisibility(View.GONE);
+                    buttonConfirm.setVisibility(View.VISIBLE);
+                    for (int i = 0; i < artPeriodsList.size(); i++) {
+                        TestArtPeriod artPeriod = new TestArtPeriod();
+                        artPeriod.id = artPeriodsList.get(i).getArtPeriodId();
+                        artPeriod.artPeriodName = artPeriodsList.get(i).getArtPeriodName();
+                        ArrayList<TestMovement> testMovementArrayList = new ArrayList<>();
+                        int id = artPeriodsList.get(i).getArtPeriodId();
 
-                    viewModel.getMovements(id).observe(owner, new Observer<List<Movement>>() {
-                        @Override
-                        public void onChanged(List<Movement> movements) {
-                            for (int i = 0; i < movements.size(); i++) {
-                                TestMovement movement = new TestMovement();
-                                movement.id = movements.get(i).getMovementId();
-                                movement.name = movements.get(i).getMovementName();
-                                testMovementArrayList.add(movement);
+                        viewModel.getMovements(id).observe(owner, new Observer<List<Movement>>() {
+                            @Override
+                            public void onChanged(List<Movement> movements) {
+                                for (int i = 0; i < movements.size(); i++) {
+                                    TestMovement movement = new TestMovement();
+                                    movement.id = movements.get(i).getMovementId();
+                                    movement.name = movements.get(i).getMovementName();
+                                    testMovementArrayList.add(movement);
+                                }
+                                artPeriod.subList = testMovementArrayList;
+                                artPeriods.add(artPeriod);
+                                adapter.notifyDataSetChanged();
+
+                                viewModel.getMovements(id).removeObservers(owner);
                             }
-                            artPeriod.subList = testMovementArrayList;
-                            artPeriods.add(artPeriod);
-                            adapter.notifyDataSetChanged();
+                        });
 
-                            viewModel.getMovements(id).removeObservers(owner);
-                        }
-                    });
-
+                    }
+                    viewModel.getArtPeriods().removeObservers(owner);
                 }
-                viewModel.getArtPeriods().removeObservers(owner);
             }
         });
 
@@ -124,20 +141,26 @@ public class TestActivity extends AppCompatActivity {
                 }
 
                 viewModel.getBackgroundExecutor().execute(() -> {
-                    List<Integer> pictureIdsList = viewModel.getPictureIdsByArtPeriodOrMovementIds(artPeriodsIds, movementsIds);
+                    pictureIdsList = viewModel.getPictureIdsByArtPeriodOrMovementIds(artPeriodsIds, movementsIds);
                     if(!pictureIdsList.isEmpty()) {
-                        Collections.shuffle(pictureIdsList);
-                        int[] picturesIdsArray = pictureIdsList.stream().mapToInt(i -> i).toArray();
-                        CallsStringsIntents.startTestPictureActivity(TestActivity.this, picturesIdsArray);
-                        TestActivity.this.finish();
+                        TestActivity.this.getMainExecutor().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                Permissions.showPhoneStatePermission(TestActivity.this,
+                                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                                        Permissions.PERMISSION_READ_EXTERNAL_STORAGE,
+                                        getResources().getString(R.string.test_needs_read_permission)
+                                        );
+                            }
+                        });
                     } else {
                         TestActivity.this.getMainExecutor().execute(new Runnable() {
                             @Override
                             public void run() {
                                 new AlertDialog.Builder(TestActivity.this, R.style.HaSZDialogTheme)
-                                        .setTitle("No pictures found.")
+                                        .setTitle(R.string.test_no_pictures_found_message_title)
                                         .setIcon(R.drawable.ic_cancel)
-                                        .setMessage("Chosen periodization items do not contain any pictures.\nPlease go back and fill them with pictures or choose different periodization items.")
+                                        .setMessage(R.string.test_no_pictures_found_message_text)
                                         .show();
                             }
                         });
@@ -148,6 +171,15 @@ public class TestActivity extends AppCompatActivity {
         });
 
     } // <--- end of onCreate() method ======================================================================
+
+    private void startTheTest() {
+        viewModel.getBackgroundExecutor().execute(() -> {
+            Collections.shuffle(pictureIdsList);
+            int[] picturesIdsArray = pictureIdsList.stream().mapToInt(i -> i).toArray();
+            CallsStringsIntents.startTestPictureActivity(TestActivity.this, picturesIdsArray);
+            TestActivity.this.finish();
+        });
+    }
 
     private void doTheRest() {
 
@@ -219,5 +251,19 @@ public class TestActivity extends AppCompatActivity {
             finish();
         }
         return true;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NotNull String[] permissions, @NotNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == Permissions.PERMISSION_READ_EXTERNAL_STORAGE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //Permission Granted!
+                startTheTest();
+            } else if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(TestActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

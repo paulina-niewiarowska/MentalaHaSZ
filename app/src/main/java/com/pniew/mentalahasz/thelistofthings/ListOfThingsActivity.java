@@ -97,8 +97,8 @@ public class ListOfThingsActivity extends AppCompatActivity {
             @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 new RecyclerViewSwipeDecorator.Builder(ListOfThingsActivity.this, c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                        .addSwipeLeftBackgroundColor(ContextCompat.getColor(ListOfThingsActivity.this, R.color.purple_500))
-                        .addSwipeRightBackgroundColor(ContextCompat.getColor(ListOfThingsActivity.this, R.color.teal_700))
+                        .addSwipeLeftBackgroundColor(ContextCompat.getColor(ListOfThingsActivity.this, R.color.bad_answer))
+                        .addSwipeRightBackgroundColor(ContextCompat.getColor(ListOfThingsActivity.this, R.color.icon))
                         .addSwipeLeftActionIcon(R.drawable.ic_delete_item)
                         .addSwipeRightActionIcon(R.drawable.ic_edit)
                         .addSwipeLeftLabel("Delete")

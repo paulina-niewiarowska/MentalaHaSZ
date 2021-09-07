@@ -70,6 +70,7 @@ public class PictureGalleryActivity extends AppCompatActivity {
         viewModel.setIdOfCallingThing(intent.getIntExtra(CHILD_OF, 0));
         viewModel.setCallingThing(intent.getIntExtra(CALLED_BY, 0));
         viewModel.setParentPeriodId(intent.getIntExtra(PARENT_PERIOD_ID, 0));
+        setTitle(intent.getStringExtra(NAME));
 
         //show pictures =========
         if(viewModel.callingThing() == ART_PERIOD) {

@@ -20,9 +20,25 @@
     <string name="periodization_items">Periodization items</string>
     <string name="add_new_card">Add new card</string>
     <string name="fun_facts">Fun Facts</string>
-    <string name="learn_from_web">Learn from web</string>
+    <string name="download_package">Download package</string>
     <string name="test">Test</string>
     <string name="learn">Learn</string>
+    <string name="prehistoria">Prehistoria</string>
+    <string name="starozytnosc">Starożytność</string>
+    <string name="sredniowiecze">Średniowiecze</string>
+    <string name="movement">Movement</string>
+    <string name="itemtochoose">ItemToChoose</string>
+
+    <string name="test_no_pictures_found_message_title">No pictures found.</string>
+    <string name="test_no_pictures_found_message_text">No items selected or chosen periodization items do not contain any pictures.\n\nPlease go back and fill them with pictures or choose new/other periodization items.</string>
+    <string name="test_needs_read_permission">This module needs to read picture files from your device\'s memory to show them to you, so you can use them to test your knowledge.\n\nPlease grant the Read Storage permission if you want to use this module and take the test.\n\nIf you\'re concerned about security, feel free to check out the full code for this app on my GitHub page (link in app\'s \"about\" section)</string>
+    <string name="web_needs_internet_permission">To be able to download packages from the server, the app needs the Internet permission.\n\nIf you\'re concerned about security, feel free to check out the full code for this app on my GitHub page (link in app\'s \"about\" section)</string>
+    <string name="web_needs_write_storage_permission">After downloading package, the app needs to unpack the files to your storage. Therefore the Write Storage permission is needed.\n\nIf you\'re concerned about security, feel free to check out the full code for this app on my GitHub page (link in app\'s \"about\" section) </string>
+    <string name="add_picture_needs_picture">You are about to load an image file from your device\'s storage. The app needs the permission to access your files to be able to get the path and picture of chosen file.\n\nPlease grant the permission to continue.\n\nIf you\'re concerned about security, feel free to check out the full code for this app on my GitHub page (link in app\'s \"about\" section)</string>
+    <string name="gallery_needs_to_show_pictures">The app needs to load some pictures from the storage of your device. Otherwise you won\'t have anything to learn from.\n\nPlease grant the Read Storage permission to continue.\n\nIf you\'re concerned about security, feel free to check out the full code for this app on my GitHub page (link in app\'s \"about\" section)</string>
+    <string name="permission_needed">Permission needed</string>
+    <string name="looks_like_you_have_nothing_to_test">Looks like you have no pictures added. Please add pictures, learn and then come back here to take a test :)</string>
+    <string name="about">This app is created as a diploma project.\n\nIt is open source, which means you can take my code, read it and change it if you want.\n\nThis app does not contain and will never contain any ads. It also do not collect any of your data. As it comes to data, the app will have the backup copy option in the future, for convenience. And that\'s it.\n\nFor source code come to: https://github.com/paulina-niewiarowska/MentalaHaSZ \n\nCheers, P.Niewiarowska</string>
 
     <!--    ==========================    activity    ===========================================-->
 </resources>

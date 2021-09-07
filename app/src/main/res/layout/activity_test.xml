@@ -36,6 +36,23 @@
         app:layout_constraintGuide_percent="0.97"
         app:layout_constraintGuide_begin="20dp" />
 
+    <TextView
+        android:id="@+id/textview_text_for_empty_test_activity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        android:background="@color/edition_background_color"
+        android:gravity="center"
+        android:text="@string/looks_like_you_have_nothing_to_test"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/background_color"
+        app:layout_constraintTop_toBottomOf="@+id/test_choose_guidelineTop"
+        app:layout_constraintBottom_toTopOf="@+id/test_choose_guidelineBottom"
+        app:layout_constraintStart_toEndOf="@+id/test_choose_guidelineStart"
+        app:layout_constraintEnd_toStartOf="@+id/test_choose_guidelineEnd"
+        android:visibility="gone"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"

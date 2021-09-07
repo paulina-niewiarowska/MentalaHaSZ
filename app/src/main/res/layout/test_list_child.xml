@@ -15,15 +15,19 @@
 
     <TextView
         android:id="@+id/test_choose_movement_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="Movement"
+        android:text="@string/movement"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:layoutDirection="ltr"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/test_choose_movement_checkbox"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:ellipsize="marquee"
+        android:singleLine="true" />
 
     <CheckBox
         android:id="@+id/test_choose_movement_checkbox"

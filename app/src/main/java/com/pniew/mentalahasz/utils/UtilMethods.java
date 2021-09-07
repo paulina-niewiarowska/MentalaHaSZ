@@ -11,4 +11,5 @@ public class UtilMethods {
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
+
 }
