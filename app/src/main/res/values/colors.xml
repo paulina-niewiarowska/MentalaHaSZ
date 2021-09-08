@@ -13,6 +13,7 @@
     <color name="edition_background_color">#B5B5B5</color>
     <color name="primary_button_etc">#8C7624</color>
     <color name="secondary">#83650F</color>
+    <color name="darg_gold">#3E2F05</color>
     <color name="revealed">#9E8544</color>
     <color name="icon">#A68326</color>
     <color name="good_answer">#66A626</color>

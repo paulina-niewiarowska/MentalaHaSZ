@@ -36,9 +36,14 @@ public class AddEditThingActivity extends AppCompatActivity {
     private Spinner spinnerChooseType;
     private Spinner spinnerChooseParentPeriod;
 
+    private final int SPINNER_OF_TYPE = 2;
+    private final int SPINNER_OF_MOVEMENT = 1;
+    private final int SPINNER_OF_ART_PERIOD = 0;
+
     private boolean onPause;
     private boolean done;
     private boolean finishing;
+    private boolean back;
 
     private boolean positionObtained;
     private int iWantTo;
@@ -91,13 +96,13 @@ public class AddEditThingActivity extends AppCompatActivity {
             if(addEditViewModel.getSpinnerTypeSelection() == -1) {
                 switch (itemType) {
                     case ART_PERIOD_STRING:
-                        addEditViewModel.setSpinnerTypeSelection(0);
+                        addEditViewModel.setSpinnerTypeSelection(SPINNER_OF_ART_PERIOD);
                         break;
                     case MOVEMENT_STRING:
-                        addEditViewModel.setSpinnerTypeSelection(1);
+                        addEditViewModel.setSpinnerTypeSelection(SPINNER_OF_MOVEMENT);
                         break;
                     case TYPE_STRING:
-                        addEditViewModel.setSpinnerTypeSelection(2);
+                        addEditViewModel.setSpinnerTypeSelection(SPINNER_OF_TYPE);
                         break;
                 }
             }
@@ -115,10 +120,14 @@ public class AddEditThingActivity extends AppCompatActivity {
 
 
         } else if ((itemType != null) && (iWantTo == ADD_NEW_THING) && (itemType.equals(MOVEMENT_STRING))) {
-            addEditViewModel.setSpinnerTypeSelection(1);
+            addEditViewModel.setSpinnerTypeSelection(SPINNER_OF_MOVEMENT);
             spinnerChooseType.setSelection(addEditViewModel.getSpinnerTypeSelection());
             spinnerChooseType.setEnabled(false);
             spinnerChooseType.setClickable(false);
+
+        } else if ((itemType != null) && (iWantTo == ADD_NEW_THING) && (itemType.equals(TYPE_STRING))) {
+            addEditViewModel.setSpinnerTypeSelection(SPINNER_OF_TYPE);
+            spinnerChooseType.setSelection(addEditViewModel.getSpinnerTypeSelection());
 
         } else if (iWantTo == ADD_NEW_THING) {
             addEditViewModel.setId(0);
@@ -275,7 +284,7 @@ public class AddEditThingActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         onPause = true;
-        if (!done) {
+        if (!done && !back) {
             saveItem();}
         super.onPause();
     }
@@ -286,6 +295,7 @@ public class AddEditThingActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) { // the default resource ID of the actionBar's back button
+            back = true;
             finish();
         }
         return true;

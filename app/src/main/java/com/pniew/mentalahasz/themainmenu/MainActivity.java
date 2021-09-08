@@ -77,30 +77,9 @@ public class MainActivity extends AppCompatActivity {
         buttonAddCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivityViewModel viewModel = new ViewModelProvider(MainActivity.this).get(MainActivityViewModel.class);
-                viewModel.getAllArtPeriods().observe(owner, new Observer<List<ArtPeriod>>() {
-                    @Override
-                    public void onChanged(List<ArtPeriod> artPeriods) {
-                        if(artPeriods.isEmpty()) {
-                            showDialog();
-                            viewModel.getAllArtPeriods().removeObservers(owner);
-                        } else {
-                            viewModel.getAllTypes().observe(owner, new Observer<List<Type>>() {
-                                @Override
-                                public void onChanged(List<Type> types) {
-                                    if(types.isEmpty()) {
-                                        showDialog();
-                                        viewModel.getAllTypes().removeObservers(owner);
-                                    } else {
-                                        startAddPictureActivity(MainActivity.this, MAIN_MENU, NULL, NULL);
-                                    }
-                                }
-                            });
-                        }
-                        viewModel.getAllArtPeriods().removeObservers(owner);
-                    }
-                });
+                startAddPictureActivity(MainActivity.this, MAIN_MENU, NULL, NULL);
             }
+
         });
 
 
@@ -136,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                             Manifest.permission.WRITE_EXTERNAL_STORAGE,
                             Permissions.PERMISSION_WRITE_EXTERNAL_STORAGE,
                             getString(R.string.web_needs_write_storage_permission));
-                } else if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED){
+                } else if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(MainActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -145,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     //Permission Granted
                     Intent intent = new Intent(MainActivity.this, WebActivity.class);
                     MainActivity.this.startActivity(intent);
-                } else if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED){
+                } else if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(MainActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -161,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.menu_about) {
+        if (item.getItemId() == R.id.menu_about) {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.HaSZDialogTheme);
             builder.setTitle("About").setMessage(R.string.about)
                     .show();
