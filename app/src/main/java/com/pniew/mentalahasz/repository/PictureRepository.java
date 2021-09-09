@@ -32,7 +32,7 @@ public class PictureRepository {
         executorService.execute(() -> {
             Picture picture = new Picture(path, name, author, dating, location);
             picture.setPictureArtPeriod(artPeriod);
-            if(movement != -1) {
+            if(movement != null && movement != -1) {
                 picture.setPictureMovement(movement);
             } else {
                 picture.setPictureMovement(null);

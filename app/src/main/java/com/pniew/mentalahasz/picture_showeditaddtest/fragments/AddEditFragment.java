@@ -59,6 +59,9 @@ public class AddEditFragment extends Fragment {
     private boolean artPeriodPositionObtained;
     private boolean movementPositionObtained;
     private boolean typePositionObtained;
+    private int selectedTypeIndex;
+    private int selectedMovementIndex;
+    private int selectedArtPeriodIndex;
 
     private Button addNewMovement;
     private Button addNewArtPeriod;
@@ -104,6 +107,9 @@ public class AddEditFragment extends Fragment {
         viewModel.setSpinnerTypeSelection(-1);
         viewModel.setSpinnerMovementSelection(-1);
         viewModel.setSpinnerArtPeriodSelection(-1);
+        selectedArtPeriodIndex = -1;
+        selectedMovementIndex = -1;
+        selectedTypeIndex = -1;
 
         Bundle arguments = getArguments();
         iWantTo = arguments.getInt(I_WANT_TO, 0);
@@ -255,7 +261,16 @@ public class AddEditFragment extends Fragment {
                     if(convertView instanceof Button) {
                         return super.getDropDownView(position, null, parent);
                     } else {
-                        return super.getDropDownView(position, convertView, parent);
+                        if (position == selectedTypeIndex) {
+                            View view = super.getDropDownView(position, convertView, parent);
+                            view.setBackgroundColor(getResources().getColor(R.color.edition_background_color));
+                            return view;
+                        } else {
+                            View view = super.getDropDownView(position, convertView, parent);
+                            view.setBackgroundColor(getResources().getColor(R.color.transparent));
+                            return view;
+                        }
+                        //return super.getDropDownView(position, convertView, parent);
                     }
                 }
 
@@ -271,7 +286,16 @@ public class AddEditFragment extends Fragment {
                     if(convertView instanceof Button) {
                         return super.getDropDownView(position, null, parent);
                     } else {
-                        return super.getDropDownView(position, convertView, parent);
+                        if (position == selectedTypeIndex) {
+                            View view = super.getDropDownView(position, convertView, parent);
+                            view.setBackgroundColor(getResources().getColor(R.color.edition_background_color));
+                            return view;
+                        } else {
+                            View view = super.getDropDownView(position, convertView, parent);
+                            view.setBackgroundColor(getResources().getColor(R.color.transparent));
+                            return view;
+                        }
+                        //return super.getDropDownView(position, convertView, parent);
                     }
                 }
             };
@@ -312,7 +336,16 @@ public class AddEditFragment extends Fragment {
                     if(convertView instanceof Button) {
                         return super.getDropDownView(position, null, parent);
                     } else {
-                        return super.getDropDownView(position, convertView, parent);
+                        if (position == selectedArtPeriodIndex) {
+                            View view = super.getDropDownView(position, convertView, parent);
+                            view.setBackgroundColor(getResources().getColor(R.color.edition_background_color));
+                            return view;
+                        } else {
+                            View view = super.getDropDownView(position, convertView, parent);
+                            view.setBackgroundColor(getResources().getColor(R.color.transparent));
+                            return view;
+                        }
+                        //return super.getDropDownView(position, convertView, parent);
                     }
                 }
 
@@ -328,7 +361,16 @@ public class AddEditFragment extends Fragment {
                     if(convertView instanceof Button) {
                         return super.getDropDownView(position, null, parent);
                     } else {
-                        return super.getDropDownView(position, convertView, parent);
+                        if (position == selectedArtPeriodIndex) {
+                            View view = super.getDropDownView(position, convertView, parent);
+                            view.setBackgroundColor(getResources().getColor(R.color.edition_background_color));
+                            return view;
+                        } else {
+                            View view = super.getDropDownView(position, convertView, parent);
+                            view.setBackgroundColor(getResources().getColor(R.color.transparent));
+                            return view;
+                        }
+                        //return super.getDropDownView(position, convertView, parent);
                     }
                 }
             };
@@ -377,7 +419,16 @@ public class AddEditFragment extends Fragment {
                     if(convertView instanceof Button) {
                         return super.getDropDownView(position, null, parent);
                     } else {
-                        return super.getDropDownView(position, convertView, parent);
+                        if (position == selectedMovementIndex) {
+                            View view = super.getDropDownView(position, convertView, parent);
+                            view.setBackgroundColor(getResources().getColor(R.color.edition_background_color));
+                            return view;
+                        } else {
+                            View view = super.getDropDownView(position, convertView, parent);
+                            view.setBackgroundColor(getResources().getColor(R.color.transparent));
+                            return view;
+                        }
+                        //return super.getDropDownView(position, convertView, parent);
                     }
                 }
 
@@ -393,7 +444,16 @@ public class AddEditFragment extends Fragment {
                     if(convertView instanceof Button) {
                         return super.getDropDownView(position, null, parent);
                     } else {
-                        return super.getDropDownView(position, convertView, parent);
+                        if (position == selectedMovementIndex) {
+                            View view = super.getDropDownView(position, convertView, parent);
+                            view.setBackgroundColor(getResources().getColor(R.color.edition_background_color));
+                            return view;
+                        } else {
+                            View view = super.getDropDownView(position, convertView, parent);
+                            view.setBackgroundColor(getResources().getColor(R.color.transparent));
+                            return view;
+                        }
+                        //return super.getDropDownView(position, convertView, parent);
                     }
                 }
             };
@@ -415,7 +475,7 @@ public class AddEditFragment extends Fragment {
                                 || (iWantTo == ADD_NEW_PICTURE && (viewModel.getCallingThing() == MOVEMENT))) {
                             obtainAndSetPositionToMovementSpinner(movements, movementArrayAdapter);
 
-                        } else if (!movements.isEmpty()){
+                        } else if (!movements.isEmpty() && (viewModel.getMovementId() == 0 || viewModel.getMovementId() == -1)){
                             Movement movement = movements.get(0);
                             viewModel.setMovementId(movement.getMovementId());
                         }
@@ -524,6 +584,7 @@ public class AddEditFragment extends Fragment {
             if(m != null) {
                 int position = movementArrayAdapter.getPosition(m);
                 viewModel.setSpinnerMovementSelection(position);
+                selectedMovementIndex = position;
                 movementPositionObtained = true;
 
                 if(iWantTo == ADD_NEW_PICTURE && viewModel.getCallingThing() != MAIN_MENU){
@@ -544,6 +605,7 @@ public class AddEditFragment extends Fragment {
             if(a != null) {
                 int position = artPeriodArrayAdapter.getPosition(a);
                 viewModel.setSpinnerArtPeriodSelection(position);
+                selectedArtPeriodIndex = position;
                 artPeriodPositionObtained = true;
 
                 if(iWantTo == ADD_NEW_PICTURE && viewModel.getCallingThing() != MAIN_MENU){
@@ -565,10 +627,12 @@ public class AddEditFragment extends Fragment {
             if(t != null) {
                 int position = typeArrayAdapter.getPosition(t);
                 viewModel.setSpinnerTypeSelection(position);
+                selectedTypeIndex = position;
                 typePositionObtained = true;
             }
         }
         spinner_choose_type.setSelection(viewModel.getSpinnerTypeSelection());
+        typeArrayAdapter.notifyDataSetChanged();
     }
 
     //==============================================================================================

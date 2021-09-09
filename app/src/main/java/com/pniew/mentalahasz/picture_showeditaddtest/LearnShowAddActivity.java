@@ -404,6 +404,7 @@ public class LearnShowAddActivity extends AppCompatActivity {
             @Override
             public void onChanged(Picture picture) {
                 viewModel.setPath(picture.getPicturePath());
+                viewModel.setTriviaText(picture.getPictureFunFact());
 
                 Glide.with(LearnShowAddActivity.this)
                         .load(viewModel.getPath())
@@ -507,6 +508,7 @@ public class LearnShowAddActivity extends AppCompatActivity {
 
     public void editFinished() {
         buttonChangePictureFile.setVisibility(View.GONE);
+        triviaEdited = false;
         Bundle bundle = new Bundle();
         bundle.putInt(I_WANT_TO, LEARN);
         bundle.putInt(PICTURE_ID, viewModel.getPictureId());

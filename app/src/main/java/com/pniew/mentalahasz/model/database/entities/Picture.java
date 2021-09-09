@@ -140,7 +140,7 @@ public class Picture implements AThing {
         if (t == null || getClass() != t.getClass()) return false;
         Picture picture = (Picture) t;
         if(getPictureMovement() != null && picture.getPictureMovement() != null) {
-            return getPictureId() == picture.getPictureId() &&
+            return (getPictureId() == picture.getPictureId() &&
                     getPictureArtPeriod() == picture.getPictureArtPeriod() &&
                     getPictureMovement().equals(picture.getPictureMovement()) &&
                     getPictureType() == picture.getPictureType() &&
@@ -150,9 +150,9 @@ public class Picture implements AThing {
                     getPictureDating().equals(picture.getPictureDating()) &&
                     getPictureLocation().equals(picture.getPictureLocation()) &&
                     getPictureKnowledgeDegree() == picture.getPictureKnowledgeDegree() &&
-                    getPictureFunFact().equals(picture.getPictureFunFact());
+                    getPictureFunFact() != null) && (picture.getPictureFunFact() != null && getPictureFunFact().equals(picture.getPictureFunFact()));
         } else {
-            return getPictureId() == picture.getPictureId() &&
+            return (getPictureId() == picture.getPictureId() &&
                     getPictureArtPeriod() == picture.getPictureArtPeriod() &&
                     getPictureType() == picture.getPictureType() &&
                     getPicturePath().equals(picture.getPicturePath()) &&
@@ -161,7 +161,7 @@ public class Picture implements AThing {
                     getPictureDating().equals(picture.getPictureDating()) &&
                     getPictureLocation().equals(picture.getPictureLocation()) &&
                     getPictureKnowledgeDegree() == picture.getPictureKnowledgeDegree() &&
-                    getPictureFunFact().equals(picture.getPictureFunFact());
+                    getPictureFunFact() != null) && (picture.getPictureFunFact() != null && getPictureFunFact().equals(picture.getPictureFunFact()));
         }
     }
 
