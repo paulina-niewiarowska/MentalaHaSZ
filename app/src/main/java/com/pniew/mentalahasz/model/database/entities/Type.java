@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey;
 
 import com.pniew.mentalahasz.repository.AThing;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 @Entity (indices = {@Index("typeId")})
@@ -13,7 +15,9 @@ public class Type implements AThing {
     @PrimaryKey(autoGenerate = true)
     private int typeId;
     private String typeName;
+    private String typeFunFact;
 
+    @NotNull
     @Override
     public String toString() {
         return typeName;
@@ -26,7 +30,6 @@ public class Type implements AThing {
     public int getTypeId() {
         return typeId;
     }
-
     public void setTypeId(int typeId) {
         this.typeId = typeId;
     }
@@ -34,10 +37,12 @@ public class Type implements AThing {
     public String getTypeName() {
         return typeName;
     }
-
     public void setTypeName(String typeName) {
         this.typeName = typeName;
     }
+
+    public String getTypeFunFact() { return typeFunFact; }
+    public void setTypeFunFact(String typeFunFact) { this.typeFunFact = typeFunFact; }
 
     @Override
     public int getId() {
@@ -50,11 +55,12 @@ public class Type implements AThing {
         if (o == null || getClass() != o.getClass()) return false;
         Type type = (Type) o;
         return getTypeId() == type.getTypeId() &&
-                getTypeName().equals(type.getTypeName());
+                getTypeName().equals(type.getTypeName()) &&
+                getTypeFunFact().equals(type.getTypeFunFact());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTypeId(), getTypeName());
+        return Objects.hash(getTypeId(), getTypeName(), getTypeFunFact());
     }
 }

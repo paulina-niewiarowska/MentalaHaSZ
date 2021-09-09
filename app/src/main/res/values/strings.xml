@@ -39,6 +39,8 @@
     <string name="permission_needed">Permission needed</string>
     <string name="looks_like_you_have_nothing_to_test">Looks like you have no pictures added. Please add pictures, learn and then come back here to take a test :)</string>
     <string name="about">This app is created as a thesis project.\n\nIt is open source, which means you can take my code, read it and change it if you want.\n\nThis app does not contain and will never contain any ads. It also do not collect any of your data. As it comes to data, the app will have the backup copy option in the future, for convenience. And that\'s it.\n\nFor source code come to: https://github.com/paulina-niewiarowska/MentalaHaSZ \n\nCheers, P.Niewiarowska</string>
+    <string name="fun_fact">Fun fact</string>
+    <string name="confirm_and_edit">Confirm and edit</string>
 
     <!--    ==========================    activity    ===========================================-->
 </resources>

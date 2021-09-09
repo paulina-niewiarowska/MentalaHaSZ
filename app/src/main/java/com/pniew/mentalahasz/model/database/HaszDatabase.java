@@ -20,7 +20,7 @@ import com.pniew.mentalahasz.model.database.entities.Type;
 
 @Database(entities = {Picture.class, ArtPeriod.class, Movement.class, Type.class},
         views = {Things.class},
-        version = 7,
+        version = 8,
         exportSchema = true
         )
 public abstract class HaszDatabase extends RoomDatabase {

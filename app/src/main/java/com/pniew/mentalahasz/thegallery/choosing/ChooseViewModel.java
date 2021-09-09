@@ -15,6 +15,9 @@ import com.pniew.mentalahasz.repository.TypeRepository;
 
 import java.util.List;
 
+import static com.pniew.mentalahasz.utils.CallsStringsIntents.ART_PERIOD;
+import static com.pniew.mentalahasz.utils.CallsStringsIntents.MOVEMENT;
+
 public class ChooseViewModel extends AndroidViewModel {
 
     private int parentPeriodId;
@@ -28,6 +31,10 @@ public class ChooseViewModel extends AndroidViewModel {
     private LiveData<List<Type>> allTypeList;
 
     private LiveData<List<Movement>> movementListByPeriodId;
+
+    private String triviaText;
+    private int idOfLoadedItem;
+    private int typeOfLoadedItem;
 
     private boolean isMovementListEmpty;
     private boolean nothingToShow;
@@ -52,6 +59,14 @@ public class ChooseViewModel extends AndroidViewModel {
     public int getParentPeriodId() { return parentPeriodId; }
     public void setParentPeriodId(int parentPeriodId) { this.parentPeriodId = parentPeriodId; }
 
+    public String getTriviaText() { return triviaText; }
+    public void setTriviaText(String triviaText) { this.triviaText = triviaText; }
+
+    public int getIdOfLoadedItem() { return idOfLoadedItem; }
+    public void setIdOfLoadedItem(int idOfLoadedItem) { this.idOfLoadedItem = idOfLoadedItem; }
+    public int getTypeOfLoadedItem() { return typeOfLoadedItem; }
+    public void setTypeOfLoadedItem(int typeOfLoadedItem) { this.typeOfLoadedItem = typeOfLoadedItem; }
+
     public LiveData<List<ArtPeriod>> getAllArtPeriods(){ return allArtPeriodList; }
     public LiveData<List<Movement>> getAllMovements(){ return allMovementList; }
     public LiveData<List<Type>> getAllTypes(){ return allTypeList; }
@@ -62,4 +77,10 @@ public class ChooseViewModel extends AndroidViewModel {
 
     public boolean isNothingToShow() { return nothingToShow; }
     public void setNothingToShow(boolean nothingToShow) { this.nothingToShow = nothingToShow; }
+
+    public void updateTrivia() {
+        if(typeOfLoadedItem == ART_PERIOD){
+            artPeriodRepository.setArtPeriodFunFact(idOfLoadedItem, triviaText);
+        }
+    }
 }

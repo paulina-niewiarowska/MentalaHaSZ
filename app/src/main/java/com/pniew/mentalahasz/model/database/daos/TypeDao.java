@@ -30,4 +30,7 @@ public interface TypeDao {
 
     @Query("SELECT * FROM Type WHERE typeName = :name")
     Type getTypeByItsName(String name);
+
+    @Query("UPDATE Type SET typeFunFact = :trivia WHERE typeId = :typeId")
+    void setTypeFunFact(int typeId, String trivia);
 }

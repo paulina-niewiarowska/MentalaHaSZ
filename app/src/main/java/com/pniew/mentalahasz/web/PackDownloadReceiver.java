@@ -45,7 +45,6 @@ public class PackDownloadReceiver extends BroadcastReceiver {
     MovementRepository movementRepository;
     ArtPeriodRepository artPeriodRepository;
     TypeRepository typeRepository;
-    int which;
 
 
     @Override
@@ -138,12 +137,9 @@ public class PackDownloadReceiver extends BroadcastReceiver {
                             e.printStackTrace();
                         }
                     });
-                    context.getMainExecutor().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            WebActivity.Instance.stopTheLoader();
-                            Toast.makeText(context, "Items unpacked. You can now check them out in the learning section.", Toast.LENGTH_LONG).show();
-                        }
+                    context.getMainExecutor().execute(() -> {
+                        WebActivity.Instance.stopTheLoader(downloadId);
+                        Toast.makeText(context, "Items unpacked. You can now check them out in the learning section.", Toast.LENGTH_LONG).show();
                     });
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();

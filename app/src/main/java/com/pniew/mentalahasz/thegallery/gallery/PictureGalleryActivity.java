@@ -1,22 +1,29 @@
 package com.pniew.mentalahasz.thegallery.gallery;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pniew.mentalahasz.R;
 import com.pniew.mentalahasz.model.database.entities.Picture;
+import com.pniew.mentalahasz.thegallery.choosing.ChooseActivity;
 
 import java.util.List;
 
@@ -33,6 +40,7 @@ public class PictureGalleryActivity extends AppCompatActivity {
     Button addMovement;
     TextView emptiness;
     FloatingActionButton buttonFloating;
+    private EditText triviaEditText;
 
     boolean emptyArtPeriodList;
     boolean emptyMovementList;
@@ -64,45 +72,43 @@ public class PictureGalleryActivity extends AppCompatActivity {
         buttonFloating = findViewById(R.id.add_new_button);
 
 
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+
 
         //get info about calling thing ===================================================================================
         Intent intent = getIntent();
         viewModel.setIdOfCallingThing(intent.getIntExtra(CHILD_OF, 0));
         viewModel.setCallingThing(intent.getIntExtra(CALLED_BY, 0));
         viewModel.setParentPeriodId(intent.getIntExtra(PARENT_PERIOD_ID, 0));
+        viewModel.setTriviaText(intent.getStringExtra(TRIVIA));
         setTitle(intent.getStringExtra(NAME));
 
         //show pictures =========
         if(viewModel.callingThing() == ART_PERIOD) {
-            viewModel.getPictureListByPeriodId(viewModel.idOfCallingThing()).observe(lifecycleOwner, new Observer<List<Picture>>() {
-                @Override
-                public void onChanged(List<Picture> pictures) {
-                    if(pictures.isEmpty()){
-                        theEmptinessMethod();
-                    } else {
-                        picturesIdsArray = pictures.stream().mapToInt(Picture::getPictureId).toArray();
-                        adapter.submitList(pictures);
-                        addMovement.setVisibility(View.GONE);
-                        emptiness.setVisibility(View.GONE);
-                        addPicture.setVisibility(View.GONE);
-                        buttonFloating.setVisibility(View.VISIBLE);
-                    }
+            viewModel.getPictureListByPeriodId(viewModel.idOfCallingThing()).observe(lifecycleOwner, pictures -> {
+                if(pictures.isEmpty()){
+                    theEmptinessMethod();
+                } else {
+                    picturesIdsArray = pictures.stream().mapToInt(Picture::getPictureId).toArray();
+                    adapter.submitList(pictures);
+                    addMovement.setVisibility(View.GONE);
+                    emptiness.setVisibility(View.GONE);
+                    addPicture.setVisibility(View.GONE);
+                    buttonFloating.setVisibility(View.VISIBLE);
                 }
             });
         } else if (viewModel.callingThing() == MOVEMENT) {
-            viewModel.getPictureListByMovementId(viewModel.idOfCallingThing()).observe(this, new Observer<List<Picture>>() {
-                @Override
-                public void onChanged(List<Picture> pictures) {
-                    picturesIdsArray = pictures.stream().mapToInt(Picture::getPictureId).toArray();
-                    adapter.submitList(pictures);
-                    if(pictures.isEmpty()){
-                        theEmptinessMethod();
-                    } else {
-                        addMovement.setVisibility(View.GONE);
-                        emptiness.setVisibility(View.GONE);
-                        addPicture.setVisibility(View.GONE);
-                        buttonFloating.setVisibility(View.VISIBLE);
-                    }
+            viewModel.getPictureListByMovementId(viewModel.idOfCallingThing()).observe(this, pictures -> {
+                picturesIdsArray = pictures.stream().mapToInt(Picture::getPictureId).toArray();
+                adapter.submitList(pictures);
+                if(pictures.isEmpty()){
+                    theEmptinessMethod();
+                } else {
+                    addMovement.setVisibility(View.GONE);
+                    emptiness.setVisibility(View.GONE);
+                    addPicture.setVisibility(View.GONE);
+                    buttonFloating.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -110,12 +116,7 @@ public class PictureGalleryActivity extends AppCompatActivity {
 
         //pictures clickable ===================================================================================
 
-        adapter.setOnPictureClickListener(new GalleryAdapter.OnPictureClickListener() {
-            @Override
-            public void onPictureClick(Picture p) {
-                startShowPictureActivity(PictureGalleryActivity.this, picturesIdsArray, p.getPictureId(), viewModel.callingThing(), viewModel.idOfCallingThing());
-            }
-        });
+        adapter.setOnPictureClickListener(p -> startShowPictureActivity(PictureGalleryActivity.this, picturesIdsArray, p.getPictureId(), viewModel.callingThing(), viewModel.idOfCallingThing()));
 
     }
 
@@ -140,12 +141,37 @@ public class PictureGalleryActivity extends AppCompatActivity {
 
     // method to close activity when back button clicked ======================================================
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+            MenuInflater menuInflater = getMenuInflater();
+            menuInflater.inflate(R.menu.funfackmenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) { // the default resource ID of the actionBar's back button
-            finish();
+            onBackPressed();
+            return true;
+        } else if (item.getItemId() == R.id.menu_funfack) { // fun fack selected
+            AlertDialog.Builder builder = new AlertDialog.Builder(PictureGalleryActivity.this, R.style.TriviaDialogTheme);
+            triviaEditText = new EditText(PictureGalleryActivity.this);
+            triviaEditText.setText(viewModel.getTriviaText());
+            builder.setView(triviaEditText);
+            triviaEditText.setClickable(true);
+            triviaEditText.setFocusable(true);
+            builder.setTitle("Fun Fact");
+            builder.setPositiveButton("Update", (dialog, which) -> {
+                String trivia = triviaEditText.getText().toString();
+                viewModel.setTriviaText(trivia);
+                viewModel.updateTrivia();
+            });
+            builder.setNegativeButton("Dismiss", (dialog, which) -> {
+            });
+            builder.show();
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     public void addNewPicture(View view) {

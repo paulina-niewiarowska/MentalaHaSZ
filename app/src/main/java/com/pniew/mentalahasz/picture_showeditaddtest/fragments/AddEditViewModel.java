@@ -177,10 +177,16 @@ public class AddEditViewModel extends AndroidViewModel {
                 || location.trim().equals("")) {
             return 0;
         } else {
-            if(trivia == null) {
-                pictureRepository.insertNewPicture(path, name, author, dating, location, typeId, movementId, artPeriodId);
+            Integer movement;
+            if(movementId == -1){
+                movement = null;
             } else {
-                pictureRepository.insertNewPicture(path, name, author, dating, location, typeId, movementId, artPeriodId, trivia);
+                movement = movementId;
+            }
+            if(trivia == null) {
+                pictureRepository.insertNewPicture(path, name, author, dating, location, typeId, movement, artPeriodId);
+            } else {
+                pictureRepository.insertNewPicture(path, name, author, dating, location, typeId, movement, artPeriodId, trivia);
             }
             return 1;
         }
@@ -206,7 +212,13 @@ public class AddEditViewModel extends AndroidViewModel {
             if(callingThing == TYPE && callingThingId != typeId){
                 changedThing = true;
             }
-            pictureRepository.updatePicture(id, path, name, author, dating, location, typeId, movementId, artPeriodId, trivia);
+            Integer movement;
+            if(movementId == -1){
+                movement = null;
+            } else {
+                movement = movementId;
+            }
+            pictureRepository.updatePicture(id, path, name, author, dating, location, typeId, movement, artPeriodId, trivia);
             return 1;
         }
     }

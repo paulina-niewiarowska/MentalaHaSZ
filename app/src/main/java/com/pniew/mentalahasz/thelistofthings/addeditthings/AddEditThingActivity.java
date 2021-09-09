@@ -1,5 +1,6 @@
 package com.pniew.mentalahasz.thelistofthings.addeditthings;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -8,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 
 import com.pniew.mentalahasz.R;
 import com.pniew.mentalahasz.model.database.entities.ArtPeriod;
+import com.pniew.mentalahasz.thegallery.gallery.PictureGalleryActivity;
 import com.pniew.mentalahasz.thelistofthings.ListOfThingsActivity;
 
 import java.util.List;
@@ -35,6 +39,7 @@ public class AddEditThingActivity extends AppCompatActivity {
     private EditText textViewLocation;
     private Spinner spinnerChooseType;
     private Spinner spinnerChooseParentPeriod;
+    private EditText triviaEditText;
 
     private final int SPINNER_OF_TYPE = 2;
     private final int SPINNER_OF_MOVEMENT = 1;
@@ -93,6 +98,7 @@ public class AddEditThingActivity extends AppCompatActivity {
         //if we're here to edit a thing:
 
         if (iWantTo == EDIT_A_THING) {
+            setTitle("Edit Periodization Item");
             if(addEditViewModel.getSpinnerTypeSelection() == -1) {
                 switch (itemType) {
                     case ART_PERIOD_STRING:
@@ -110,26 +116,30 @@ public class AddEditThingActivity extends AppCompatActivity {
             spinnerChooseType.setEnabled(false);
             spinnerChooseType.setClickable(false);
 
-            buttonAdd.setText("Confirm and edit");
+            buttonAdd.setText(R.string.confirm_and_edit);
 
             addEditViewModel.setId(intent.getIntExtra(THING_ID, 0));
             textViewName.setText(intent.getStringExtra(THING_NAME));
 
             textViewLocation.setText(intent.getStringExtra(THING_LOCATION));
             textViewDating.setText(intent.getStringExtra(THING_DATING));
+            addEditViewModel.setTriviaText(intent.getStringExtra(TRIVIA));
 
 
         } else if ((itemType != null) && (iWantTo == ADD_NEW_THING) && (itemType.equals(MOVEMENT_STRING))) {
+            setTitle("Add Periodization Item");
             addEditViewModel.setSpinnerTypeSelection(SPINNER_OF_MOVEMENT);
             spinnerChooseType.setSelection(addEditViewModel.getSpinnerTypeSelection());
             spinnerChooseType.setEnabled(false);
             spinnerChooseType.setClickable(false);
 
         } else if ((itemType != null) && (iWantTo == ADD_NEW_THING) && (itemType.equals(TYPE_STRING))) {
+            setTitle("Add Periodization Item");
             addEditViewModel.setSpinnerTypeSelection(SPINNER_OF_TYPE);
             spinnerChooseType.setSelection(addEditViewModel.getSpinnerTypeSelection());
 
         } else if (iWantTo == ADD_NEW_THING) {
+            setTitle("Add Periodization Item");
             addEditViewModel.setId(0);
         }
 
@@ -156,36 +166,33 @@ public class AddEditThingActivity extends AppCompatActivity {
         spinnerChooseParentPeriod.setAdapter(artPeriodArrayAdapter);
 
         //if art period list changes, recyclerview's adapter cleans up the list and adds it again:
-        addEditViewModel.getAllArtPeriods().observe(AddEditThingActivity.this, new Observer<List<ArtPeriod>>() {
-            @Override
-            public void onChanged(List<ArtPeriod> artPeriods) {
-                artPeriodArrayAdapter.clear();
-                artPeriodArrayAdapter.addAll(artPeriods);
+        addEditViewModel.getAllArtPeriods().observe(AddEditThingActivity.this, artPeriods -> {
+            artPeriodArrayAdapter.clear();
+            artPeriodArrayAdapter.addAll(artPeriods);
 
-                //if we want to edit, we want the field to be set as it is in the thing:
-                int iWantTo = getIntent().getIntExtra(I_WANT_TO, 0);
+            //if we want to edit, we want the field to be set as it is in the thing:
+            int iWantTo = getIntent().getIntExtra(I_WANT_TO, 0);
 
-                if((!positionObtained && (iWantTo == EDIT_A_THING)) || ((itemType != null) && (iWantTo == ADD_NEW_THING) && (itemType.equals(MOVEMENT_STRING)))) {
-                    if(addEditViewModel.getSpinnerParentSelection() == -1) {
-                        int artPeriodId;
-                        if(iWantTo == EDIT_A_THING) {
-                            artPeriodId = getIntent().getIntExtra(THING_PARENT_PERIOD_ID, 0);
-                        } else {
-                            artPeriodId = getIntent().getIntExtra(CHILD_OF, 0);
-                        }
-                        ArtPeriod a = artPeriods.stream().filter(artPeriod -> artPeriod.getArtPeriodId() == artPeriodId).findFirst().orElse(null);
-                        if (a != null) {
-                            int position = artPeriodArrayAdapter.getPosition(a);
-                            addEditViewModel.setSpinnerParentSelection(position);
-                            positionObtained = true;
-                        }
-                        if(iWantTo == ADD_NEW_THING) {
-                            spinnerChooseParentPeriod.setClickable(false);
-                            spinnerChooseParentPeriod.setEnabled(false);
-                        }
+            if((!positionObtained && (iWantTo == EDIT_A_THING)) || ((itemType != null) && (iWantTo == ADD_NEW_THING) && (itemType.equals(MOVEMENT_STRING)))) {
+                if(addEditViewModel.getSpinnerParentSelection() == -1) {
+                    int artPeriodId;
+                    if(iWantTo == EDIT_A_THING) {
+                        artPeriodId = getIntent().getIntExtra(THING_PARENT_PERIOD_ID, 0);
+                    } else {
+                        artPeriodId = getIntent().getIntExtra(CHILD_OF, 0);
                     }
-                    spinnerChooseParentPeriod.setSelection(addEditViewModel.getSpinnerParentSelection());
+                    ArtPeriod a = artPeriods.stream().filter(artPeriod -> artPeriod.getArtPeriodId() == artPeriodId).findFirst().orElse(null);
+                    if (a != null) {
+                        int position = artPeriodArrayAdapter.getPosition(a);
+                        addEditViewModel.setSpinnerParentSelection(position);
+                        positionObtained = true;
+                    }
+                    if(iWantTo == ADD_NEW_THING) {
+                        spinnerChooseParentPeriod.setClickable(false);
+                        spinnerChooseParentPeriod.setEnabled(false);
+                    }
                 }
+                spinnerChooseParentPeriod.setSelection(addEditViewModel.getSpinnerParentSelection());
             }
         });
     }
@@ -291,34 +298,55 @@ public class AddEditThingActivity extends AppCompatActivity {
 
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.funfackmenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) { // the default resource ID of the actionBar's back button
             back = true;
             finish();
+            return true;
+        } else if (item.getItemId() == R.id.menu_funfack) { // fun fack selected
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(AddEditThingActivity.this, R.style.TriviaDialogTheme);
+            triviaEditText = new EditText(AddEditThingActivity.this);
+            triviaEditText.setText(addEditViewModel.getTriviaText());
+            builder.setView(triviaEditText);
+            triviaEditText.setClickable(true);
+            triviaEditText.setFocusable(true);
+            builder.setTitle("Fun Fact");
+            builder.setPositiveButton("Update", (dialog, which) -> {
+                String trivia = triviaEditText.getText().toString();
+                addEditViewModel.setTriviaText(trivia);
+                addEditViewModel.updateTrivia();
+            });
+            builder.setNegativeButton("Dismiss", (dialog, which) -> {
+            });
+            builder.show();
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     public void cancelDelete(View view) {
         if (iWantTo == EDIT_A_THING) {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(AddEditThingActivity.this, R.style.HaSZErrorDialogTheme);
-            DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Result result;
-                    switch (which) {
-                        case DialogInterface.BUTTON_POSITIVE:
-                            result = addEditViewModel.deleteThing();
-                            done = true;
-                            Toast.makeText(AddEditThingActivity.this, result.getToast(), Toast.LENGTH_SHORT).show();
-                            AddEditThingActivity.this.finish();
-                            break;
-                        case DialogInterface.BUTTON_NEGATIVE:
-                            done = true;
-                            break;
-                    }
+            DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
+                Result result;
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        result = addEditViewModel.deleteThing();
+                        done = true;
+                        Toast.makeText(AddEditThingActivity.this, result.getToast(), Toast.LENGTH_SHORT).show();
+                        AddEditThingActivity.this.finish();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        done = true;
+                        break;
                 }
             };
             alertBuilder

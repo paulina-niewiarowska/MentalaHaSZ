@@ -52,6 +52,7 @@ public class AddEditThingViewModel extends AndroidViewModel {
     private int typeOfItemChosen;
     private int spinnerTypeSelection;
     private int spinnerParentSelection;
+    private String triviaText;
 
     //----------------------------------------------------------------------------------------------
     //constructor
@@ -71,20 +72,53 @@ public class AddEditThingViewModel extends AndroidViewModel {
     //----------------------------------------------------------------------------------------------
 
     //getters setters:
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public int getIdOfParent() { return idOfParent; }
-    public void setIdOfParent(int idOfParent) { this.idOfParent = idOfParent; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public int getTypeOfItemChosen() { return typeOfItemChosen; }
-    public void setTypeOfItemChosen(int typeOfItemChosen) { this.typeOfItemChosen = typeOfItemChosen; }
+    public int getIdOfParent() {
+        return idOfParent;
+    }
 
-    public int getSpinnerTypeSelection() { return spinnerTypeSelection; }
-    public void setSpinnerTypeSelection(int spinnerTypeSelection) { this.spinnerTypeSelection = spinnerTypeSelection; }
+    public void setIdOfParent(int idOfParent) {
+        this.idOfParent = idOfParent;
+    }
 
-    public int getSpinnerParentSelection() { return spinnerParentSelection; }
-    public void setSpinnerParentSelection(int spinnerParentSelection) { this.spinnerParentSelection = spinnerParentSelection; }
+    public int getTypeOfItemChosen() {
+        return typeOfItemChosen;
+    }
+
+    public void setTypeOfItemChosen(int typeOfItemChosen) {
+        this.typeOfItemChosen = typeOfItemChosen;
+    }
+
+    public int getSpinnerTypeSelection() {
+        return spinnerTypeSelection;
+    }
+
+    public void setSpinnerTypeSelection(int spinnerTypeSelection) {
+        this.spinnerTypeSelection = spinnerTypeSelection;
+    }
+
+    public int getSpinnerParentSelection() {
+        return spinnerParentSelection;
+    }
+
+    public void setSpinnerParentSelection(int spinnerParentSelection) {
+        this.spinnerParentSelection = spinnerParentSelection;
+    }
+
+    public String getTriviaText() {
+        return triviaText;
+    }
+
+    public void setTriviaText(String triviaText) {
+        this.triviaText = triviaText;
+    }
 
     //----------------------------------------------------------------------------------------------
     //Live Data
@@ -101,12 +135,7 @@ public class AddEditThingViewModel extends AndroidViewModel {
     //----------------------------------------------------------------------------------------------
 
     public void bindOnInsertedIdChanged(LifecycleOwner lifecycleOwner) {
-        liveDataId.observe(lifecycleOwner, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                id = integer;
-            }
-        });
+        liveDataId.observe(lifecycleOwner, integer -> id = integer);
     }
 
     //inserts made on ThingRepository. The difference between adding here
@@ -135,7 +164,7 @@ public class AddEditThingViewModel extends AndroidViewModel {
                     return result;
                 }
                 if (id != 0) {
-                    artPeriodRepository.updateArtPeriod(id, name, dating);
+                    artPeriodRepository.updateArtPeriod(id, name, dating, triviaText);
                     result.setResultOfInsertion(PERIOD_UPDATED);
                     result.setToast("Art Period updated");
                 } else {
@@ -152,7 +181,7 @@ public class AddEditThingViewModel extends AndroidViewModel {
                     return result;
                 }
                 if (id != 0) {
-                    movementRepository.updateMovement(id, name, dating, location, idOfParent);
+                    movementRepository.updateMovement(id, name, dating, location, idOfParent, triviaText);
                     result.setResultOfInsertion(MOVEMENT_UPDATED);
                     result.setToast("Movement updated");
                 } else {
@@ -169,7 +198,7 @@ public class AddEditThingViewModel extends AndroidViewModel {
                     return result;
                 }
                 if (id != 0) {
-                    typeRepository.updateType(id, name);
+                    typeRepository.updateType(id, name, triviaText);
                     result.setResultOfInsertion(TYPE_UPDATED);
                     result.setToast("Type updated");
                 } else {
@@ -217,6 +246,20 @@ public class AddEditThingViewModel extends AndroidViewModel {
                 result.setResultOfInsertion(NOT_OK);
                 result.setToast("Cannot delete");
                 return result;
+        }
+    }
+
+    public void updateTrivia() {
+        switch (typeOfItemChosen) {
+            case (CHOSEN_ART_PERIOD):
+                artPeriodRepository.setArtPeriodFunFact(id, triviaText);
+                break;
+            case (CHOSEN_MOVEMENT):
+                movementRepository.setMovementFunFact(id, triviaText);
+                break;
+            case (CHOSEN_TYPE):
+                typeRepository.setTypeFunFact(id, triviaText);
+                break;
         }
     }
 }

@@ -29,6 +29,7 @@ public abstract class CallsStringsIntents {
     public static final String CHILD_OF = "Child of";
     public static final String CALLED_BY = "Called by";
     public static final String NAME = "Name";
+    public static final String TRIVIA = "Trivia";
 
     public static final int NULL = 0;
     public static final int ART_PERIOD = 1;

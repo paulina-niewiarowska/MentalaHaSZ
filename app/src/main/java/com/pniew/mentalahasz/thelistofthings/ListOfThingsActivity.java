@@ -61,31 +61,19 @@ public class ListOfThingsActivity extends AppCompatActivity {
 
         ListOfThingsAdapter adapter = new ListOfThingsAdapter();
         recyclerView.setAdapter(adapter);
-        thingsViewModel.getAllThings().observe(this, new Observer<List<Things>>() {
-            @Override
-            public void onChanged(List<Things> things) {
-                adapter.submitList(things);
-            }
-        });
+        thingsViewModel.getAllThings().observe(this, adapter::submitList);
 
 
-        adapter.setOnThingClickListener(new ListOfThingsAdapter.OnThingClickListener() {
-            @Override
-            public void onThingClick(Things thing) {
-                Intent intent = prepareIntentForEditing(thing);
-                addEditActivityResultLauncher.launch(intent);
-            }
+        adapter.setOnThingClickListener(thing -> {
+            Intent intent = prepareIntentForEditing(thing);
+            addEditActivityResultLauncher.launch(intent);
         });
 
         FloatingActionButton actionButton = findViewById(R.id.add_new_button);
-        actionButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ListOfThingsActivity.this, AddEditThingActivity.class);
-                intent.putExtra(I_WANT_TO, ADD_NEW_THING);
-                addEditActivityResultLauncher.launch(intent);
-            }
+        actionButton.setOnClickListener(view -> {
+            Intent intent = new Intent(ListOfThingsActivity.this, AddEditThingActivity.class);
+            intent.putExtra(I_WANT_TO, ADD_NEW_THING);
+            addEditActivityResultLauncher.launch(intent);
         });
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -172,6 +160,7 @@ public class ListOfThingsActivity extends AppCompatActivity {
         intent.putExtra(THING_DATING, thing.getDating());
         intent.putExtra(THING_LOCATION, thing.getLocation());
         intent.putExtra(THING_PARENT_PERIOD_ID, thing.getParentPeriodId());
+        intent.putExtra(TRIVIA, thing.getFunFact());
         intent.putExtra(I_WANT_TO, EDIT_A_THING);
         return intent;
     }

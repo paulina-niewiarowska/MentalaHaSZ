@@ -40,18 +40,17 @@ public class ArtPeriodRepository {
 
     //to update
 
-    public void updateArtPeriod(int idOfOldArtPeriod, String newName, String newDating){
+    public void updateArtPeriod(int idOfOldArtPeriod, String newName, String newDating, String trivia){
         executorService.execute(() -> {
             ArtPeriod artPeriod = new ArtPeriod(newName, newDating);
             artPeriod.setArtPeriodId(idOfOldArtPeriod);
+            artPeriod.setArtPeriodFunFact(trivia);
             artPeriodDao.updateArtPeriod(artPeriod);
         });
     }
 
     public void setArtPeriodFunFact(int artPeriodId, String artPeriodFunFact){
-        executorService.execute(() -> {
-            artPeriodDao.setArtPeriodFunFact(artPeriodId, artPeriodFunFact);
-        });
+        executorService.execute(() -> artPeriodDao.setArtPeriodFunFact(artPeriodId, artPeriodFunFact));
     }
 
     //to delete

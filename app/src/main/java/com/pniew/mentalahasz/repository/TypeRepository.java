@@ -42,14 +42,20 @@ public class TypeRepository {
 
     //to update
 
-    public void updateType(int idOfOldType, String newName){
+    public void updateType(int idOfOldType, String newName, String trivia){
         executorService.execute(() -> {
             Type type = new Type(newName);
             type.setTypeId(idOfOldType);
+            type.setTypeFunFact(trivia);
             typeDao.updateType(type);
         });
     }
 
+    public void setTypeFunFact(int id, String funFack){
+        executorService.execute(() -> {
+            typeDao.setTypeFunFact(id, funFack);
+        });
+    }
     //to delete
 
     public void deleteTypeAndItsChildren(int typeId){

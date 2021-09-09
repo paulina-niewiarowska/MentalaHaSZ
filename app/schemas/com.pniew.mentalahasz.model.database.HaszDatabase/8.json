@@ -1,0 +1,325 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 8,
+    "identityHash": "b20907ec169d6d42069bf04fed8f532d",
+    "entities": [
+      {
+        "tableName": "Picture",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pictureId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `picturePath` TEXT, `pictureName` TEXT, `pictureAuthor` TEXT, `pictureDating` TEXT, `pictureLocation` TEXT, `pictureArtPeriod` INTEGER NOT NULL, `pictureMovement` INTEGER, `pictureType` INTEGER NOT NULL, `pictureFunFact` TEXT, `pictureKnowledgeDegree` INTEGER NOT NULL, FOREIGN KEY(`pictureArtPeriod`) REFERENCES `ArtPeriod`(`artPeriodId`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`pictureMovement`) REFERENCES `Movement`(`movementId`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`pictureType`) REFERENCES `Type`(`typeId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "pictureId",
+            "columnName": "pictureId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "picturePath",
+            "columnName": "picturePath",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pictureName",
+            "columnName": "pictureName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pictureAuthor",
+            "columnName": "pictureAuthor",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pictureDating",
+            "columnName": "pictureDating",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pictureLocation",
+            "columnName": "pictureLocation",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pictureArtPeriod",
+            "columnName": "pictureArtPeriod",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pictureMovement",
+            "columnName": "pictureMovement",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pictureType",
+            "columnName": "pictureType",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pictureFunFact",
+            "columnName": "pictureFunFact",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pictureKnowledgeDegree",
+            "columnName": "pictureKnowledgeDegree",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "pictureId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Picture_pictureArtPeriod",
+            "unique": false,
+            "columnNames": [
+              "pictureArtPeriod"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Picture_pictureArtPeriod` ON `${TABLE_NAME}` (`pictureArtPeriod`)"
+          },
+          {
+            "name": "index_Picture_pictureMovement",
+            "unique": false,
+            "columnNames": [
+              "pictureMovement"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Picture_pictureMovement` ON `${TABLE_NAME}` (`pictureMovement`)"
+          },
+          {
+            "name": "index_Picture_pictureType",
+            "unique": false,
+            "columnNames": [
+              "pictureType"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Picture_pictureType` ON `${TABLE_NAME}` (`pictureType`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "ArtPeriod",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "pictureArtPeriod"
+            ],
+            "referencedColumns": [
+              "artPeriodId"
+            ]
+          },
+          {
+            "table": "Movement",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "pictureMovement"
+            ],
+            "referencedColumns": [
+              "movementId"
+            ]
+          },
+          {
+            "table": "Type",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "pictureType"
+            ],
+            "referencedColumns": [
+              "typeId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "ArtPeriod",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`artPeriodId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `artPeriodName` TEXT, `artPeriodDating` TEXT, `artPeriodFunFact` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "artPeriodId",
+            "columnName": "artPeriodId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artPeriodName",
+            "columnName": "artPeriodName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "artPeriodDating",
+            "columnName": "artPeriodDating",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "artPeriodFunFact",
+            "columnName": "artPeriodFunFact",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "artPeriodId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_ArtPeriod_artPeriodId",
+            "unique": false,
+            "columnNames": [
+              "artPeriodId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ArtPeriod_artPeriodId` ON `${TABLE_NAME}` (`artPeriodId`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Movement",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`movementId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `movementName` TEXT, `movementDating` TEXT, `movementLocation` TEXT, `movementArtPeriod` INTEGER NOT NULL, `movementFunFact` TEXT, FOREIGN KEY(`movementArtPeriod`) REFERENCES `ArtPeriod`(`artPeriodId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "movementId",
+            "columnName": "movementId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "movementName",
+            "columnName": "movementName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "movementDating",
+            "columnName": "movementDating",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "movementLocation",
+            "columnName": "movementLocation",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "movementArtPeriod",
+            "columnName": "movementArtPeriod",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "movementFunFact",
+            "columnName": "movementFunFact",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "movementId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Movement_movementId",
+            "unique": false,
+            "columnNames": [
+              "movementId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Movement_movementId` ON `${TABLE_NAME}` (`movementId`)"
+          },
+          {
+            "name": "index_Movement_movementArtPeriod",
+            "unique": false,
+            "columnNames": [
+              "movementArtPeriod"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Movement_movementArtPeriod` ON `${TABLE_NAME}` (`movementArtPeriod`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "ArtPeriod",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "movementArtPeriod"
+            ],
+            "referencedColumns": [
+              "artPeriodId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Type",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`typeId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `typeName` TEXT, `typeFunFact` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "typeId",
+            "columnName": "typeId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "typeName",
+            "columnName": "typeName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "typeFunFact",
+            "columnName": "typeFunFact",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "typeId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Type_typeId",
+            "unique": false,
+            "columnNames": [
+              "typeId"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Type_typeId` ON `${TABLE_NAME}` (`typeId`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [
+      {
+        "viewName": "Things",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT m.movementId AS id, m.movementName AS \"name\", m.movementDating AS \"dating\", m.movementLocation AS \"location\", m.movementArtPeriod AS \"parent_art_period_id\",a.artPeriodName AS \"in_period\", m.movementFunFact AS \"fun_fact\", \"Movement\" AS \"object_type\" FROM Movement m JOIN ArtPeriod a ON artPeriodId = movementArtPeriod UNION SELECT artPeriodId, artPeriodName, artPeriodDating, null, null, null, artPeriodFunFact, \"Art Period\" FROM ArtPeriod UNION SELECT typeId, typeName, null,  null, null, null, typeFunFact, \"Type of Artwork\" FROM Type ORDER BY \"object_type\""
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b20907ec169d6d42069bf04fed8f532d')"
+    ]
+  }
+}

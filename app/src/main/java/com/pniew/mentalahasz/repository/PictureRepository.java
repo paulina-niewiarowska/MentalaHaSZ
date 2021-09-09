@@ -63,28 +63,16 @@ public class PictureRepository {
 
     //to update
 
-    public void updatePicture(int idOfOldPicture, String newPath, String newName, String newAuthor, String newDating, String newLocation, int type, Integer movement, int artPeriod, @Nullable String trivia){
-        executorService.execute(() -> {
-            pictureDao.updatePicture(idOfOldPicture, newPath, newName, newAuthor, newLocation, newDating, artPeriod, movement, type, trivia);
-        });
+    public void updatePicture(int idOfOldPicture, String newPath, String newName, String newAuthor, String newDating, String newLocation, int type, @Nullable Integer movement, int artPeriod, @Nullable String trivia){
+        executorService.execute(() -> pictureDao.updatePicture(idOfOldPicture, newPath, newName, newAuthor, newLocation, newDating, artPeriod, movement, type, trivia));
     }
 
     public void setPictureFunFact(int pictureId, String pictureFunFact){
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                pictureDao.setPictureFunFact(pictureId, pictureFunFact);
-            }
-        });
+        executorService.execute(() -> pictureDao.setPictureFunFact(pictureId, pictureFunFact));
     }
 
     public void updatePictureKnowledgeDegree(int pictureId, int pictureNewDegree){
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                pictureDao.updatePictureKnowledgeDegree(pictureId, pictureNewDegree);
-            }
-        });
+        executorService.execute(() -> pictureDao.updatePictureKnowledgeDegree(pictureId, pictureNewDegree));
     }
 
     //to delete

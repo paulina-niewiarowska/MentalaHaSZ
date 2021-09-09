@@ -1,5 +1,6 @@
 package com.pniew.mentalahasz.model.database.daos;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -16,7 +17,7 @@ public interface PictureDao {
     long insertPicture(Picture picture);
 
     @Query("UPDATE Picture SET picturePath = :newPath, pictureName = :name, pictureAuthor = :author, pictureLocation = :location, pictureDating = :dating, pictureArtPeriod = :artPeriod, pictureMovement = :movement, pictureType = :type, pictureFunFact = :trivia WHERE pictureId = :id")
-    void updatePicture(int id, String newPath, String name, String author, String location, String dating, int artPeriod, int movement, int type, String trivia);
+    void updatePicture(int id, String newPath, String name, String author, String location, String dating, int artPeriod, @Nullable Integer movement, int type, @Nullable String trivia);
 
     @Query("UPDATE Picture SET pictureKnowledgeDegree = :pictureNewDegree WHERE pictureId = :pictureId")
     void updatePictureKnowledgeDegree(int pictureId, int pictureNewDegree);

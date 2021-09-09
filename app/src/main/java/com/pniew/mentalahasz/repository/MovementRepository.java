@@ -43,19 +43,18 @@ public class MovementRepository {
 
     //to update
 
-    public void updateMovement(int idOfOldMovement, String newName, String newDating, String newLocation, int artPeriod){
+    public void updateMovement(int idOfOldMovement, String newName, String newDating, String newLocation, int artPeriod, String trivia){
         executorService.execute(() -> {
             Movement movement = new Movement(newName, newDating, newLocation);
             movement.setMovementId(idOfOldMovement);
             movement.setMovementArtPeriod(artPeriod);
+            movement.setMovementFunFact(trivia);
             movementDao.updateMovement(movement);
         });
     }
 
     public void setMovementFunFact(int movementId, String movementFunFact){
-        executorService.execute(() -> {
-            movementDao.setMovementFunFact(movementId, movementFunFact);
-        });
+        executorService.execute(() -> movementDao.setMovementFunFact(movementId, movementFunFact));
     }
 
     //to delete
