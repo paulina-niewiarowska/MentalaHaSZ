@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:orientation="horizontal"
-    tools:context=".web.WebActivity">
+    tools:context=".module_web.WebActivity">
 
     <RelativeLayout
         android:id="@+id/web_parent"

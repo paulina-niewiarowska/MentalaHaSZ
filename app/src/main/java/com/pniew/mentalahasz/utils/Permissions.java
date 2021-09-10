@@ -1,18 +1,14 @@
 package com.pniew.mentalahasz.utils;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.pniew.mentalahasz.R;
-import com.pniew.mentalahasz.themainmenu.MainActivity;
 
 public class Permissions {
 

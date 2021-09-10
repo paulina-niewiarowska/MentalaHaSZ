@@ -3,8 +3,8 @@ package com.pniew.mentalahasz.utils;
 import android.content.Context;
 import android.content.Intent;
 
-import com.pniew.mentalahasz.picture_showeditaddtest.LearnShowAddActivity;
-import com.pniew.mentalahasz.thelistofthings.addeditthings.AddEditThingActivity;
+import com.pniew.mentalahasz.intermodule_single_picture_activity.LearnShowAddActivity;
+import com.pniew.mentalahasz.module_periodization.addeditthings.AddEditThingActivity;
 
 public abstract class CallsStringsIntents {
     public static final String I_WANT_TO = "I want to";

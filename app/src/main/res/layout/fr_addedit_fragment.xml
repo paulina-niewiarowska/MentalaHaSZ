@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".picture_showeditaddtest.fragments.AddEditFragment"
+    tools:context=".intermodule_single_picture_activity.fragments.AddEditFragment"
     android:background="@color/edition_background_color">
 
     <androidx.core.widget.NestedScrollView

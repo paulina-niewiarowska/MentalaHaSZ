@@ -14,36 +14,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MentalaHaSZ">
-        <activity android:name=".web.WebActivity"
-            android:parentActivityName=".themainmenu.MainActivity"
+        <activity android:name=".module_web.WebActivity"
+            android:parentActivityName=".main_menu.MainActivity"
             android:label="Download a package"/>
         <activity
-            android:name=".thelistofthings.ListOfThingsActivity"
+            android:name=".module_periodization.ListOfThingsActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".themainmenu.MainActivity"
+            android:parentActivityName=".main_menu.MainActivity"
             android:label="Periodization Items"/>
         <activity
-            android:name=".thelistofthings.addeditthings.AddEditThingActivity"
-            android:parentActivityName=".thelistofthings.ListOfThingsActivity"
+            android:name=".module_periodization.addeditthings.AddEditThingActivity"
+            android:parentActivityName=".module_periodization.ListOfThingsActivity"
             android:windowSoftInputMode="adjustResize"
             android:label="Add/Edit Periodization Item"/>
         <activity
-            android:name=".thegallery.gallery.PictureGalleryActivity"
-            android:parentActivityName=".thegallery.choosing.ChooseActivity"/>
+            android:name=".module_learn.gallery.PictureGalleryActivity"
+            android:parentActivityName=".module_learn.choosing.ChooseActivity"/>
         <activity
-            android:name=".thegallery.choosing.ChooseActivity"
-            android:parentActivityName=".themainmenu.MainActivity"/>
+            android:name=".module_learn.choosing.ChooseActivity"
+            android:parentActivityName=".main_menu.MainActivity"/>
         <activity
-            android:name=".thetest.TestActivity"
-            android:parentActivityName=".themainmenu.MainActivity"
+            android:name=".module_test.TestActivity"
+            android:parentActivityName=".main_menu.MainActivity"
             android:label="The Test"/>
         <activity
-            android:name=".picture_showeditaddtest.LearnShowAddActivity"
-            android:parentActivityName=".thegallery.gallery.PictureGalleryActivity"
+            android:name=".intermodule_single_picture_activity.LearnShowAddActivity"
+            android:parentActivityName=".module_learn.gallery.PictureGalleryActivity"
             android:windowSoftInputMode="adjustResize"/>
 
 
-        <activity android:name=".themainmenu.MainActivity">
+        <activity android:name=".main_menu.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,7 +52,7 @@
         </activity>
 
 
-        <receiver android:name=".web.PackDownloadReceiver"
+        <receiver android:name=".module_web.PackDownloadReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

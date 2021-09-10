@@ -4,7 +4,7 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import com.pniew.mentalahasz.repository.AThing;
+import com.pniew.mentalahasz.model.repository.AThing;
 
 import org.jetbrains.annotations.NotNull;
 

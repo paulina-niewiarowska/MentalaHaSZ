@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".thegallery.choosing.ChooseActivity"
+    tools:context=".module_learn.choosing.ChooseActivity"
     android:background="@color/background_color">
 
     <androidx.constraintlayout.widget.Guideline

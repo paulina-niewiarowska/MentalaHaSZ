@@ -5,7 +5,7 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import com.pniew.mentalahasz.repository.AThing;
+import com.pniew.mentalahasz.model.repository.AThing;
 
 import java.util.Objects;
 
