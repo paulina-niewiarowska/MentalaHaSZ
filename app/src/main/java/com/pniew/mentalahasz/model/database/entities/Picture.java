@@ -28,11 +28,11 @@ public class Picture implements AThing {
     private String pictureDating;
     private String pictureLocation;
     private int pictureArtPeriod;
+    @Nullable
     private Integer pictureMovement;
     private int pictureType;
     @Nullable
     private String pictureFunFact;
-    @Nullable
     private int pictureKnowledgeDegree;
 
     public Picture(String picturePath, String pictureName, String pictureAuthor, String pictureDating, String pictureLocation) {
