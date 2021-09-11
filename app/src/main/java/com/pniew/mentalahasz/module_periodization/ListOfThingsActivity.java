@@ -36,7 +36,7 @@ public class ListOfThingsActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> addEditActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
-                if (result.getResultCode() == RESULT_OK){
+                if (result.getResultCode() == RESULT_OK) {
                     data = result.getData();
                     assert data != null;
                 }
@@ -92,7 +92,7 @@ public class ListOfThingsActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-                switch(direction){
+                switch (direction) {
                     case ItemTouchHelper.LEFT:
                         Things thingToRemove = (Things) adapter.getThingAt(viewHolder.getAdapterPosition());
                         String objectType = thingToRemove.getObjectType();
@@ -101,7 +101,7 @@ public class ListOfThingsActivity extends AppCompatActivity {
                         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                switch(i){
+                                switch (i) {
                                     case DialogInterface.BUTTON_POSITIVE:
                                         deleteTheThing();
                                         break;
@@ -112,8 +112,8 @@ public class ListOfThingsActivity extends AppCompatActivity {
                             }
 
                             private void deleteTheThing() {
-                                thingsViewModel.deleteThing((Things) adapter.getThingAt(viewHolder.getAdapterPosition()));
-                                Toast.makeText(ListOfThingsActivity.this, "Item deleted", Toast.LENGTH_SHORT).show();
+                                thingsViewModel.deleteThing(ListOfThingsActivity.this, (Things) adapter.getThingAt(viewHolder.getAdapterPosition()));
+                                Toast.makeText(ListOfThingsActivity.this, "Item deleted (along with all the items that it contained)", Toast.LENGTH_LONG).show();
                             }
                         };
 

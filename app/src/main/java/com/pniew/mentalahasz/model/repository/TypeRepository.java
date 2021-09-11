@@ -62,6 +62,10 @@ public class TypeRepository {
         executorService.execute(() -> typeDao.deleteType(typeId));
     }
 
+    public void deleteTypeAndItsChildrenSync(int typeId){
+        typeDao.deleteType(typeId);
+    }
+
     //to read
 
     public LiveData<List<Type>> getAllTypes(){ return allTypes; }

@@ -60,6 +60,10 @@ public class MovementRepository {
         executorService.execute(() -> movementDao.deleteMovement(movementId));
     }
 
+    public void deleteMovementAndItsChildrenSync(int movementId){
+        movementDao.deleteMovement(movementId);
+    }
+
     //to read
 
     public LiveData<List<Movement>> getAllMovements(){ return allMovements; }

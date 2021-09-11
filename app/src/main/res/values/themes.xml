@@ -17,7 +17,9 @@
         <item name="actionBarTheme">@style/MyActionBarTheme</item>
     </style>
 
-
+    <style name="Theme.MentalaHaSZ.Button">
+        <item name="android:background">@drawable/button_background</item>
+    </style>
 
 
     <style name="TriviaDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">

@@ -1,71 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="3dp"
     android:layout_marginStart="5dp"
+    android:layout_marginTop="3dp"
     android:layout_marginEnd="5dp"
     android:layout_marginBottom="10dp"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:backgroundTint="@color/transparent"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/transparent"
+    app:cardElevation="0dp">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:background="@color/revealed">
+        android:background="@drawable/item_background"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/thing_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
             android:ellipsize="end"
-            android:text="Item type:"/>
+            android:maxLines="1"
+            android:text="Item type:" />
 
         <TextView
             android:id="@+id/thing_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/black"
-            android:text="Name"
             android:layout_below="@id/thing_type"
+            android:ellipsize="end"
             android:maxLines="1"
-            android:ellipsize="end"/>
+            android:text="Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/black" />
+
         <TextView
             android:id="@+id/thing_dating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/thing_name"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="Dating"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:layout_below="@+id/thing_name"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/thing_parent_period"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/thing_dating"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="Parent period"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:layout_below="@+id/thing_dating"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/thing_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/thing_parent_period"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="location"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:layout_below="@+id/thing_parent_period"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </RelativeLayout>
-
 
 
 </androidx.cardview.widget.CardView>

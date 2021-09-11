@@ -59,6 +59,10 @@ public class ArtPeriodRepository {
         executorService.execute(() -> artPeriodDao.deleteArtPeriod(artPeriodId));
     }
 
+    public void deleteArtPeriodAndItsChildrenButSynchronicznie(int artPeriodId){
+        artPeriodDao.deleteArtPeriod(artPeriodId);
+    }
+
     //to read
 
     public LiveData<List<ArtPeriod>> getAllArtPeriods(){ return allArtPeriods; }

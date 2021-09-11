@@ -132,7 +132,7 @@ public class AddEditFragment extends Fragment {
         //==========================================================================================
         // if editing, get values from existing picture and put them into right fields:
 
-        if(iWantTo == EDIT_A_PICTURE){
+        if (iWantTo == EDIT_A_PICTURE) {
             viewModel.setPictureById(getArguments().getInt(PICTURE_ID));
             picture = viewModel.getPicture();
             picture.observe(myLifeCycleOwner, new Observer<Picture>() {
@@ -144,7 +144,7 @@ public class AddEditFragment extends Fragment {
                     viewModel.setLocation(picture.getPictureLocation());
                     viewModel.setDating(picture.getPictureDating());
                     viewModel.setArtPeriodId(picture.getPictureArtPeriod());
-                    if(picture.getPictureMovement() != null) {
+                    if (picture.getPictureMovement() != null) {
                         viewModel.setMovementId(picture.getPictureMovement());
                     }
                     viewModel.setTypeId(picture.getPictureType());
@@ -169,17 +169,16 @@ public class AddEditFragment extends Fragment {
                     //end of onChange()------------------------------------
                 }
             });
-        } else if (iWantTo == ADD_NEW_PICTURE && viewModel.getCallingThing() != MAIN_MENU /*przyszło z movement lub z art period*/){
-            if(viewModel.getCallingThing() == ART_PERIOD){
+        } else if (iWantTo == ADD_NEW_PICTURE && viewModel.getCallingThing() != MAIN_MENU /*przyszło z movement lub z art period*/) {
+            if (viewModel.getCallingThing() == ART_PERIOD) {
                 viewModel.itsArtPeriodCalling();
-            } else if (viewModel.getCallingThing() == MOVEMENT){
+            } else if (viewModel.getCallingThing() == MOVEMENT) {
                 viewModel.itsMovementCalling(arguments.getInt(PARENT_PERIOD_ID, 0));
             }
             setSpinners();
         } else {
             setSpinners();
         }
-
 
 
         //==========================================================================================
@@ -209,7 +208,6 @@ public class AddEditFragment extends Fragment {
 //    itemType = intent.getStringExtra(THING_TYPE);
 
 
-
         //==============================================================================================
         // movement button onclick listener
 
@@ -227,7 +225,7 @@ public class AddEditFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), AddEditThingActivity.class);
                 intent.putExtra(I_WANT_TO, ADD_NEW_THING);
                 intent.putExtra(THING_TYPE, stringOfAThing);
-                if(stringOfAThing == MOVEMENT_STRING){
+                if (stringOfAThing == MOVEMENT_STRING) {
                     intent.putExtra(CHILD_OF, viewModel.getArtPeriodId());
                 }
                 getActivity().startActivity(intent);
@@ -247,12 +245,12 @@ public class AddEditFragment extends Fragment {
         setTypeSpinner();
     }
 
-    private void setTypeSpinner(){
-        if(typeArrayAdapter == null) {
-            typeArrayAdapter = new ArrayAdapter<Type>(getContext(), android.R.layout.simple_spinner_item){
+    private void setTypeSpinner() {
+        if (typeArrayAdapter == null) {
+            typeArrayAdapter = new ArrayAdapter<Type>(getContext(), android.R.layout.simple_spinner_item) {
                 @Override
                 public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                    if(getItem(position) == null){
+                    if (getItem(position) == null) {
                         addNewType = new Button(getContext());
                         addNewType.setBackground(getResources().getDrawable(R.drawable.button_spinner_background));
                         addNewType.setText("Add new Art Type");
@@ -260,7 +258,7 @@ public class AddEditFragment extends Fragment {
                         newThingButtonListener(addNewType, TYPE_STRING);
                         return addNewType;
                     }
-                    if(convertView instanceof Button) {
+                    if (convertView instanceof Button) {
                         return super.getDropDownView(position, null, parent);
                     } else {
                         if (position == selectedTypeIndex) {
@@ -279,14 +277,14 @@ public class AddEditFragment extends Fragment {
                 @NonNull
                 @Override
                 public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                    if(getItem(position) == null){
+                    if (getItem(position) == null) {
                         addNewType = new Button(getContext());
                         addNewType.setText("Add new Art Type");
                         addNewType.setBackground(getResources().getDrawable(R.drawable.button_spinner_background));
                         newThingButtonListener(addNewType, TYPE_STRING);
                         return addNewType;
                     }
-                    if(convertView instanceof Button) {
+                    if (convertView instanceof Button) {
                         return super.getDropDownView(position, null, parent);
                     } else {
                         if (position == selectedTypeIndex) {
@@ -314,7 +312,7 @@ public class AddEditFragment extends Fragment {
                 typeArrayAdapter.addAll(types);
                 typeArrayAdapter.add(null);
 
-                if(iWantTo == EDIT_A_PICTURE && !typePositionObtained) {
+                if (iWantTo == EDIT_A_PICTURE && !typePositionObtained) {
                     obtainAndSetPositionToTypeSpinner(types, typeArrayAdapter);
                 }
             }
@@ -327,17 +325,17 @@ public class AddEditFragment extends Fragment {
 
     private void setArtPeriodSpinner() {
         if (artPeriodArrayAdapter == null) {
-            artPeriodArrayAdapter = new ArrayAdapter<ArtPeriod>(getContext(), android.R.layout.simple_spinner_item){
+            artPeriodArrayAdapter = new ArrayAdapter<ArtPeriod>(getContext(), android.R.layout.simple_spinner_item) {
                 @Override
                 public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                    if(getItem(position) == null){
+                    if (getItem(position) == null) {
                         addNewArtPeriod = new Button(getContext());
                         addNewArtPeriod.setText("Add new Art Period");
                         addNewArtPeriod.setBackground(getResources().getDrawable(R.drawable.button_spinner_background));
                         newThingButtonListener(addNewArtPeriod, ART_PERIOD_STRING);
                         return addNewArtPeriod;
                     }
-                    if(convertView instanceof Button) {
+                    if (convertView instanceof Button) {
                         return super.getDropDownView(position, null, parent);
                     } else {
                         if (position == selectedArtPeriodIndex) {
@@ -356,14 +354,14 @@ public class AddEditFragment extends Fragment {
                 @NonNull
                 @Override
                 public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                    if(getItem(position) == null){
+                    if (getItem(position) == null) {
                         addNewArtPeriod = new Button(getContext());
                         addNewArtPeriod.setText("Add new Art Period");
                         addNewArtPeriod.setBackground(getResources().getDrawable(R.drawable.button_spinner_background));
                         newThingButtonListener(addNewArtPeriod, ART_PERIOD_STRING);
                         return addNewArtPeriod;
                     }
-                    if(convertView instanceof Button) {
+                    if (convertView instanceof Button) {
                         return super.getDropDownView(position, null, parent);
                     } else {
                         if (position == selectedArtPeriodIndex) {
@@ -392,12 +390,12 @@ public class AddEditFragment extends Fragment {
                 artPeriodArrayAdapter.add(null);
 
                 // if we edit, we need to put cursor on the position that the picture already has:
-                if((iWantTo == EDIT_A_PICTURE && !artPeriodPositionObtained)
+                if ((iWantTo == EDIT_A_PICTURE && !artPeriodPositionObtained)
                         || (iWantTo == ADD_NEW_PICTURE && (viewModel.getCallingThing() != MAIN_MENU))) {
 
                     obtainAndSetPositionToArtPeriodSpinner(artPeriods, artPeriodArrayAdapter);
 
-                } else if(!artPeriods.isEmpty()) {
+                } else if (!artPeriods.isEmpty()) {
                     ArtPeriod artPeriod = (ArtPeriod) artPeriods.get(0);
                     viewModel.setArtPeriodId(artPeriod.getArtPeriodId());
                 }
@@ -412,17 +410,17 @@ public class AddEditFragment extends Fragment {
 
     private void setMovementSpinner() {
         if (movementArrayAdapter == null) {
-            movementArrayAdapter = new ArrayAdapter<Movement>(getContext(), android.R.layout.simple_spinner_item){
+            movementArrayAdapter = new ArrayAdapter<Movement>(getContext(), android.R.layout.simple_spinner_item) {
                 @Override
                 public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                    if(getItem(position) == null){
+                    if (getItem(position) == null) {
                         addNewMovement = new Button(getContext());
                         addNewMovement.setText("Add new Movement");
                         addNewMovement.setBackground(getResources().getDrawable(R.drawable.button_spinner_background));
                         newThingButtonListener(addNewMovement, MOVEMENT_STRING);
                         return addNewMovement;
                     }
-                    if(convertView instanceof Button) {
+                    if (convertView instanceof Button) {
                         return super.getDropDownView(position, null, parent);
                     } else {
                         if (position == selectedMovementIndex) {
@@ -441,14 +439,14 @@ public class AddEditFragment extends Fragment {
                 @NonNull
                 @Override
                 public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                    if(getItem(position) == null){
+                    if (getItem(position) == null) {
                         addNewMovement = new Button(getContext());
                         addNewMovement.setText("Add new Movement");
                         addNewMovement.setBackground(getResources().getDrawable(R.drawable.button_spinner_background));
                         newThingButtonListener(addNewMovement, MOVEMENT_STRING);
                         return addNewMovement;
                     }
-                    if(convertView instanceof Button) {
+                    if (convertView instanceof Button) {
                         return super.getDropDownView(position, null, parent);
                     } else {
                         if (position == selectedMovementIndex) {
@@ -469,12 +467,12 @@ public class AddEditFragment extends Fragment {
             spinner_choose_movement.setTooltipText("Movements to choose");
         }
 
-        if(viewModel.getArtPeriodId() != 0 && viewModel.getArtPeriodId() != -1) {
+        if (viewModel.getArtPeriodId() != 0 && viewModel.getArtPeriodId() != -1) {
             viewModel.getMovementListByPeriodId(viewModel.getArtPeriodId()).observe(getViewLifecycleOwner(), new Observer<List<Movement>>() {
                 @Override
                 public void onChanged(List<Movement> movements) {
                     movementArrayAdapter.clear();
-                    if(!movements.isEmpty()) {
+                    if (!movements.isEmpty()) {
                         movementArrayAdapter.addAll(movements);
                         movementArrayAdapter.add(null);
 
@@ -482,7 +480,7 @@ public class AddEditFragment extends Fragment {
                                 || (iWantTo == ADD_NEW_PICTURE && (viewModel.getCallingThing() == MOVEMENT))) {
                             obtainAndSetPositionToMovementSpinner(movements, movementArrayAdapter);
 
-                        } else if (!movements.isEmpty() && (viewModel.getMovementId() == 0 || viewModel.getMovementId() == -1)){
+                        } else if (!movements.isEmpty() && (viewModel.getMovementId() == 0 || viewModel.getMovementId() == -1)) {
                             Movement movement = movements.get(0);
                             viewModel.setMovementId(movement.getMovementId());
                         }
@@ -492,8 +490,7 @@ public class AddEditFragment extends Fragment {
                     }
                 }
             });
-        }
-        else {
+        } else {
             viewModel.getAllMovements().observe(getViewLifecycleOwner(), new Observer<List<Movement>>() {
                 @Override
                 public void onChanged(List<Movement> movements) {
@@ -516,7 +513,7 @@ public class AddEditFragment extends Fragment {
         spinner_choose_movement.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                if(adapterView.getItemAtPosition(position) != null) {
+                if (adapterView.getItemAtPosition(position) != null) {
                     Movement chosen = (Movement) adapterView.getItemAtPosition(position);
                     viewModel.setMovementId(chosen.getMovementId());
                 }
@@ -542,7 +539,7 @@ public class AddEditFragment extends Fragment {
         spinner_choose_art_period.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                if(adapterView.getItemAtPosition(position) != null) {
+                if (adapterView.getItemAtPosition(position) != null) {
                     ArtPeriod chosen = (ArtPeriod) adapterView.getItemAtPosition(position);
                     viewModel.setArtPeriodId(chosen.getArtPeriodId());
                     setMovementSpinner();
@@ -565,7 +562,7 @@ public class AddEditFragment extends Fragment {
         spinner_choose_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                if(adapterView.getItemAtPosition(position) != null) {
+                if (adapterView.getItemAtPosition(position) != null) {
                     Type chosen = (Type) adapterView.getItemAtPosition(position);
                     viewModel.setTypeId(chosen.getTypeId());
                 }
@@ -579,22 +576,21 @@ public class AddEditFragment extends Fragment {
     }
 
 
-
     //==============================================================================================
     //
 
 
     private void obtainAndSetPositionToMovementSpinner(List<Movement> movements, ArrayAdapter<Movement> movementArrayAdapter) {
 
-        if(viewModel.getSpinnerMovementSelection() == -1){
+        if (viewModel.getSpinnerMovementSelection() == -1) {
             Movement m = movements.stream().filter(movement -> movement.getMovementId() == viewModel.getMovementId()).findFirst().orElse(null);
-            if(m != null) {
+            if (m != null) {
                 int position = movementArrayAdapter.getPosition(m);
                 viewModel.setSpinnerMovementSelection(position);
                 selectedMovementIndex = position;
                 movementPositionObtained = true;
 
-                if(iWantTo == ADD_NEW_PICTURE && viewModel.getCallingThing() != MAIN_MENU){
+                if (iWantTo == ADD_NEW_PICTURE && viewModel.getCallingThing() != MAIN_MENU) {
                     spinner_choose_movement.setEnabled(false);
                     spinner_choose_movement.setClickable(false);
                 }
@@ -607,15 +603,15 @@ public class AddEditFragment extends Fragment {
 
     private void obtainAndSetPositionToArtPeriodSpinner(List<ArtPeriod> artPeriods, ArrayAdapter<ArtPeriod> artPeriodArrayAdapter) {
 
-        if(viewModel.getSpinnerArtPeriodSelection() == -1){
+        if (viewModel.getSpinnerArtPeriodSelection() == -1) {
             ArtPeriod a = artPeriods.stream().filter(artPeriod -> artPeriod.getArtPeriodId() == viewModel.getArtPeriodId()).findFirst().orElse(null);
-            if(a != null) {
+            if (a != null) {
                 int position = artPeriodArrayAdapter.getPosition(a);
                 viewModel.setSpinnerArtPeriodSelection(position);
                 selectedArtPeriodIndex = position;
                 artPeriodPositionObtained = true;
 
-                if(iWantTo == ADD_NEW_PICTURE && viewModel.getCallingThing() != MAIN_MENU){
+                if (iWantTo == ADD_NEW_PICTURE && viewModel.getCallingThing() != MAIN_MENU) {
                     spinner_choose_art_period.setEnabled(false);
                     spinner_choose_art_period.setClickable(false);
                 }
@@ -629,9 +625,9 @@ public class AddEditFragment extends Fragment {
 
     private void obtainAndSetPositionToTypeSpinner(List<Type> types, ArrayAdapter<Type> typeArrayAdapter) {
 
-        if(viewModel.getSpinnerTypeSelection() == -1) {
+        if (viewModel.getSpinnerTypeSelection() == -1) {
             Type t = types.stream().filter(type -> type.getTypeId() == viewModel.getTypeId()).findFirst().orElse(null);
-            if(t != null) {
+            if (t != null) {
                 int position = typeArrayAdapter.getPosition(t);
                 viewModel.setSpinnerTypeSelection(position);
                 selectedTypeIndex = position;
@@ -659,18 +655,18 @@ public class AddEditFragment extends Fragment {
         }
         if (iWantTo == EDIT_A_PICTURE) {
             boolean changed = getArguments().getBoolean(PICTURE_CHANGED);
-            if(changed) {
+            if (changed) {
                 String path = getArguments().getString(PICTURE_PATH);
                 viewModel.setPath(path);
             }
             result = viewModel.updatePicture();
         }
 
-        if(result == 0) {
+        if (result == 0) {
             UtilMethods.makeToast(getContext(), "Please fill all the fields");
         } else if (result == 1) {
             //Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
-            if(iWantTo == ADD_NEW_PICTURE) {
+            if (iWantTo == ADD_NEW_PICTURE) {
                 UtilMethods.makeToast(getContext(), "Picture added");
                 //todo: clearUp!
                 if (act instanceof LearnShowAddActivity) {
@@ -679,7 +675,7 @@ public class AddEditFragment extends Fragment {
             } else if (iWantTo == EDIT_A_PICTURE) {
                 UtilMethods.makeToast(getContext(), "Picture edited");
                 if (act instanceof LearnShowAddActivity) {
-                    if(viewModel.isChangedThing()){
+                    if (viewModel.isChangedThing()) {
                         ((LearnShowAddActivity) act).editFinishedChangedParticipation();
                     } else {
                         ((LearnShowAddActivity) act).editFinished();
@@ -692,7 +688,7 @@ public class AddEditFragment extends Fragment {
 
     private void deletePictureCancel() {
 
-        if(iWantTo == ADD_NEW_PICTURE) {
+        if (iWantTo == ADD_NEW_PICTURE) {
             if (act instanceof LearnShowAddActivity) {
                 ((LearnShowAddActivity) act).closeThisActivity();
             }
@@ -729,7 +725,6 @@ public class AddEditFragment extends Fragment {
     public void setTrivia(String trivia) {
         viewModel.setTrivia(trivia);
     }
-
 
 
 }

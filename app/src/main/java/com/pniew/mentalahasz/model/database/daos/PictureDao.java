@@ -1,8 +1,10 @@
 package com.pniew.mentalahasz.model.database.daos;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -28,6 +30,9 @@ public interface PictureDao {
     @Query("DELETE FROM Picture WHERE pictureId = :id")
     void deletePicture(int id);
 
+    @Query("DELETE FROM Picture WHERE pictureId IN (:pictureIds)")
+    void deletePicturesByIds(List<Integer> pictureIds);
+
     @Query("SELECT * FROM Picture")
     LiveData<List<Picture>> getAllPictures();
 
@@ -43,8 +48,15 @@ public interface PictureDao {
     @Query("SELECT * FROM Picture WHERE pictureArtPeriod = :artPeriodId")
     LiveData<List<Picture>> getPictureListByArtPeriodId(int artPeriodId);
 
+    @WorkerThread
     @Query("SELECT * FROM Picture WHERE pictureArtPeriod IN (:artPeriodIds) OR pictureMovement IN (:pictureMovementIds)")
     List<Picture> getPictureListByArtPeriodIdOrMovementIdSync(List<Integer> artPeriodIds, List<Integer> pictureMovementIds);
 
+    @WorkerThread
+    @Query("SELECT * FROM Picture WHERE pictureArtPeriod = :artPeriodId OR pictureMovement = :pictureMovementId OR pictureType = :pictureTypeId")
+    List<Picture> getPictureListByThingsIdsSync(int artPeriodId, int pictureMovementId, int pictureTypeId);
 
+    @WorkerThread
+    @Query("SELECT * FROM Picture WHERE pictureId IN (:pictureIds)")
+    List<Picture> getPicturesByIdsSync(List<Integer> pictureIds);
 }

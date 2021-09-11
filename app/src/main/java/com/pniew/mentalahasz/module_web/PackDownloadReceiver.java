@@ -133,7 +133,7 @@ public class PackDownloadReceiver extends BroadcastReceiver {
                             }
                             picture.setPictureType(typeId);
                             picture.setPictureFunFact(imageData.optString("funFact"));
-                            pictureRepository.insertNewPictureButSynchronicznie(picture);
+                            pictureRepository.insertNewPictureSync(picture);
 
                         } catch (IOException | JSONException | NullPointerException e) {
                             Log.e(this.getClass().getName(),"Format error in json: " + zipEntry.getName());

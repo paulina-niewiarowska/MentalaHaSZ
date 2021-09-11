@@ -1,6 +1,7 @@
 package com.pniew.mentalahasz.intermodule_single_picture_activity.fragments;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -81,59 +82,129 @@ public class AddEditViewModel extends AndroidViewModel {
     //==============================================================================================
     // getters setters
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getName() {
+        return name;
+    }
 
-    public String getAuthor() { return author; }
-    public void setAuthor(String author) { this.author = author; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getLocation() { return location; }
-    public void setLocation(String location) { this.location = location; }
+    public String getAuthor() {
+        return author;
+    }
 
-    public String getDating() { return dating; }
-    public void setDating(String dating) { this.dating = dating; }
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
-    public int getArtPeriodId() { return artPeriodId; }
-    public void setArtPeriodId(int art_period) { this.artPeriodId = art_period; }
+    public String getLocation() {
+        return location;
+    }
 
-    public int getMovementId() { return movementId; }
-    public void setMovementId(int movement) { this.movementId = movement; }
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-    public int getTypeId() { return typeId; }
-    public void setTypeId(int typeId) { this.typeId = typeId; }
+    public String getDating() {
+        return dating;
+    }
 
-    public String getPath() { return path; }
-    public void setPath(String path) { this.path = path; }
+    public void setDating(String dating) {
+        this.dating = dating;
+    }
 
-    public String getTrivia() { return trivia; }
-    public void setTrivia(String trivia) { this.trivia = trivia; }
+    public int getArtPeriodId() {
+        return artPeriodId;
+    }
 
-    public int getSpinnerArtPeriodSelection() { return spinnerArtPeriodSelection; }
+    public void setArtPeriodId(int art_period) {
+        this.artPeriodId = art_period;
+    }
+
+    public int getMovementId() {
+        return movementId;
+    }
+
+    public void setMovementId(int movement) {
+        this.movementId = movement;
+    }
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getTrivia() {
+        return trivia;
+    }
+
+    public void setTrivia(String trivia) {
+        this.trivia = trivia;
+    }
+
+    public int getSpinnerArtPeriodSelection() {
+        return spinnerArtPeriodSelection;
+    }
+
     public void setSpinnerArtPeriodSelection(int spinnerArtPeriodSelection) {
-        this.spinnerArtPeriodSelection = spinnerArtPeriodSelection; }
+        this.spinnerArtPeriodSelection = spinnerArtPeriodSelection;
+    }
 
     public int getSpinnerMovementSelection() {
-        return spinnerMovementSelection; }
+        return spinnerMovementSelection;
+    }
+
     public void setSpinnerMovementSelection(int spinnerMovementSelection) {
-        this.spinnerMovementSelection = spinnerMovementSelection; }
+        this.spinnerMovementSelection = spinnerMovementSelection;
+    }
 
     public int getSpinnerTypeSelection() {
         return spinnerTypeSelection;
     }
+
     public void setSpinnerTypeSelection(int spinnerTypeSelection) {
         this.spinnerTypeSelection = spinnerTypeSelection;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public int getCallingThing() { return callingThing; }
-    public void setCallingThing(int callingThing) { this.callingThing = callingThing; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public int getCallingThingId() { return callingThingId; }
-    public void setCallingThingId(int callingThingId) { this.callingThingId = callingThingId; }
+    public int getCallingThing() {
+        return callingThing;
+    }
 
-    public boolean isChangedThing() { return changedThing; }
+    public void setCallingThing(int callingThing) {
+        this.callingThing = callingThing;
+    }
+
+    public int getCallingThingId() {
+        return callingThingId;
+    }
+
+    public void setCallingThingId(int callingThingId) {
+        this.callingThingId = callingThingId;
+    }
+
+    public boolean isChangedThing() {
+        return changedThing;
+    }
 
     //==============================================================================================
 
@@ -141,10 +212,11 @@ public class AddEditViewModel extends AndroidViewModel {
         picture = pictureRepository.getPictureById(id);
     }
 
-    public void itsArtPeriodCalling(){
+    public void itsArtPeriodCalling() {
         artPeriodId = callingThingId;
     }
-    public void itsMovementCalling(int parentPeriodId){
+
+    public void itsMovementCalling(int parentPeriodId) {
         movementId = callingThingId;
         artPeriodId = parentPeriodId;
     }
@@ -156,9 +228,18 @@ public class AddEditViewModel extends AndroidViewModel {
     public LiveData<List<ArtPeriod>> getAllArtPeriods() {
         return allArtPeriodList;
     }
-    public LiveData<List<Movement>> getAllMovements() { return  allMovementsList; }
-    public LiveData<List<Type>> getAllTypes() { return allTypesList; }
-    public LiveData<Picture> getPicture() { return picture; }
+
+    public LiveData<List<Movement>> getAllMovements() {
+        return allMovementsList;
+    }
+
+    public LiveData<List<Type>> getAllTypes() {
+        return allTypesList;
+    }
+
+    public LiveData<Picture> getPicture() {
+        return picture;
+    }
 
     public LiveData<List<Movement>> getMovementListByPeriodId(int id) {
         return movementRepository.getMovementListByArtPeriodId(id);
@@ -167,8 +248,8 @@ public class AddEditViewModel extends AndroidViewModel {
     //==============================================================================================
     // Do things to picture
 
-    public int savePicture(){
-        if(path == null || name == null || author == null || dating == null || location == null
+    public int savePicture() {
+        if (path == null || name == null || author == null || dating == null || location == null
                 || typeId == 0 || artPeriodId == 0 || typeId == -1 || artPeriodId == -1
                 || path.trim().equals("")
                 || name.trim().equals("")
@@ -178,12 +259,12 @@ public class AddEditViewModel extends AndroidViewModel {
             return 0;
         } else {
             Integer movement;
-            if(movementId == -1){
+            if (movementId == -1) {
                 movement = null;
             } else {
                 movement = movementId;
             }
-            if(trivia == null) {
+            if (trivia == null) {
                 pictureRepository.insertNewPicture(path, name, author, dating, location, typeId, movement, artPeriodId);
             } else {
                 pictureRepository.insertNewPicture(path, name, author, dating, location, typeId, movement, artPeriodId, trivia);
@@ -192,8 +273,8 @@ public class AddEditViewModel extends AndroidViewModel {
         }
     }
 
-    public int updatePicture(){
-        if(path == null || name == null || author == null || dating == null || location == null
+    public int updatePicture() {
+        if (path == null || name == null || author == null || dating == null || location == null
                 || typeId == 0 || artPeriodId == 0 || typeId == -1 || artPeriodId == -1
                 || path.trim().equals("")
                 || name.trim().equals("")
@@ -203,17 +284,15 @@ public class AddEditViewModel extends AndroidViewModel {
             //Toast.makeText(getApplication(), "path: " + path, Toast.LENGTH_SHORT).show();
             return 0;
         } else {
-            if(callingThing == MOVEMENT && callingThingId != movementId){
+            if (callingThing == MOVEMENT && callingThingId != movementId) {
                 changedThing = true;
-            } else
-            if(callingThing == ART_PERIOD && callingThingId != artPeriodId){
+            } else if (callingThing == ART_PERIOD && callingThingId != artPeriodId) {
                 changedThing = true;
-            } else
-            if(callingThing == TYPE && callingThingId != typeId){
+            } else if (callingThing == TYPE && callingThingId != typeId) {
                 changedThing = true;
             }
             Integer movement;
-            if(movementId == -1){
+            if (movementId == -1) {
                 movement = null;
             } else {
                 movement = movementId;
@@ -223,8 +302,8 @@ public class AddEditViewModel extends AndroidViewModel {
         }
     }
 
-    public void deletePicture(){
-        pictureRepository.deletePicture(id);
+    public void deletePicture() {
+        pictureRepository.deletePicture(getApplication(), id);
     }
 
 }
