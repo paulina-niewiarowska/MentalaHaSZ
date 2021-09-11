@@ -53,7 +53,10 @@ public class GalleryAdapter extends ListAdapter<Picture, GalleryAdapter.PictureH
     @Override
     public void onBindViewHolder(@NonNull PictureHolder holder, int position) {
         Picture currentPicture = getItem(position);
-        Glide.with(holder.imageView.getContext()).load(currentPicture.getPicturePath()).dontAnimate().into(holder.imageView);
+        Glide.with(holder.imageView.getContext())
+                .load(currentPicture.getPicturePath())
+                .dontAnimate()
+                .into(holder.imageView);
 //        Bitmap bitmap = currentPicture.getBitmap();
 //        holder.imageView.setImageBitmap(bitmap);
         int currentKnowledge = currentPicture.getPictureKnowledgeDegree();
@@ -62,13 +65,13 @@ public class GalleryAdapter extends ListAdapter<Picture, GalleryAdapter.PictureH
 
     class PictureHolder extends RecyclerView.ViewHolder{
         private ImageView imageView;
-        //255 * 0.X = % alpha
-        //255 - opaque, 0 - fully transparent
         private int transparency;
         private int alpha;
 
         public void setAlphaForImage(int currentKnowledge){
-            alpha = (int) ((currentKnowledge*(255-40))/10f + 40);
+            //255 * 0.X = % alpha
+            //255 - opaque, 0 - fully transparent
+            alpha = (int) ((currentKnowledge*(255-40))/10f + 40); // alpha > 40 & < 255
             if(alpha > 255){alpha = 255;}
             if(alpha < 0){alpha = 0;}
             imageView.setImageAlpha(alpha);

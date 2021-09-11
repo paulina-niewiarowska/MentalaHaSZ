@@ -166,6 +166,7 @@ public class AddEditFragment extends Fragment {
 
                     setSpinners();
 
+                    viewModel.getPicture().removeObservers(myLifeCycleOwner);
                     //end of onChange()------------------------------------
                 }
             });
@@ -252,7 +253,6 @@ public class AddEditFragment extends Fragment {
                 public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                     if (getItem(position) == null) {
                         addNewType = new Button(getContext());
-                        addNewType.setBackground(getResources().getDrawable(R.drawable.button_spinner_background));
                         addNewType.setText("Add new Art Type");
                         addNewType.setBackground(getResources().getDrawable(R.drawable.button_spinner_background));
                         newThingButtonListener(addNewType, TYPE_STRING);
@@ -668,7 +668,6 @@ public class AddEditFragment extends Fragment {
             //Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
             if (iWantTo == ADD_NEW_PICTURE) {
                 UtilMethods.makeToast(getContext(), "Picture added");
-                //todo: clearUp!
                 if (act instanceof LearnShowAddActivity) {
                     ((LearnShowAddActivity) act).refreshAddingPicture();
                 }

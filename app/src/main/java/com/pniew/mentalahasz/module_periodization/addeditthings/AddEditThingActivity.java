@@ -133,8 +133,17 @@ public class AddEditThingActivity extends AppCompatActivity {
             setTitle("Add Periodization Item");
             addEditViewModel.setSpinnerTypeSelection(SPINNER_OF_TYPE);
             spinnerChooseType.setSelection(addEditViewModel.getSpinnerTypeSelection());
+            spinnerChooseType.setEnabled(false);
+            spinnerChooseType.setClickable(false);
 
-        } else if (iWantTo == ADD_NEW_THING) {
+        } else if ((itemType != null) && (iWantTo == ADD_NEW_THING) && (itemType.equals(ART_PERIOD_STRING))) {
+            setTitle("Add Periodization Item");
+            addEditViewModel.setSpinnerTypeSelection(SPINNER_OF_ART_PERIOD);
+            spinnerChooseType.setSelection(addEditViewModel.getSpinnerTypeSelection());
+            spinnerChooseType.setEnabled(false);
+            spinnerChooseType.setClickable(false);
+
+    } else if (iWantTo == ADD_NEW_THING) {
             setTitle("Add Periodization Item");
             addEditViewModel.setId(0);
         }
@@ -183,7 +192,7 @@ public class AddEditThingActivity extends AppCompatActivity {
                         addEditViewModel.setSpinnerParentSelection(position);
                         positionObtained = true;
                     }
-                    if(iWantTo == ADD_NEW_THING) {
+                    if(iWantTo == ADD_NEW_THING && !artPeriods.isEmpty()) {
                         spinnerChooseParentPeriod.setClickable(false);
                         spinnerChooseParentPeriod.setEnabled(false);
                     }

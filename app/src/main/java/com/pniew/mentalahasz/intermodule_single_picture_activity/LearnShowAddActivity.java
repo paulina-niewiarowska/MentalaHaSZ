@@ -333,7 +333,7 @@ public class LearnShowAddActivity extends AppCompatActivity {
         currentFragment = AddEditFragment.newInstance();
         currentFragment.setArguments(bundle);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_add_edit_learn_test, currentFragment).commit(); //addEditFragment
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, currentFragment).commit(); //addEditFragment
 
     }
 
@@ -348,13 +348,13 @@ public class LearnShowAddActivity extends AppCompatActivity {
         currentFragment.setArguments(bundle);
 
         if (animateFragmentRight) {
-            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).add(R.id.fragment_container_add_edit_learn_test, currentFragment).commit();
+            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right).add(R.id.fragment_container, currentFragment).commit();
             animateFragmentRight = false;
         } else if (animateFragmentLeft) {
-            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).add(R.id.fragment_container_add_edit_learn_test, currentFragment).commit();
+            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left).add(R.id.fragment_container, currentFragment).commit();
             animateFragmentLeft = false;
         } else {
-            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_add_edit_learn_test, currentFragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, currentFragment).commit();
         }
     }
 

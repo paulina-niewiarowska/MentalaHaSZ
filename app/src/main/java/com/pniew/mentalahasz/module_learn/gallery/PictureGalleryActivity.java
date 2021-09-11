@@ -52,7 +52,7 @@ public class PictureGalleryActivity extends AppCompatActivity {
                         .getInstance(this.getApplication()))
                         .get(GalleryViewModel.class);
 
-        RecyclerView recyclerView = findViewById(R.id.gallery_recycler_view);
+        recyclerView = findViewById(R.id.gallery_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4, RecyclerView.VERTICAL, false));
 
