@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:padding="10dp"
-        android:background="@color/edition_background_color"
+        android:background="@drawable/text_view_background"
         android:gravity="center"
         android:text="@string/looks_like_you_have_nothing_to_test"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -71,14 +71,20 @@
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/test_choose_button_confirm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Confirm and start the test"
         app:layout_constraintStart_toEndOf="@id/test_choose_guidelineStart"
         app:layout_constraintEnd_toStartOf="@id/test_choose_guidelineEnd"
-        app:layout_constraintBottom_toBottomOf="@id/test_choose_guidelineBottom" />
+        app:layout_constraintBottom_toBottomOf="@id/test_choose_guidelineBottom"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:layout_margin="5dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:background="@drawable/button_background"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

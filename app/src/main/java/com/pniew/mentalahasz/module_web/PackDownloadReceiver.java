@@ -51,14 +51,22 @@ public class PackDownloadReceiver extends BroadcastReceiver {
         artPeriodRepository = new ArtPeriodRepository(application);
         typeRepository = new TypeRepository(application);
 
-        Toast.makeText(context, "Download completed. Unpacking...", Toast.LENGTH_LONG).show();
+
+
 
         long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
         DownloadManager manager = context.getSystemService(DownloadManager.class);
         Uri uri = manager.getUriForDownloadedFile(downloadId);
+
+        if (uri == null) {
+            Toast.makeText(context, "Download has been canceled or file has not been found.", Toast.LENGTH_LONG).show();
+            WebActivity.Instance.stopTheLoader(downloadId);
+            return;
+        }
         String downloadedPackagePath = getRealPath(context, uri);
 
         try {
+            Toast.makeText(context, "Download completed. Unpacking...", Toast.LENGTH_LONG).show();
             File destinationPath = context.getFilesDir();
             File file = new File(destinationPath.getPath() + "/images");
             file.mkdir();

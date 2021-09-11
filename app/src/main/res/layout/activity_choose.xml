@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:padding="10dp"
-        android:background="@color/edition_background_color"
+        android:background="@drawable/text_view_background"
         android:gravity="center"
         android:text="@string/looks_like_you_have_no_art_periods"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -70,21 +70,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:background="@color/background_color"
         app:layout_constraintTop_toBottomOf="@+id/activity_choose_guidelineTop"
         app:layout_constraintBottom_toTopOf="@+id/activity_choose_guidelineBottom"
         app:layout_constraintStart_toEndOf="@+id/activity_choose_guidelineStart"
         app:layout_constraintEnd_toStartOf="@+id/activity_choose_guidelineEnd"
         >
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_no_art_periods_add_something"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_new_art_period"
             android:onClick="addNewArtPeriod"
             android:visibility="gone"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_margin="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/button_background"
             android:layout_centerHorizontal="true"
             />
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_download_something"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -92,6 +98,11 @@
             android:text="@string/download_ready_made_package"
             android:onClick="downloadSomeStuff"
             android:visibility="gone"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_margin="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/button_background"
             android:layout_centerHorizontal="true"
             />
     </RelativeLayout>

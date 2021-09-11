@@ -254,7 +254,9 @@ public class AddEditFragment extends Fragment {
                 public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                     if(getItem(position) == null){
                         addNewType = new Button(getContext());
+                        addNewType.setBackground(getResources().getDrawable(R.drawable.button_spinner_background));
                         addNewType.setText("Add new Art Type");
+                        addNewType.setBackground(getResources().getDrawable(R.drawable.button_spinner_background));
                         newThingButtonListener(addNewType, TYPE_STRING);
                         return addNewType;
                     }
@@ -280,6 +282,7 @@ public class AddEditFragment extends Fragment {
                     if(getItem(position) == null){
                         addNewType = new Button(getContext());
                         addNewType.setText("Add new Art Type");
+                        addNewType.setBackground(getResources().getDrawable(R.drawable.button_spinner_background));
                         newThingButtonListener(addNewType, TYPE_STRING);
                         return addNewType;
                     }
@@ -330,6 +333,7 @@ public class AddEditFragment extends Fragment {
                     if(getItem(position) == null){
                         addNewArtPeriod = new Button(getContext());
                         addNewArtPeriod.setText("Add new Art Period");
+                        addNewArtPeriod.setBackground(getResources().getDrawable(R.drawable.button_spinner_background));
                         newThingButtonListener(addNewArtPeriod, ART_PERIOD_STRING);
                         return addNewArtPeriod;
                     }
@@ -355,6 +359,7 @@ public class AddEditFragment extends Fragment {
                     if(getItem(position) == null){
                         addNewArtPeriod = new Button(getContext());
                         addNewArtPeriod.setText("Add new Art Period");
+                        addNewArtPeriod.setBackground(getResources().getDrawable(R.drawable.button_spinner_background));
                         newThingButtonListener(addNewArtPeriod, ART_PERIOD_STRING);
                         return addNewArtPeriod;
                     }
@@ -413,6 +418,7 @@ public class AddEditFragment extends Fragment {
                     if(getItem(position) == null){
                         addNewMovement = new Button(getContext());
                         addNewMovement.setText("Add new Movement");
+                        addNewMovement.setBackground(getResources().getDrawable(R.drawable.button_spinner_background));
                         newThingButtonListener(addNewMovement, MOVEMENT_STRING);
                         return addNewMovement;
                     }
@@ -438,6 +444,7 @@ public class AddEditFragment extends Fragment {
                     if(getItem(position) == null){
                         addNewMovement = new Button(getContext());
                         addNewMovement.setText("Add new Movement");
+                        addNewMovement.setBackground(getResources().getDrawable(R.drawable.button_spinner_background));
                         newThingButtonListener(addNewMovement, MOVEMENT_STRING);
                         return addNewMovement;
                     }

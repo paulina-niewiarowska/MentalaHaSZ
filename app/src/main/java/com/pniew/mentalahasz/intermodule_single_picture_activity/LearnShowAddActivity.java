@@ -529,7 +529,7 @@ public class LearnShowAddActivity extends AppCompatActivity {
             //show result of the test
             new AlertDialog.Builder(this, R.style.HaSZDialogTheme)
                     .setTitle("Test finished.")
-                    .setMessage("You've gained " + viewModel.getPoints() + " points out of " + viewModel.getMaxPoints() + " possible.\nDo you want to retake this test?")
+                    .setMessage("You've gained 3 points out of " + viewModel.getMaxPoints() + " possible.\nDo you want to retake this test?")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

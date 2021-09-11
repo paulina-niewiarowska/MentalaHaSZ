@@ -1,6 +1,7 @@
 package com.pniew.mentalahasz.module_learn.choosing;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,8 +37,8 @@ public class ChooseActivity extends AppCompatActivity {
     private ChooseViewModel chooseViewModel;
     private RecyclerView recyclerView;
     private TextView text;
-    private Button addNew;
-    private Button downloadSome;
+    private AppCompatButton addNew;
+    private AppCompatButton downloadSome;
     private EditText triviaEditText;
     private int movementIdToLoad;
     private boolean movementCalling;

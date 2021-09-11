@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:animateLayoutChanges="true"
-            android:background="@color/edition_background_color"
+            android:background="@drawable/gradient_for_everything"
             android:gravity="center"
             android:padding="20dp">
 
@@ -83,13 +83,18 @@
                 android:visibility="gone" />
 
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_confirm_and_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/field_location_add_edit"
                 android:layout_centerInParent="true"
                 android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:layout_margin="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@drawable/button_background"
                 android:text="Confirm and add" />
 
             <ImageButton
@@ -98,9 +103,17 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/field_location_add_edit"
                 android:layout_alignParentEnd="true"
+                android:minHeight="50dp"
+                android:scaleType="centerInside"
                 android:contentDescription="Cancel/Delete"
                 android:onClick="cancelDelete"
-                android:src="@drawable/ic_delete_item" />
+                android:src="@drawable/ic_delete_item"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:layout_margin="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@drawable/button_background"
+                app:tint="@color/bad_answer" />
 
         </RelativeLayout>
     </ScrollView>

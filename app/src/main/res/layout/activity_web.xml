@@ -24,7 +24,7 @@
             android:indeterminate="true"
             android:visibility="gone"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/download_prehistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,6 +32,11 @@
             android:layout_toStartOf="@id/prehistory_loading"
             android:onClick="downloadPrehistoryPackage"
             android:text="@string/prehistoria"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_margin="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/button_background"
             />
 
         <ProgressBar
@@ -44,7 +49,7 @@
             android:visibility="gone"/>
 
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/download_classical_art"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,7 +57,13 @@
             android:layout_toStartOf="@id/classical_loading"
             android:layout_centerHorizontal="true"
             android:onClick="downloadClassicalPackage"
-            android:text="@string/starozytnosc" />
+            android:text="@string/starozytnosc"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_margin="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/button_background"
+            />
 
         <ProgressBar
             android:id="@+id/middle_loading"
@@ -63,7 +74,7 @@
             android:indeterminate="true"
             android:visibility="gone"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/download_middle_ages"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,7 +82,13 @@
             android:layout_toStartOf="@id/middle_loading"
             android:layout_centerHorizontal="true"
             android:onClick="downloadMiddleAgesPackage"
-            android:text="@string/sredniowiecze" />
+            android:text="@string/sredniowiecze"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_margin="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/button_background"
+            />
 
 
     </RelativeLayout>

@@ -81,8 +81,6 @@ public class ListOfThingsActivity extends AppCompatActivity {
             @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 new RecyclerViewSwipeDecorator.Builder(ListOfThingsActivity.this, c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                        .addSwipeLeftBackgroundColor(ContextCompat.getColor(ListOfThingsActivity.this, R.color.bad_answer))
-                        .addSwipeRightBackgroundColor(ContextCompat.getColor(ListOfThingsActivity.this, R.color.icon))
                         .addSwipeLeftActionIcon(R.drawable.ic_delete_item)
                         .addSwipeRightActionIcon(R.drawable.ic_edit)
                         .addSwipeLeftLabel("Delete")
@@ -99,7 +97,7 @@ public class ListOfThingsActivity extends AppCompatActivity {
                         Things thingToRemove = (Things) adapter.getThingAt(viewHolder.getAdapterPosition());
                         String objectType = thingToRemove.getObjectType();
 
-                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ListOfThingsActivity.this, R.style.HaSZDialogTheme);
+                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ListOfThingsActivity.this, R.style.HaSZErrorDialogTheme);
                         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -131,7 +129,9 @@ public class ListOfThingsActivity extends AppCompatActivity {
                                 aVeryImportamtQuestion = "This is cascade delete. Do you want to delete this Type of Artwork and all its Artwork flashcards?\n\nYou will not be able to undo this operation!";
                                 break;
                         }
-                        alertBuilder.setMessage(aVeryImportamtQuestion).setPositiveButton("Yes", dialogClickListener).setNegativeButton("No", dialogClickListener).show();
+                        alertBuilder
+                                .setTitle("Cascade delete")
+                                .setMessage(aVeryImportamtQuestion).setPositiveButton("Yes", dialogClickListener).setNegativeButton("No", dialogClickListener).show();
                         break;
 
                     case ItemTouchHelper.RIGHT:

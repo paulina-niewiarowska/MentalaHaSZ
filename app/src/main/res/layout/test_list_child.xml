@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/background_color"
+    android:foreground="?android:attr/selectableItemBackground"
     android:clickable="false"
     android:paddingStart="5dp"
     android:paddingEnd="5dp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/revealed"
+        android:background="@drawable/child_text_view_background"
         android:paddingEnd="10dp">
 
     <TextView

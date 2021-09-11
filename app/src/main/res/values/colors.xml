@@ -9,14 +9,23 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#7E7E7E</color>
     <color name="transparent">#007E7E7E</color>
-    <color name="background_color">#2E2D2D</color>
+    <color name="background_color">#1E1E1E</color>
     <color name="edition_background_color">#B5B5B5</color>
     <color name="primary_button_etc">#8C7624</color>
     <color name="secondary">#83650F</color>
     <color name="darg_gold">#3E2F05</color>
     <color name="revealed">#9E8544</color>
-    <color name="icon">#A68326</color>
+    <color name="icon">#D6CEB7</color>
+    <color name="beige">#B3A683</color>
+    <color name="beige2">#958353</color>
     <color name="good_answer">#66A626</color>
     <color name="bad_answer">#A63126</color>
+    <color name="red_transparent">#45CD413C</color>
+    <color name="gold_transparent">#70B59C60</color>
+    <color name="green_transparent">#4568CD3C</color>
     <color name="background_transparent">#8AECCC7C</color>
+    <color name="gold_darg_transparent">#92615026</color>
+    <color name="gold_dark">#60512D</color>
+
+
 </resources>

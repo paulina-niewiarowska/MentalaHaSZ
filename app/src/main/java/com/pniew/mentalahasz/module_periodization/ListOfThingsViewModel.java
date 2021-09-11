@@ -39,18 +39,23 @@ public class ListOfThingsViewModel extends AndroidViewModel {
 
     public void deleteThing(Things things){
         String type = things.getObjectType();
-        switch (type){
-            case ART_PERIOD_STRING:
-                artPeriodRepository.deleteArtPeriodAndItsChildren(things.getId());
-                break;
-            case MOVEMENT_STRING:
-                movementRepository.deleteMovementAndItsChildren(things.getId());
-                break;
-            case TYPE_STRING:
-                typeRepository.deleteTypeAndItsChildren(things.getId());
-                break;
-            default:
-                break;
-        }
+
+        Executors.newSingleThreadExecutor().execute(() -> {
+            List<Picture> picturesToDelete = pictureRepository.getPictureListByThingsButSynchronicznie(things);
+            pictureRepository.deletePicturesButSynchronicznie(context, picturesToDelete);
+            switch (type) {
+                case ART_PERIOD_STRING:
+                    artPeriodRepository.deleteArtPeriodAndItsChildrenButSynchronicznie(things.getId());
+                    break;
+                case MOVEMENT_STRING:
+                    movementRepository.deleteMovementAndItsChildrenSync(things.getId());
+                    break;
+                case TYPE_STRING:
+                    typeRepository.deleteTypeAndItsChildrenSync(things.getId());
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 }

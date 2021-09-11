@@ -49,7 +49,7 @@ public class TestViewModel extends AndroidViewModel {
     }
 
     public List<Integer> getPictureIdsByArtPeriodOrMovementIds(List<Integer> artPeriodIds, List<Integer> movementIds) {
-        return pictureRepository.getPictureListByArtPeriodIdOrMovementIdSync(artPeriodIds, movementIds).stream().map(Picture::getId).collect(Collectors.toList());
+        return pictureRepository.getPictureListByArtPeriodIdOrMovementIdButSynchronicznie(artPeriodIds, movementIds).stream().map(Picture::getId).collect(Collectors.toList());
     }
 
     public Executor getBackgroundExecutor() {

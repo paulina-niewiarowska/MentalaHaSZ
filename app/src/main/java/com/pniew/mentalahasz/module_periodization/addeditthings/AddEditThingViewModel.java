@@ -9,12 +9,15 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.pniew.mentalahasz.model.database.entities.ArtPeriod;
+import com.pniew.mentalahasz.model.database.entities.Picture;
 import com.pniew.mentalahasz.model.repository.ArtPeriodRepository;
 import com.pniew.mentalahasz.model.repository.MovementRepository;
+import com.pniew.mentalahasz.model.repository.PictureRepository;
 import com.pniew.mentalahasz.model.repository.ThingsRepository;
 import com.pniew.mentalahasz.model.repository.TypeRepository;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class AddEditThingViewModel extends AndroidViewModel {
     //----------------------------------------------------------------------------------------------
@@ -42,6 +45,7 @@ public class AddEditThingViewModel extends AndroidViewModel {
     MovementRepository movementRepository;
     TypeRepository typeRepository;
     ThingsRepository thingsRepository;
+    PictureRepository pictureRepository;
 
     private LiveData<List<ArtPeriod>> allArtPeriodList;
     private MutableLiveData<Integer> liveDataId;
@@ -61,6 +65,8 @@ public class AddEditThingViewModel extends AndroidViewModel {
         artPeriodRepository = new ArtPeriodRepository(application);
         movementRepository = new MovementRepository(application);
         typeRepository = new TypeRepository(application);
+        pictureRepository = new PictureRepository(application);
+
         allArtPeriodList = artPeriodRepository.getAllArtPeriods();
         thingsRepository = new ThingsRepository(application);
         liveDataId = thingsRepository.getInsertedIdLiveData();
@@ -220,14 +226,22 @@ public class AddEditThingViewModel extends AndroidViewModel {
         switch (typeOfItemChosen) {
             case (CHOSEN_ART_PERIOD):
                 if (id != 0) {
-                    artPeriodRepository.deleteArtPeriodAndItsChildren(id);
+                    Executors.newSingleThreadExecutor().execute(() -> {
+                        List<Picture> pictures = pictureRepository.getPictureListByThingsIdButSynchronicznie(id, 0, 0);
+                        pictureRepository.deletePicturesButSynchronicznie(getApplication(), pictures);
+                        artPeriodRepository.deleteArtPeriodAndItsChildrenButSynchronicznie(id);
+                    });
                     result.setToast("Art Period deleted (along with all its movements and pictures)");
                 }
                 return result;
 
             case (CHOSEN_MOVEMENT):
                 if (id != 0) {
-                    movementRepository.deleteMovementAndItsChildren(id);
+                    Executors.newSingleThreadExecutor().execute(() -> {
+                        List<Picture> pictures = pictureRepository.getPictureListByThingsIdButSynchronicznie(0, id, 0);
+                        pictureRepository.deletePicturesButSynchronicznie(getApplication(), pictures);
+                        movementRepository.deleteMovementAndItsChildren(id);
+                    });
                     result.setResultOfInsertion(MOVEMENT_UPDATED);
                     result.setToast("Movement deleted (along with all its pictures)");
                 }
@@ -235,7 +249,11 @@ public class AddEditThingViewModel extends AndroidViewModel {
 
             case (CHOSEN_TYPE):
                 if (id != 0) {
-                    typeRepository.deleteTypeAndItsChildren(id);
+                    Executors.newSingleThreadExecutor().execute(() -> {
+                        List<Picture> pictures = pictureRepository.getPictureListByThingsIdButSynchronicznie(0, 0, id);
+                        pictureRepository.deletePicturesButSynchronicznie(getApplication(), pictures);
+                        typeRepository.deleteTypeAndItsChildren(id);
+                    });
                     result.setResultOfInsertion(TYPE_UPDATED);
                     result.setToast("Type deleted (along with all its pictures)");
                 }

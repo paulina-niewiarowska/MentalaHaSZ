@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -29,49 +29,252 @@
             android:layout_marginBottom="20dp"
             android:layout_alignParentTop="true"/>
 
-        <Button
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/button_learn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/learn"
-            android:drawableEnd="@drawable/ic_learn"
-            android:layout_below="@+id/hasz_logo"/>
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintTop_toTopOf="@id/main_guideline25"
+            app:layout_constraintBottom_toBottomOf="@id/main_guideline45"
+            app:layout_constraintStart_toStartOf="@id/main_guideline_middlebutton_start"
+            app:layout_constraintEnd_toEndOf="@id/main_guideline_middlebutton_end">
 
-        <Button
-            android:id="@+id/button_test"
-            android:layout_width="match_parent"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/button_learn_guideline_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.0"/>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/button_learn_guideline_middle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.70"/>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/button_learn_guideline_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="1"/>
+            <ImageView
+                android:id="@+id/button_learn_icon"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_learn"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:layout_constraintTop_toTopOf="@+id/button_learn_guideline_top"
+                app:layout_constraintBottom_toBottomOf="@id/button_learn_guideline_middle"/>
+            <TextView
+                android:id="@+id/button_learn_textview"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="@string/learn"
+                android:textColor="@color/icon"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="@+id/button_learn_guideline_middle"
+                app:layout_constraintBottom_toTopOf="@+id/button_learn_guideline_bottom"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/button_test"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toTopOf="@id/main_guideline45"
+        app:layout_constraintBottom_toBottomOf="@id/main_guideline65"
+        app:layout_constraintStart_toStartOf="@id/main_guidelineStart"
+        app:layout_constraintEnd_toEndOf="@id/main_guideline_middle1">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/button_test_guideline_top"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/button_learn"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.0"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/button_test_guideline_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.70"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/button_test_guideline_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="1"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_test"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintTop_toTopOf="@+id/button_test_guideline_top"
+            app:layout_constraintBottom_toBottomOf="@id/button_test_guideline_middle"/>
+        <TextView
+            android:id="@+id/button_test_textview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:text="@string/test"
-            android:drawableEnd="@drawable/ic_test"/>
+            android:textColor="@color/icon"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="@+id/button_test_guideline_middle"
+            app:layout_constraintBottom_toBottomOf="@+id/button_test_guideline_bottom"/>
 
-        <Button
-            android:id="@+id/button_learn_from_web"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/button_test"
-            android:text="@string/download_package"
-            android:drawableEnd="@drawable/ic_download"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
-            android:layout_marginTop="30dp"
-            android:id="@+id/button_add_new_card"
-            android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/button_add_new_card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toTopOf="@id/main_guideline45"
+        app:layout_constraintBottom_toBottomOf="@id/main_guideline65"
+        app:layout_constraintStart_toStartOf="@id/main_guideline_middle2"
+        app:layout_constraintEnd_toEndOf="@id/main_guidelineEnd">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/button_add_new_card_guideline_top"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/button_learn_from_web"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.0"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/button_add_new_card_guideline_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.70"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/button_add_new_card_guideline_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="1"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_add_picture"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintTop_toTopOf="@+id/button_add_new_card_guideline_top"
+            app:layout_constraintBottom_toBottomOf="@id/button_add_new_card_guideline_middle"/>
+        <TextView
+            android:id="@+id/button_add_new_card_textview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:text="@string/add_new_card"
-            android:drawableEnd="@drawable/ic_add"/>
+            android:textColor="@color/icon"
+            android:textSize="15sp"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="@+id/button_add_new_card_guideline_middle"
+            app:layout_constraintBottom_toBottomOf="@+id/button_add_new_card_guideline_bottom"/>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
-            android:layout_marginTop="30dp"
-            android:id="@+id/button_show_all_things"
-            android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/button_show_all_things"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground"
+        app:layout_constraintTop_toTopOf="@id/main_guideline65"
+        app:layout_constraintBottom_toBottomOf="@id/main_guideline85"
+        app:layout_constraintStart_toStartOf="@id/main_guidelineStart"
+        app:layout_constraintEnd_toEndOf="@id/main_guideline_middle1">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/button_show_all_things_guideline_top"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/button_add_new_card"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.0"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/button_show_all_things_guideline_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.68"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/button_show_all_things_guideline_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="1"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_periodization"
+            android:padding="10dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintTop_toTopOf="@+id/button_show_all_things_guideline_top"
+            app:layout_constraintBottom_toBottomOf="@id/button_show_all_things_guideline_middle"
+            />
+        <TextView
+            android:id="@+id/button_show_all_things_textview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:text="@string/periodization_items"
-            android:drawableEnd="@drawable/ic_periodization"/>
+            android:textColor="@color/icon"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="@+id/button_show_all_things_guideline_middle"
+            app:layout_constraintBottom_toBottomOf="@+id/button_show_all_things_guideline_bottom"/>
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/button_web"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toTopOf="@id/main_guideline65"
+        app:layout_constraintBottom_toBottomOf="@id/main_guideline85"
+        app:layout_constraintStart_toStartOf="@id/main_guideline_middle2"
+        app:layout_constraintEnd_toEndOf="@id/main_guidelineEnd">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/button_web_guideline_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.0"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/button_web_guideline_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.68"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/button_web_guideline_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="1"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_download"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintTop_toTopOf="@+id/button_web_guideline_top"
+            app:layout_constraintBottom_toBottomOf="@id/button_web_guideline_middle"/>
+        <TextView
+            android:id="@+id/button_web_textview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="@string/download_package"
+            android:textColor="@color/icon"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="@+id/button_web_guideline_middle"
+            app:layout_constraintBottom_toBottomOf="@+id/button_web_guideline_bottom"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </RelativeLayout>

@@ -93,7 +93,43 @@ public class PictureRepository {
 
     public LiveData<List<Picture>> getPicturesOfType(int typeId) { return pictureDao.getPictureListByTypeId(typeId); }
 
-    public List<Picture> getPictureListByArtPeriodIdOrMovementIdSync(List<Integer> artPeriodIds, List<Integer> movementIds) {
+    public List<Picture> getPictureListByArtPeriodIdOrMovementIdButSynchronicznie(List<Integer> artPeriodIds, List<Integer> movementIds) {
         return pictureDao.getPictureListByArtPeriodIdOrMovementIdSync(artPeriodIds, movementIds);
     }
+
+    public List<Picture> getPictureListByThingsIdButSynchronicznie(int artPeriodId, int pictureMovementId, int pictureTypeId) {
+        return pictureDao.getPictureListByThingsIdsSync(artPeriodId, pictureMovementId, pictureTypeId);
+    }
+
+    public List<Picture> getPictureListByThingsButSynchronicznie(Things things) {
+        switch (things.getObjectType()) {
+            case ART_PERIOD_STRING:
+                return pictureDao.getPictureListByThingsIdsSync(things.getId(), 0, 0);
+            case MOVEMENT_STRING:
+                return pictureDao.getPictureListByThingsIdsSync(0, things.getId(), 0);
+            case TYPE_STRING:
+                return pictureDao.getPictureListByThingsIdsSync(0, 0, things.getId());
+        }
+        return null;
+    }
+
+    public List<Picture> getPicturesByIdsButSynchronicznie(List<Integer> pictureIds) {
+        return pictureDao.getPicturesByIdsSync(pictureIds);
+    }
+
+    public void deletePicturesByIdsButSynchronicznie(Context context, List<Integer> pictureIds) {
+        List<Picture> picturesToDelete = getPicturesByIdsButSynchronicznie(pictureIds);
+        deletePicturesButSynchronicznie(context, picturesToDelete);
+    }
+
+    public void deletePicturesButSynchronicznie(Context context, List<Picture> pictures) {
+        File localAppStorage = context.getFilesDir();
+        pictureDao.deletePicturesByIds(pictures.stream().map(Picture::getPictureId).collect(Collectors.toList()));
+        for (Picture picture : pictures) {
+            if (picture.getPicturePath().contains(localAppStorage.getPath())) {
+                new File(picture.getPicturePath()).delete();
+            }
+        }
+    }
+
 }

@@ -6,11 +6,11 @@
         <item name="colorPrimaryVariant">@color/primary_button_etc</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/secondary</item>
-        <item name="colorSecondaryVariant">@color/secondary</item>
+        <item name="colorSecondary">@color/beige2</item>
+        <item name="colorSecondaryVariant">@color/beige2</item>
         <item name="colorOnSecondary">@color/background_color</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/primary_button_etc</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/beige2</item>
         <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
         <item name="buttonStyle">@style/ButtonStyle</item>
@@ -21,16 +21,17 @@
 
 
     <style name="TriviaDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowBackground">#D7AC8A36</item>
+        <item name="android:windowBackground">#D7CAB88B</item>
         <item name="colorOnPrimary">@color/black</item>
     </style>
     <style name="HaSZErrorDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowBackground">#B1846C</item>
+        <item name="android:windowBackground">@drawable/error_background</item>
         <item name="colorOnPrimary">@color/black</item>
     </style>
     <style name="HaSZDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowBackground">#BABABA</item>
+        <item name="android:windowBackground">@drawable/dialog_background</item>
         <item name="colorOnPrimary">@color/black</item>
+        <item name="tint">@color/primary_button_etc</item>
     </style>
     <style name="ButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:background">@color/gradient_buttons</item>
@@ -38,10 +39,10 @@
 
     <style name="MyActionBarTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!--        <item name="android:background">@drawable/gradient_background</item>-->
-        <item name="colorControlNormal">@color/grey</item>
+        <item name="colorControlNormal">@color/icon</item>
         <!--        <item name="android:textColorPrimary">@color/green_to_check</item>-->
-        <item name="android:background">@color/darg_gold</item>
-        <item name="android:textColorPrimary">@color/grey</item>
+        <item name="android:background">@color/gold_dark</item>
+        <item name="android:textColorPrimary">@color/icon</item>
 
     </style>
 </resources>

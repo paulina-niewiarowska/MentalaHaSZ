@@ -2,18 +2,23 @@ package com.pniew.mentalahasz.main_menu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LifecycleOwner;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.pniew.mentalahasz.module_periodization.ListOfThingsActivity;
@@ -30,12 +35,31 @@ import static com.pniew.mentalahasz.utils.CallsStringsIntents.*;
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "Main";
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button buttonLearn = findViewById(R.id.button_learn);
+//        View.OnTouchListener listener = new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()){
+//                    case MotionEvent.ACTION_DOWN:
+//                        v.animate().alpha(0.6f).setDuration(100);
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        v.animate().alpha(1f).setDuration(100);
+//                        break;
+//                }
+//                return false;
+//            }
+//        };
+
+        ConstraintLayout mainLayout = (ConstraintLayout) findViewById(R.id.main_menu_layout);
+
+        ConstraintLayout buttonLearn = (ConstraintLayout) findViewById(R.id.button_learn);
+        //buttonLearn.setOnTouchListener(listener);
         buttonLearn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button buttonTest = findViewById(R.id.button_test);
+        ConstraintLayout buttonTest = (ConstraintLayout) findViewById(R.id.button_test);
+        //buttonTest.setOnTouchListener(listener);
         buttonTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button buttonWeb = findViewById(R.id.button_learn_from_web);
+        ConstraintLayout buttonWeb = (ConstraintLayout) findViewById(R.id.button_web);
+        //buttonWeb.setOnTouchListener(listener);
         buttonWeb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,7 +89,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         LifecycleOwner owner = this;
-        Button buttonAddCard = findViewById(R.id.button_add_new_card);
+        ConstraintLayout buttonAddCard = (ConstraintLayout) findViewById(R.id.button_add_new_card);
+        //buttonAddCard.setOnTouchListener(listener);
         buttonAddCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        Button buttonEditThings = findViewById(R.id.button_show_all_things);
+        ConstraintLayout buttonEditThings = (ConstraintLayout) findViewById(R.id.button_show_all_things);
+        //buttonEditThings.setOnTouchListener(listener);
         buttonEditThings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

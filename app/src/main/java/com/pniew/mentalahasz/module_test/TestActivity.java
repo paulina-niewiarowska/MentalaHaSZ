@@ -2,6 +2,7 @@ package com.pniew.mentalahasz.module_test;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -45,7 +46,7 @@ public class TestActivity extends AppCompatActivity {
 
     private CheckBox checkBox;
 
-    private Button buttonConfirm;
+    private AppCompatButton buttonConfirm;
 
 
     @Override

@@ -169,38 +169,38 @@ public class TestFragment extends Fragment {
                     reloadButton.setEnabled(false);
 
                     if (titleEditText.getText().toString().equals(viewModel.getNameString())) {
-                        titleEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.good_answer));
+                        titleEditText.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.good_text_view_background));
                     } else {
-                        titleEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.bad_answer));
+                        titleEditText.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.error_text_view_background));
                     }
                     titleEditText.setFocusable(false);
 
                     if (authorEditText.getText().toString().equals(viewModel.getAuthorString())) {
-                        authorEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.good_answer));
+                        authorEditText.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.good_text_view_background));
                     } else {
-                        authorEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.bad_answer));
+                        authorEditText.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.error_text_view_background));
                     }
                     authorEditText.setFocusable(false);
 
                     if (locationEditText.getText().toString().equals(viewModel.getLocationString())) {
-                        locationEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.good_answer));
+                        locationEditText.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.good_text_view_background));
                     } else {
-                        locationEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.bad_answer));
+                        locationEditText.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.error_text_view_background));
                     }
                     locationEditText.setFocusable(false);
 
                     if (datingEditText.getText().toString().equals(viewModel.getDatingString())) {
-                        datingEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.good_answer));
+                        datingEditText.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.good_text_view_background));
                     } else {
-                        datingEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.bad_answer));
+                        datingEditText.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.error_text_view_background));
                     }
                     datingEditText.setFocusable(false);
 
                     if(viewModel.hasMovement) {
                         if (movementEditText.getText().toString().equals(viewModel.getMovementString())) {
-                            movementEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.good_answer));
+                            movementEditText.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.good_text_view_background));
                         } else {
-                            movementEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.bad_answer));
+                            movementEditText.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.error_text_view_background));
                         }
                         movementEditText.setFocusable(false);
                     }

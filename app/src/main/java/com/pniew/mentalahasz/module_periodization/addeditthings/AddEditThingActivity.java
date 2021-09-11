@@ -2,6 +2,7 @@ package com.pniew.mentalahasz.module_periodization.addeditthings;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.DialogInterface;
@@ -71,7 +72,7 @@ public class AddEditThingActivity extends AppCompatActivity {
         spinnerChooseType = findViewById(R.id.spinner_period_or_movement);
         spinnerChooseParentPeriod = findViewById(R.id.spinner_choose_art_period_parent);
 
-        Button buttonAdd = findViewById(R.id.button_confirm_and_add);
+        AppCompatButton buttonAdd = findViewById(R.id.button_confirm_and_add);
 
         //set Observer:
         addEditViewModel.bindOnInsertedIdChanged(this);

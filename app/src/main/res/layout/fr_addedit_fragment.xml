@@ -186,14 +186,19 @@
                 android:id="@+id/button_add_new_edit_picture"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_margin="5dp"
                 android:padding="10dp"
                 android:src="@drawable/ic_done_button"
                 android:scaleType="centerInside"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:layout_margin="5dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@drawable/button_background"
                 app:layout_constraintBottom_toTopOf="@id/fr_test_guidelineBottom"
                 app:layout_constraintEnd_toStartOf="@id/fr_test_guideline_middle_of_buttons"
                 app:layout_constraintStart_toEndOf="@id/fr_test_guidelineMiddle"
-                app:layout_constraintTop_toBottomOf="@id/fr_test_guideline75"/>
+                app:layout_constraintTop_toBottomOf="@id/fr_test_guideline75"
+                app:tint="@color/revealed" />
 
 
             <ImageButton
@@ -203,12 +208,17 @@
                 android:layout_margin="5dp"
                 android:padding="10dp"
                 android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:background="@drawable/button_background"
                 android:src="@drawable/ic_cancel"
                 android:scaleType="centerInside"
+                android:foreground="?android:attr/selectableItemBackground"
                 app:layout_constraintBottom_toTopOf="@id/fr_test_guidelineBottom"
                 app:layout_constraintEnd_toStartOf="@id/fr_test_guidelineEnd"
                 app:layout_constraintStart_toEndOf="@id/fr_test_guideline_middle_of_buttons"
-                app:layout_constraintTop_toBottomOf="@id/fr_test_guideline75"/>
+                app:layout_constraintTop_toBottomOf="@id/fr_test_guideline75"
+                app:tint="@color/revealed" />
 
 
 

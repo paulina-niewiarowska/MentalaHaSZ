@@ -56,21 +56,31 @@
             android:contentDescription="@string/your_image"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_change_picture_file"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="@string/change_picture_file"
             android:onClick="prepareStartChoosePictureIntent"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_margin="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/button_background"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_choose_picture_file"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:visibility="gone"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_margin="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/button_background"
             android:onClick="prepareStartChoosePictureIntent"
             android:text="@string/choose_picture_file" />
 
@@ -80,7 +90,8 @@
             android:src="@drawable/ic_funfact"
             android:scaleType="centerInside"
             app:maxImageSize="36dp"
-            app:tint="@color/white"
+            app:tint="@color/icon"
+            android:foreground="?android:attr/selectableItemBackground"
             android:layout_alignParentEnd="true"
             android:contentDescription="@string/set_trivia"
             android:onClick="setUpTriviaView"
