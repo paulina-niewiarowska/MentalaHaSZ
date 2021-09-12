@@ -176,7 +176,7 @@
                 android:layout_height="0dp"
                 android:layout_margin="5dp"
                 android:padding="5dp"
-                android:dropDownSelector="@color/purple_200"
+                android:dropDownSelector="@color/gold_dark"
                 app:layout_constraintBottom_toTopOf="@id/fr_test_guidelineBottom"
                 app:layout_constraintEnd_toStartOf="@id/fr_test_guidelineMiddle"
                 app:layout_constraintStart_toEndOf="@id/fr_test_guidelineStart"
